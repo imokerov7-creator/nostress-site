@@ -56,33 +56,15 @@ section.section--warm{background:var(--surface-warm)}
 .fact .k{font-size:13px;letter-spacing:.04em;color:var(--text-2)}
 .fact .v{font-size:clamp(15px,1.2vw,18px);line-height:1.45;color:var(--ink)}
 
-/* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (OH justified rows: ряды равной высоты, full-bleed) ============ */
-.gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(10px,1.1vw,18px)}
-/* СТАТИЧНАЯ ГАЛЕРЕЯ — анимации сняты (обложка не затронута) */
-.gal .greveal{clip-path:none!important;transform:none!important;opacity:1!important}
-.gal .gframe{clip-path:none!important;transform:none!important}
-.gal .gframe img{position:static!important;top:auto!important;left:auto!important;width:100%!important;height:100%!important;transform:none!important;transition:none!important}
-.gal .gframe:hover img{transform:none!important}
-.room{margin-top:clamp(40px,5vw,80px)}
-.room:first-child{margin-top:0}
-.roomlabel{margin:0 0 clamp(16px,1.6vw,24px);padding:0 var(--pad);
-  font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
-/* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
-.galrow{display:flex;gap:var(--g);margin-top:var(--g)}
-.room .galrow:first-of-type{margin-top:0}
-.galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
-.gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
-.gframe img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease);will-change:transform}
-.gframe:not(.par):hover img{transform:scale(1.045)}
-/* лёгкий параллакс внутри широких кадров-героев */
-.gframe.par img{position:absolute;left:0;top:-9%;width:100%;height:118%}
-/* клип-ревил «штора» с чередованием направления — соседние кадры «переливаются» друг в друга */
-html.rv .gframe{clip-path:inset(0 0 100% 0);transform:scale(1.06);
-  transition:clip-path 1.05s var(--ease),transform 1.2s var(--ease);will-change:clip-path,transform}
-html.rv .greveal.down .gframe{clip-path:inset(100% 0 0 0)}
-html.rv .greveal.is-in .gframe{clip-path:inset(0 0 0 0);transform:none}
-html.rv .galrow .greveal:nth-child(2) .gframe{transition-delay:.10s}
-html.rv .galrow .greveal:nth-child(3) .gframe{transition-delay:.20s}
+/* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (центрированная masonry, кадры целиком, без обрезки) ============ */
+.gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(14px,1.6vw,26px)}
+.gal .room{max-width:var(--maxw);margin:clamp(44px,5vw,84px) auto 0;padding:0 var(--pad)}
+.gal .room:first-child{margin-top:0}
+.roomlabel{margin:0 0 clamp(16px,1.6vw,24px);font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
+.masonry{column-count:2;column-gap:var(--g)}
+.masonry .gframe{break-inside:avoid;margin:0 0 var(--g);overflow:hidden;background:var(--surface-warm)}
+.masonry .gframe img{width:100%;height:auto;display:block}
+@media(max-width:760px){.masonry{column-count:1}}
 
 /* ============ БЛОК 4 · КОНТАКТ / ФОРМА ЗАХВАТА (компонент с главной) ============ */
 .contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
@@ -201,50 +183,47 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   </div>
 </div></section>
 <section class="gal">
-
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Кухня-гостиная</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:1.125"><div class="gframe"><img src="img/r0-0.jpg" alt="Кухня-гостиная"></div></div>
-      <div class="greveal down" style="--ar:0.778"><div class="gframe"><img src="img/r0-1.jpg" alt="Кухня-гостиная"></div></div>
-    </div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r0-2.jpg" alt="Кухня-гостиная"></div></div>
+    <div class="roomlabel">Кухня-гостиная</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r0-0.jpg" alt="Кухня-гостиная" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r0-1.jpg" alt="Кухня-гостиная" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r0-2.jpg" alt="Кухня-гостиная" loading="lazy"></figure>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Спальня</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:1.161"><div class="gframe"><img src="img/r1-0.jpg" alt="Спальня"></div></div>
-      <div class="greveal down" style="--ar:1.0"><div class="gframe"><img src="img/r1-1.jpg" alt="Спальня"></div></div>
+    <div class="roomlabel">Спальня</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r1-0.jpg" alt="Спальня" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r1-1.jpg" alt="Спальня" loading="lazy"></figure>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Кабинет</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:1.161"><div class="gframe"><img src="img/r2-0.jpg" alt="Кабинет"></div></div>
-      <div class="greveal down" style="--ar:1.0"><div class="gframe"><img src="img/r2-1.jpg" alt="Кабинет"></div></div>
+    <div class="roomlabel">Кабинет</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r2-0.jpg" alt="Кабинет" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r2-1.jpg" alt="Кабинет" loading="lazy"></figure>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Ванная</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:0.778"><div class="gframe"><img src="img/r3-0.jpg" alt="Ванная"></div></div>
-      <div class="greveal down" style="--ar:0.75"><div class="gframe"><img src="img/r3-1.jpg" alt="Ванная"></div></div>
+    <div class="roomlabel">Ванная</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r3-0.jpg" alt="Ванная" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r3-1.jpg" alt="Ванная" loading="lazy"></figure>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Санузел</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:0.861"><div class="gframe"><img src="img/r4-0.jpg" alt="Санузел"></div></div>
-      <div class="greveal down" style="--ar:0.833"><div class="gframe"><img src="img/r4-1.jpg" alt="Санузел"></div></div>
+    <div class="roomlabel">Санузел</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r4-0.jpg" alt="Санузел" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r4-1.jpg" alt="Санузел" loading="lazy"></figure>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Прихожая</div>
-    <div class="galrow">
-      <div class="greveal up" style="--ar:0.944"><div class="gframe"><img src="img/r5-0.jpg" alt="Прихожая"></div></div>
-      <div class="greveal down" style="--ar:0.917"><div class="gframe"><img src="img/r5-1.jpg" alt="Прихожая"></div></div>
+    <div class="roomlabel">Прихожая</div>
+    <div class="masonry">
+      <figure class="gframe"><img src="img/r5-0.jpg" alt="Прихожая" loading="lazy"></figure>
+      <figure class="gframe"><img src="img/r5-1.jpg" alt="Прихожая" loading="lazy"></figure>
     </div>
   </div>
 
