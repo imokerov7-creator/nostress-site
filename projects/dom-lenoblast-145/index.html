@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дом в Ленинградской области — NoStress Design</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../motion.css">
+<style>
+/* ============ ПОВЕРХ ТОКЕНОВ: страница проекта ============ */
+/* акцент-вино (как на главной) — ТОЛЬКО для CTA в шапке */
+:root{--accent:#6E2A35;--accent-press:#581F28;--on-accent:#FFFFFF;--r-btn:100px;--r-input:12px}
+
+/* ---- ШАПКА (ЕДИНАЯ ДЛЯ ВСЕГО САЙТА: тёмный градиент, белый логотип) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:60}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(17,15,13,.68) 0%,rgba(17,15,13,.34) 56%,rgba(17,15,13,0) 100%)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(34px,3.4vw,46px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(26px,2.4vw,40px);font-size:clamp(15px,1.15vw,17px);letter-spacing:.005em}
+.nav a{color:#fff;font-weight:450;text-shadow:0 1px 14px rgba(0,0,0,.45);position:relative;padding:2px 0;transition:opacity .3s var(--ease)}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:currentColor;transition:right .3s var(--ease)}
+.nav a:hover::after,.nav a.is-active::after{right:0}
+.cta{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);padding:12px 26px;border-radius:var(--r-btn);font-size:clamp(14px,1.05vw,16px);font-weight:500;letter-spacing:.005em;transition:background-color .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease)}
+.cta:hover{background:var(--accent-press);border-color:var(--accent-press);color:var(--on-accent)}
+
+/* непрозрачные секции — наплывают поверх закреплённой обложки */
+section.section{position:relative;z-index:2;background:var(--paper)}
+section.section--warm{background:var(--surface-warm)}
+
+/* ============ БЛОК 1 · ОБЛОЖКА (вариант G, закреплён, «уезжает» с зумом) ============ */
+.cover{position:sticky;top:0;z-index:1;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.cover-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;animation:coverIn 1.6s var(--ease) .1s forwards}
+.cover-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(8,8,7,.42) 0%,rgba(8,8,7,0) 30%),
+    linear-gradient(0deg,rgba(8,8,7,.78) 0%,rgba(8,8,7,.34) 30%,rgba(8,8,7,0) 60%);}
+.cover-scrim::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 220px rgba(0,0,0,.42)}
+.cover-in{position:relative;z-index:2;max-width:var(--maxw);width:100%;margin:0 auto;padding:0 var(--pad) clamp(40px,5.5vw,72px)}
+.cover-h{font-size:clamp(40px,7.2vw,108px);font-weight:var(--w-semibold);letter-spacing:-.03em;line-height:.98;color:#fff;text-shadow:0 1px 40px rgba(0,0,0,.35)}
+.cover-meta{margin-top:clamp(22px,3vw,38px);padding-top:18px;border-top:1px solid rgba(255,255,255,.26);
+  display:flex;gap:clamp(20px,4vw,56px);font-size:clamp(13px,1.05vw,15px);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.cover-cue{position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:24px;width:1px;height:48px;background:rgba(255,255,255,.28);overflow:hidden}
+.cover-cue::after{content:"";position:absolute;left:0;top:0;width:100%;height:42%;background:rgba(255,255,255,.95);animation:scrollHint 2.6s var(--ease) infinite}
+@keyframes coverIn{to{opacity:1}}
+@keyframes scrollHint{0%{transform:translateY(-110%)}60%{transform:translateY(150%)}100%{transform:translateY(260%)}}
+
+/* ============ БЛОК 2 · ИНТРО (вариант I3) ============ */
+.intro-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(40px,6vw,104px);align-items:start;margin-top:clamp(28px,3.5vw,44px)}
+.intro-concept{font-size:clamp(1.4rem,2.5vw,2.05rem);font-weight:var(--w-semibold);line-height:1.2;letter-spacing:-.02em;color:var(--ink);max-width:22ch}
+.intro-text{margin-top:clamp(18px,1.9vw,28px);font-size:clamp(1rem,1.2vw,1.16rem);line-height:1.62;color:var(--text-2);max-width:44ch}
+.intro-facts{display:flex;flex-direction:column}
+.fact{display:grid;grid-template-columns:clamp(96px,11vw,150px) 1fr;gap:clamp(16px,2vw,32px);padding:clamp(16px,1.8vw,24px) 0;border-top:var(--bw) solid var(--border)}
+.fact:last-child{border-bottom:var(--bw) solid var(--border)}
+.fact .k{font-size:13px;letter-spacing:.04em;color:var(--text-2)}
+.fact .v{font-size:clamp(15px,1.2vw,18px);line-height:1.45;color:var(--ink)}
+
+/* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (OH justified rows: ряды равной высоты, full-bleed) ============ */
+.gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(10px,1.1vw,18px)}
+.room{margin-top:clamp(40px,5vw,80px)}
+.room:first-child{margin-top:0}
+.roomlabel{margin:0 0 clamp(16px,1.6vw,24px);padding:0 var(--pad);
+  font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
+/* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
+.galrow{display:flex;gap:var(--g);margin-top:var(--g)}
+.room .galrow:first-of-type{margin-top:0}
+.galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
+.gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
+.gframe img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease);will-change:transform}
+.gframe:not(.par):hover img{transform:scale(1.045)}
+/* лёгкий параллакс внутри широких кадров-героев */
+.gframe.par img{position:absolute;left:0;top:-9%;width:100%;height:118%}
+/* клип-ревил «штора» с чередованием направления — соседние кадры «переливаются» друг в друга */
+html.rv .gframe{clip-path:inset(0 0 100% 0);transform:scale(1.06);
+  transition:clip-path 1.05s var(--ease),transform 1.2s var(--ease);will-change:clip-path,transform}
+html.rv .greveal.down .gframe{clip-path:inset(100% 0 0 0)}
+html.rv .greveal.is-in .gframe{clip-path:inset(0 0 0 0);transform:none}
+html.rv .galrow .greveal:nth-child(2) .gframe{transition-delay:.10s}
+html.rv .galrow .greveal:nth-child(3) .gframe{transition-delay:.20s}
+
+/* ============ БЛОК 4 · КОНТАКТ / ФОРМА ЗАХВАТА (компонент с главной) ============ */
+.contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
+.cap-photo{margin:0;position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--surface-warm)}
+.cap-photo img{width:100%;height:100%;object-fit:cover}
+.cap-photo figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;gap:2px;padding:16px 18px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.cap-photo .pn{font-size:clamp(16px,1.4vw,20px);font-weight:var(--w-semibold);letter-spacing:-.01em}
+.cap-photo .pr{font-size:12.5px;color:rgba(255,255,255,.85);letter-spacing:.02em}
+.cap-body .eyebrow{display:block}
+.cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
+.cap-form .ifield{flex:1 1 200px;display:block;width:100%;padding:.9em 0;background:transparent;border:none;border-bottom:var(--bw) solid var(--border);font:inherit;color:var(--ink);transition:border-color var(--dur) var(--ease)}
+.cap-form .ifield::placeholder{color:#9a9a99}
+.cap-form .ifield:focus{outline:none;border-bottom-color:var(--ink)}
+.cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+.cap-quick{margin-top:30px}
+.qlabel{display:block;font-size:13px;letter-spacing:.06em;color:var(--text-2);margin-bottom:14px}
+.messengers{display:flex;gap:12px;flex-wrap:wrap}
+.msg{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);transition:.3s var(--ease)}
+.msg:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ============ БЛОК 5 · ДРУГИЕ ПРОЕКТЫ (горизонтальная закреплённая галерея) ============ */
+.hgallery{position:relative;z-index:2;background:var(--surface-warm)}
+.hgallery__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(112px,15vh,168px);padding-bottom:clamp(24px,4vh,48px)}
+.hgallery__head{max-width:var(--maxw);width:100%;margin:0 auto clamp(24px,3vh,40px);padding:0 var(--pad);display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hg-head-l{display:flex;flex-direction:column;gap:10px}
+.hgallery__track{display:flex;gap:var(--grid-gap);padding-inline:var(--pad);will-change:transform}
+.hcard{flex:0 0 auto;width:clamp(260px,30vw,440px);text-decoration:none;color:inherit}
+.hshot{position:relative;overflow:hidden;aspect-ratio:1/1;background:var(--surface-warm)}
+.hshot img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);will-change:transform}
+.hcard:hover .hshot img{transform:scale(1.05)}
+.hcard .meta{display:flex;flex-direction:column;gap:5px;padding-top:18px}
+.hcard .pname{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;line-height:1.1}
+.hcard .pinfo{font-size:clamp(13px,1.05vw,15px);color:var(--text-2)}
+/* карточка-ссылка «Все проекты» */
+.hcard--all{align-self:stretch}
+.hshot--all{position:relative;overflow:hidden;width:100%;aspect-ratio:1/1;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(26px,2vw,38px)}
+.all-collage{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:0}
+.all-collage img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.46);transition:filter .55s var(--ease)}
+.hshot--all::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(8,8,7,.46);transition:background-color .4s var(--ease)}
+.hcard--all:hover .all-collage img{filter:brightness(.62)}
+.hcard--all:hover .hshot--all::after{background:rgba(8,8,7,.32)}
+.all-label,.all-arrow{position:relative;z-index:2;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.all-label{font-size:clamp(26px,2.4vw,42px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.02}
+.all-arrow{align-self:flex-end;font-size:clamp(28px,2.4vw,40px);line-height:1}
+.hscrollhint{max-width:var(--maxw);width:100%;margin:clamp(20px,2.5vh,32px) auto 0;padding:0 var(--pad);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);display:flex;align-items:center;gap:12px}
+.hscrollhint::before{content:"";flex:0 0 40px;height:var(--bw);background:var(--text-2)}
+
+/* ============ ФУТЕР (как на главной) ============ */
+footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
+.foot a{color:#b9b9b8}.foot a:hover{color:#fff}
+.foot .col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a7975;margin-bottom:16px;font-weight:var(--w-semibold)}
+.foot .col div{font-size:14.5px;margin-bottom:9px}
+.foot-logo img{height:40px}
+.foot-tag{margin-top:16px;max-width:260px;color:#7a7975;font-size:14px}
+.foot-btm{max-width:var(--maxw);margin:48px auto 0;padding-top:22px;border-top:var(--bw) solid rgba(252,252,252,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7a7975}
+
+/* ============ ПРОГРЕСС-БАР ============ */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:70;transform:scaleX(0);transform-origin:left}
+
+/* ============ STICKY MOBILE CTA ============ */
+.sticky-cta{display:none}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:900px){
+  .nav{display:none}
+  .intro-grid{grid-template-columns:1fr;gap:32px}
+  .galrow{flex-direction:column}
+  .contact{grid-template-columns:1fr;gap:36px}
+  .cap-photo{aspect-ratio:4/3;max-height:60vh}
+  /* горизонтальная галерея → нативный свайп */
+  .hgallery{height:auto!important}
+  .hgallery__sticky{position:static;height:auto;display:block;padding:90px 0 20px}
+  .hgallery__head{margin-bottom:24px}
+  .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch}
+  .hcard{width:78vw;scroll-snap-align:start}
+  .hscrollhint{display:none}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
+  .sticky-cta .btn{flex:1;justify-content:center}
+}
+</style>
+<script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
+</head>
+<body>
+<div class="progress"></div>
+<header id="top">
+  <div class="bar">
+    <a href="../../index.html" class="logo" aria-label="NoStress Design"><img src="../../assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="../../projects.html">Проекты</a><a href="../../index.html#tariffs">Услуги</a><a href="../../index.html#how">О студии</a><a href="#contact">Контакты</a>
+    </nav>
+    <a href="#contact" class="cta">Обсудить идею</a>
+  </div>
+</header>
+<section class="hero cover">
+  <img class="hero-video cover-media" src="img/cover.jpg" alt="Дом в Ленинградской области">
+  <div class="cover-scrim"></div>
+  <div class="hero-in cover-in">
+    <h1 class="cover-h" data-split>Дом в Ленинградской области</h1>
+    <div class="cover-meta"><span>Ленинградская область</span><span>145 м²</span><span>2024</span></div>
+  </div>
+  <a href="#about" class="cover-cue" aria-label="Листать вниз"></a>
+</section>
+<section class="section" id="about"><div class="container">
+  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="intro-grid">
+    <div class="intro-copy">
+      <p class="intro-concept" data-split>Дом, в котором вечер наконец становится тихим.</p>
+      <p class="intro-text" data-reveal>145 метров под Петербургом, на три этажа, для семьи, которая ценит покой. Мы вели всю палитру в графит и тёплый орех, чтобы дом не утомлял глаз после длинного дня. Кухня открыта в гостиную: остров из тёмного мрамора держит центр, рядом обеденный стол из светлого дерева. Кабинет получил отдельный характер — каменная стена с подсветкой, массивный стол со слэбом, кожаный честерфилд для пауз.</p>
+    </div>
+    <div class="intro-facts" data-stagger>
+      <div class="fact"><div class="k">Для кого</div><div class="v">Семья, дом в три этажа</div></div>
+      <div class="fact"><div class="k">Задача</div><div class="v">Дом, который не утомляет глаз после длинного дня</div></div>
+      <div class="fact"><div class="k">Решение</div><div class="v">Графит и тёплый орех, открытая кухня-гостиная, кабинет с характером, скрытое хранение</div></div>
+    </div>
+  </div>
+</div></section>
+<section class="gal">
+
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Кухня-гостиная</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r0-0.jpg" alt="Кухня-гостиная"></div></div>
+      <div class="greveal down" style="--ar:0.982"><div class="gframe"><img src="img/r0-1.jpg" alt="Кухня-гостиная"></div></div>
+    </div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r0-2.jpg" alt="Кухня-гостиная"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Мастер-спальня</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r1-0.jpg" alt="Мастер-спальня"></div></div>
+      <div class="greveal down" style="--ar:1.0"><div class="gframe"><img src="img/r1-1.jpg" alt="Мастер-спальня"></div></div>
+    </div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r1-2.jpg" alt="Мастер-спальня"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Детская</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r2-0.jpg" alt="Детская"></div></div>
+      <div class="greveal down" style="--ar:0.987"><div class="gframe"><img src="img/r2-1.jpg" alt="Детская"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Кабинет</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r3-0.jpg" alt="Кабинет"></div></div>
+      <div class="greveal down" style="--ar:1.0"><div class="gframe"><img src="img/r3-1.jpg" alt="Кабинет"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Мастер-санузел</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:0.8"><div class="gframe"><img src="img/r4-0.jpg" alt="Мастер-санузел"></div></div>
+      <div class="greveal down" style="--ar:0.8"><div class="gframe"><img src="img/r4-1.jpg" alt="Мастер-санузел"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Прихожая</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:0.625"><div class="gframe"><img src="img/r5-0.jpg" alt="Прихожая"></div></div>
+      <div class="greveal down" style="--ar:0.625"><div class="gframe"><img src="img/r5-1.jpg" alt="Прихожая"></div></div>
+    </div>
+  </div>
+  <div class="room">
+    <div class="roomlabel" data-reveal="fade">Лестница</div>
+    <div class="galrow">
+      <div class="greveal up" style="--ar:0.833"><div class="gframe"><img src="img/r6-0.jpg" alt="Лестница"></div></div>
+      <div class="greveal down" style="--ar:0.789"><div class="gframe"><img src="img/r6-1.jpg" alt="Лестница"></div></div>
+    </div>
+  </div>
+
+</section>
+<section class="section section--warm" id="contact"><div class="container">
+  <div class="contact">
+    <figure class="cap-photo" data-reveal="scale">
+      <img src="../../assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
+      <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
+    </figure>
+    <div class="cap-body">
+      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
+      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашем доме</h2>
+      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form" data-reveal onsubmit="return false">
+        <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
+        <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
+        <button class="btn">Записаться к арт-директору</button>
+      </form>
+      <div class="cap-quick" data-reveal="fade">
+        <span class="qlabel">или напишите сразу</span>
+        <div class="messengers">
+          <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>
+          <a class="msg" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a>
+          <a class="msg" href="tel:+79856741267">+7 985 674-12-67</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+<section class="hgallery" id="more">
+  <div class="hgallery__sticky">
+    <div class="hgallery__head">
+      <div class="hg-head-l">
+        <div class="eyebrow" data-reveal="fade">Портфолио</div>
+        <h2 class="h2" data-split>Другие проекты</h2>
+      </div>
+    </div>
+    <div class="hgallery__track">
+      <a class="hcard" href="../kvartira-spb-160/index.html"><div class="hshot"><img src="../kvartira-spb-160/img/cover.jpg" alt="Квартира в Санкт-Петербурге"></div>
+        <div class="meta"><span class="pname">Квартира в Санкт-Петербурге</span><span class="pinfo">160 м²</span></div></a>
+      <a class="hcard" href="../dom-pushkino-230/index.html"><div class="hshot"><img src="../dom-pushkino-230/img/cover.jpg" alt="Дом в Пушкино"></div>
+        <div class="meta"><span class="pname">Дом в Пушкино</span><span class="pinfo">230 м²</span></div></a>
+      <a class="hcard" href="../kvartira-spb-74/index.html"><div class="hshot"><img src="../kvartira-spb-74/img/cover.jpg" alt="Квартира в Санкт-Петербурге"></div>
+        <div class="meta"><span class="pname">Квартира в Санкт-Петербурге</span><span class="pinfo">74 м²</span></div></a>
+      <a class="hcard" href="../sportzal-spb-500/index.html"><div class="hshot"><img src="../sportzal-spb-500/img/cover.jpg" alt="Спортивный клуб в Петербурге"></div>
+        <div class="meta"><span class="pname">Спортивный клуб в Петербурге</span><span class="pinfo">500 м²</span></div></a>
+      <a class="hcard" href="../dom-istra-125/index.html"><div class="hshot"><img src="../dom-istra-125/img/cover.jpg" alt="Дом в Истре"></div>
+        <div class="meta"><span class="pname">Дом в Истре</span><span class="pinfo">125 м²</span></div></a>
+      <a class="hcard" href="../kvartira-moskva-74/index.html"><div class="hshot"><img src="../kvartira-moskva-74/img/cover.jpg" alt="Квартира в Москве"></div>
+        <div class="meta"><span class="pname">Квартира в Москве</span><span class="pinfo">74 м²</span></div></a>
+      <a class="hcard hcard--all" href="../../projects.html">
+        <div class="hshot--all">
+          <div class="all-collage" aria-hidden="true"><img src="../kvartira-spb-160/img/cover.jpg" alt=""><img src="../dom-pushkino-230/img/cover.jpg" alt=""><img src="../kvartira-spb-74/img/cover.jpg" alt=""><img src="../sportzal-spb-500/img/cover.jpg" alt=""><img src="../dom-istra-125/img/cover.jpg" alt=""><img src="../kvartira-moskva-74/img/cover.jpg" alt=""></div>
+          <span class="all-label">Все<br>проекты</span>
+          <span class="all-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+    <div class="hscrollhint">Листайте вбок</div>
+  </div>
+</section>
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="foot-logo"><img src="../../assets/logo-white.png" alt="NoStress Design"></div>
+      <div class="foot-tag">Эстетика, подчинённая логике.</div>
+    </div>
+    <div class="col"><h4>Навигация</h4>
+      <div><a href="../../projects.html">Проекты</a></div><div><a href="../../index.html#tariffs">Услуги</a></div><div><a href="../../index.html#how">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
+    <div class="col"><h4>Контакты</h4>
+      <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="https://t.me/NoStress_Design">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a></div><div>nostress.design</div></div>
+  </div>
+  <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
+</footer>
+<div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
+<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<script src="../../motion.js"></script>
+<script>
+(function(){
+  var d=document.documentElement;
+  if(!d.classList.contains('rv')){return;}
+  var els=[].slice.call(document.querySelectorAll('.greveal'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(c){c.classList.add('is-in');});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(c){ io.observe(c); });
+  setTimeout(function(){ els.forEach(function(c){ c.classList.add('is-in'); }); },2600);
+})();
+</script>
+</body>
+</html>

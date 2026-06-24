@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NoStress Design — главная · hero</title>
+<style>
+/* ============ фундамент бренда (OH-based) ============ */
+@font-face{
+  font-family:"PP Neue Montreal";
+  src:url("fonts/PPNeueMontreal-Variable.woff2") format("woff2");
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+:root{
+  --ink:#111111; --paper:#ffffff;
+  --accent:#B0512E;
+  --pad:clamp(20px,5vw,72px);
+  --maxw:1640px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sans:"PP Neue Montreal",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ink);color:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+
+/* ============ topbar ============ */
+header{position:absolute;top:0;left:0;right:0;z-index:30}
+.bar{max-width:var(--maxw);margin:0 auto;padding:22px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(36px,3.6vw,48px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;gap:30px;font-size:14px;color:rgba(255,255,255,.82);letter-spacing:.01em}
+.nav a{position:relative;padding:2px 0;transition:color .25s var(--ease)}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:#fff;transition:right .3s var(--ease)}
+.nav a:hover{color:#fff}
+.nav a:hover::after{right:0}
+.cta{border:1px solid rgba(255,255,255,.55);color:#fff;padding:10px 20px;border-radius:40px;font-size:13.5px;letter-spacing:.01em;transition:.28s var(--ease)}
+.cta:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;animation:videoIn 1.6s var(--ease) .1s forwards}
+/* двойной скрим: сверху — под навигацию, снизу — под заголовок */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(17,15,13,.55) 0%,rgba(17,15,13,0) 26%),
+    linear-gradient(0deg,rgba(17,15,13,.74) 0%,rgba(17,15,13,.30) 28%,rgba(17,15,13,0) 56%);
+}
+.scrim::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 220px rgba(0,0,0,.45)}
+
+.hero-in{position:relative;z-index:2;max-width:1180px;padding:0 var(--pad) clamp(46px,6vw,86px)}
+.h-display{font-size:clamp(46px,8vw,124px);font-weight:540;letter-spacing:-.03em;line-height:.96;color:#fff;
+  text-wrap:balance;text-shadow:0 1px 40px rgba(0,0,0,.35)}
+.lead{font-size:clamp(17px,1.55vw,22px);line-height:1.45;color:rgba(255,255,255,.9);max-width:46ch;margin-top:clamp(16px,2vw,24px);
+  text-wrap:balance;text-shadow:0 1px 24px rgba(0,0,0,.4)}
+
+/* деликатный скролл-хинт */
+.scrollcue{position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:24px;display:block;width:1px;height:48px;
+  background:rgba(255,255,255,.28);overflow:hidden}
+.scrollcue::after{content:"";position:absolute;left:0;top:0;width:100%;height:42%;background:rgba(255,255,255,.95);
+  animation:scrollHint 2.6s var(--ease) infinite}
+
+/* анимации входа */
+@keyframes videoIn{to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes scrollHint{0%{transform:translateY(-110%)}60%{transform:translateY(150%)}100%{transform:translateY(260%)}}
+.r{opacity:0;animation:rise .9s var(--ease) forwards}
+.r1{animation-delay:.45s}.r2{animation-delay:.62s}.r3{animation-delay:.85s}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .hero-video{opacity:1}.r{opacity:1}
+}
+@media (max-width:760px){
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a href="#" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="#">Проекты</a><a href="#">Услуги</a><a href="#">О студии</a><a href="#">Контакты</a>
+    </nav>
+    <a href="#" class="cta">Обсудить проект</a>
+  </div>
+</header>
+
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="out/hero_16x9_poster.jpg">
+    <source src="out/hero_16x9.webm" type="video/webm">
+    <source src="out/hero_16x9_web.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+
+  <div class="hero-in">
+    <h1 class="h-display r r1">Эстетика,<br>подчинённая логике</h1>
+    <p class="lead r r2">От пустых стен до готового интерьера — проект, ремонт и комплектация одной командой.</p>
+  </div>
+
+  <a href="#" class="scrollcue r r3" aria-label="Листать вниз"></a>
+</section>
+
+</body>
+</html>

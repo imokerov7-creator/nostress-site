@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NoStress Design — дизайн интерьера полного цикла</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+/* ============ ПОВЕРХ ТОКЕНОВ: страница ============ */
+
+/* ============ ПРЕЛОАДЕР (загрузка страницы, OH-style) ============ */
+html.pl-lock,html.pl-lock body{overflow:hidden}
+.preloader{position:fixed;inset:0;z-index:200;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 1s var(--ease);will-change:transform}
+.preloader.is-done{transform:translateY(-100%)}
+.pl-logo{width:clamp(148px,15vw,208px)}
+.pl-logo img{width:100%;display:block}
+.pl-num{position:absolute;right:clamp(24px,4.5vw,60px);bottom:clamp(18px,4vh,40px);
+  color:#fff;font-weight:500;font-size:clamp(46px,8vw,108px);line-height:1;
+  letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.pl-num::after{content:"%";font-size:.34em;font-weight:450;opacity:.55;margin-left:.06em;vertical-align:.9em}
+.pl-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.14)}
+.pl-bar span{display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(0)}
+@media (prefers-reduced-motion:reduce){.preloader{transition:opacity .3s}.preloader.is-done{transform:none;opacity:0}}
+
+/* topbar — минималистичный: всегда белый текст, на скролле мягкая тёмная подложка */
+header{position:fixed;top:0;left:0;right:0;z-index:60}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(17,15,13,.68) 0%,rgba(17,15,13,.34) 56%,rgba(17,15,13,0) 100%)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(34px,3.4vw,46px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(26px,2.4vw,40px);font-size:clamp(15px,1.15vw,17px);letter-spacing:.005em}
+.nav a{color:#fff;font-weight:450;text-shadow:0 1px 14px rgba(0,0,0,.45);transition:opacity .3s var(--ease)}
+.cta{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);padding:12px 26px;border-radius:var(--r-btn);font-size:clamp(14px,1.05vw,16px);font-weight:500;letter-spacing:.005em;transition:background-color .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.cta:hover{background:var(--accent-press);border-color:var(--accent-press);color:var(--on-accent)}
+
+/* ====== СКРУГЛЁННЫЕ КОНТРОЛЫ (медиа/карточки — острые). Акцент-цвет ТОЛЬКО на .cta (хедер) ====== */
+:root{--accent:#6E2A35;--accent-press:#581F28;--on-accent:#FFFFFF;--r-btn:100px;--r-input:12px}
+.btn{border-radius:var(--r-btn)}
+.rv__cta{border-radius:var(--r-btn)}
+/* инпуты — мягкие скруглённые боксы (монохромный фокус) */
+.field{padding:.85em 1em;border:var(--bw) solid var(--border);border-radius:var(--r-input);background:var(--paper)}
+.field:focus{border-color:var(--ink);border-bottom-color:var(--ink)}
+.msg{border-radius:var(--r-btn)}
+.nav a{position:relative;padding:2px 0}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:currentColor;transition:right .3s var(--ease)}
+.nav a:hover::after{right:0}
+
+/* непрозрачные секции — чтобы наплывали поверх закреплённого hero */
+section.section{position:relative;z-index:2;background:var(--paper)}
+section.section--warm{background:var(--surface-warm)}
+
+/* ============ HERO (закреплён, «уезжает» при скролле) ============ */
+.hero{position:sticky;top:0;z-index:1;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;animation:videoIn 1.6s var(--ease) .1s forwards}
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(17,15,13,.55) 0%,rgba(17,15,13,0) 26%),
+    linear-gradient(0deg,rgba(17,15,13,.74) 0%,rgba(17,15,13,.30) 28%,rgba(17,15,13,0) 56%);}
+.scrim::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 220px rgba(0,0,0,.45)}
+.hero-in{position:relative;z-index:2;max-width:1180px;padding:0 var(--pad) clamp(46px,6vw,86px)}
+.hero h1{font-size:clamp(46px,8vw,124px);font-weight:540;letter-spacing:-.03em;line-height:.96;color:#fff;text-shadow:0 1px 40px rgba(0,0,0,.35)}
+.hero .lead{font-size:clamp(17px,1.55vw,22px);line-height:1.45;color:rgba(255,255,255,.9);max-width:46ch;margin-top:clamp(16px,2vw,24px);text-shadow:0 1px 24px rgba(0,0,0,.4)}
+.scrollcue{position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:24px;display:block;width:1px;height:48px;background:rgba(255,255,255,.28);overflow:hidden}
+.scrollcue::after{content:"";position:absolute;left:0;top:0;width:100%;height:42%;background:rgba(255,255,255,.95);animation:scrollHint 2.6s var(--ease) infinite}
+@keyframes videoIn{to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes scrollHint{0%{transform:translateY(-110%)}60%{transform:translateY(150%)}100%{transform:translateY(260%)}}
+.hr{opacity:0;animation:rise .9s var(--ease) forwards}
+.hr1{animation-delay:.5s}.hr2{animation-delay:.68s}.hr3{animation-delay:.9s}
+
+/* ============ общий заголовок секции ============ */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,60px)}
+.sec-head .lead{max-width:46ch}
+.sec-intro{max-width:760px;margin-bottom:clamp(40px,5vw,64px)}
+.sec-intro .h2{margin-top:14px}.sec-intro .lead{margin-top:16px}
+
+/* ============ 2 · ПРОЕКТЫ (горизонтальная закреплённая галерея) ============ */
+.hgallery{position:relative;z-index:2;background:var(--paper)}
+.hgallery__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(112px,15vh,168px);padding-bottom:clamp(24px,4vh,48px)}
+.hgallery__head{max-width:var(--maxw);width:100%;margin:0 auto clamp(24px,3vh,40px);padding:0 var(--pad);display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hgallery__track{display:flex;gap:var(--grid-gap);padding-inline:var(--pad);will-change:transform}
+.hcard{flex:0 0 auto;width:clamp(280px,34vw,500px)}
+.hshot{position:relative;overflow:hidden;aspect-ratio:10/11;background:var(--surface-warm)}
+.hshot img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);will-change:transform}
+.hcard:hover .hshot img{transform:scale(1.05)}
+.hcard--all{align-self:flex-start}
+.hshot--all{position:relative;overflow:hidden;width:100%;aspect-ratio:10/11;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(26px,2vw,38px)}
+/* фон карточки — затемнённый коллаж из 6 проектов */
+.all-collage{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:0}
+.all-collage img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.46);transition:filter .55s var(--ease)}
+.hshot--all::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(17,15,13,.46);transition:background-color .4s var(--ease)}
+.hcard--all:hover .all-collage img{filter:brightness(.62)}
+.hcard--all:hover .hshot--all::after{background:rgba(17,15,13,.32)}
+.all-label,.all-arrow{position:relative;z-index:2}
+.all-label{font-size:clamp(26px,2.4vw,42px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.02;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.all-arrow{align-self:flex-end;font-size:clamp(28px,2.4vw,40px);line-height:1;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.hcard .num{position:absolute;top:16px;left:16px;z-index:2;color:#fff;font-size:13px;letter-spacing:.1em;mix-blend-mode:difference}
+.hscrollhint{max-width:var(--maxw);width:100%;margin:clamp(20px,2.5vh,32px) auto 0;padding:0 var(--pad);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);display:flex;align-items:center;gap:12px}
+.hscrollhint::before{content:"";flex:0 0 40px;height:var(--bw);background:var(--text-2);display:inline-block}
+
+/* старая сетка диптихов (не используется) */
+.diptych{display:grid;grid-template-columns:1fr 1fr;gap:var(--grid-gap);margin-bottom:var(--grid-gap)}
+.diptych.offset{grid-template-columns:1.45fr 1fr}
+.diptych.offset.rev{grid-template-columns:1fr 1.45fr}
+.shot{position:relative;overflow:hidden;background:var(--surface-warm)}
+.shot img{width:100%;height:114%;position:absolute;inset:-7% 0 auto 0;object-fit:cover;will-change:transform}
+.proj-cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:22px;font-size:clamp(14px,1.1vw,16px);color:var(--text-2);letter-spacing:.01em}
+.proj-cap .nm{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(21px,1.9vw,29px);letter-spacing:-.015em;line-height:1.1}
+
+/* ====== «НАША ИСТОРИЯ» (карусель глав, переиспользует .hgallery/.hcard) ====== */
+.hgallery--story{background:var(--paper)}
+.hgallery--story .hgallery__head{align-items:flex-end}
+.hg-head-l{display:flex;flex-direction:column}
+.hg-head-r{max-width:min(46ch,38vw);display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:.5em}
+.hg-lead{font-size:clamp(15px,1.15vw,18px);line-height:1.55;color:var(--text-2)}
+.hg-more{display:inline-flex;align-items:center;gap:9px;font-size:clamp(14px,1.05vw,16px);color:var(--ink);padding-bottom:3px;border-bottom:1px solid var(--ink);transition:opacity .3s var(--ease)}
+.hg-more span{transition:transform .35s var(--ease);display:inline-block}
+.hg-more:hover span{transform:translate(3px,-3px)}
+.hcard--story{text-decoration:none;color:inherit}
+.hgallery--story .hgallery__track{gap:clamp(30px,3.6vw,68px)}
+.hgallery--story .hcard{width:clamp(236px,25vw,360px)}
+.story-cap{display:flex;flex-direction:column;gap:6px;padding-top:22px}
+.story-ch{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.story-tt{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(21px,1.9vw,29px);letter-spacing:-.015em;line-height:1.12}
+.story-read{margin-top:5px;font-size:14px;color:var(--text-2);opacity:0;transform:translateY(4px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.hcard--story:hover .story-read{opacity:1;transform:none}
+@media (max-width:900px){
+  .hgallery--story .hgallery__head{flex-direction:column;align-items:flex-start;gap:16px}
+  .hg-head-l,.hg-head-r{max-width:none}
+  .story-read{opacity:1;transform:none}
+}
+
+/* ============ 3 · КАК РАБОТАЕМ ============ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,52px);margin-top:clamp(44px,6vw,76px)}
+.step{border-top:1.5px solid var(--ink);padding-top:clamp(18px,2vw,26px)}
+.step .n{font-size:clamp(40px,5vw,76px);font-weight:var(--w-semibold);letter-spacing:-.04em;line-height:.95;color:var(--ink)}
+.step h3{margin:clamp(18px,2.4vw,30px) 0 10px;font-size:clamp(1.45rem,2.2vw,1.95rem)}
+.step p{font-size:clamp(15px,1.05vw,16.5px);color:var(--text-2);line-height:1.55}
+
+/* ============ 4 · ГОТОВЫЕ ИНТЕРЬЕРЫ (рендер → фото) ============ */
+.bagrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gap);margin-top:clamp(36px,5vw,56px)}
+.bacard{display:block}
+.ba{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--surface-warm)}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba__photo{z-index:1}
+.ba__render{z-index:2;opacity:1;transition:opacity .6s var(--ease);will-change:opacity}
+.bacard:hover .ba__render{opacity:0}                 /* наведение → проявляется фото объекта */
+.ba__hint{position:absolute;right:14px;bottom:14px;z-index:3;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.42);padding:6px 12px;display:inline-flex;align-items:center;gap:8px;transition:opacity .4s var(--ease)}
+.bacard:hover .ba__hint{opacity:0}
+.ba__tag{position:absolute;top:14px;left:14px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:6px 12px;transition:opacity .4s var(--ease)}
+.ba__tag--r{opacity:1}
+.bacard:hover .ba__tag--r{opacity:0}
+.ba__tag--p{opacity:0}
+.bacard:hover .ba__tag--p{opacity:1}
+.bacard .proj-cap{padding-top:16px}
+.bacard .nm{font-size:clamp(20px,1.9vw,28px);transition:opacity .3s var(--ease)}
+.bacard:hover .nm{opacity:.6}
+/* ГОТОВЫЕ ИНТЕРЬЕРЫ · один широкий кадр (рендер→фото по скроллу) */
+.reveal-sec{position:relative;z-index:2;background:var(--ink)}
+.reveal-sticky{position:sticky;top:0;height:100svh;overflow:hidden}
+.reveal-fig{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:var(--surface-warm);cursor:ew-resize;touch-action:pan-y}
+.reveal-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.rv__photo{z-index:1}
+.rv__render{z-index:2;clip-path:inset(0 18% 0 0);will-change:clip-path}
+.rv__divider{position:absolute;top:0;bottom:0;left:82%;width:2px;margin-left:-1px;background:#fff;z-index:3;box-shadow:0 0 18px rgba(0,0,0,.4);transition:opacity .3s var(--ease);will-change:left}
+.rv__handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(0,0,0,.32);cursor:ew-resize}
+.rv__handle::before{content:"‹ ›";font-size:18px;letter-spacing:3px;font-weight:300;color:var(--ink)}
+.rv__scrim{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(0deg,rgba(17,15,13,.82) 0%,rgba(17,15,13,.46) 38%,rgba(17,15,13,.30) 70%,rgba(17,15,13,.30) 100%)}
+.rv__tag{position:absolute;top:clamp(86px,12vh,124px);z-index:4;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.42);padding:7px 14px;pointer-events:none}
+.rv__tag--r{left:clamp(20px,4vw,72px)}
+.rv__tag--p{right:clamp(20px,4vw,72px)}
+.rv__copy{position:absolute;left:50%;bottom:clamp(54px,9vh,104px);transform:translateX(-50%);z-index:4;width:min(92vw,920px);display:flex;flex-direction:column;align-items:center;gap:clamp(22px,2.6vw,32px);text-align:center;pointer-events:none}
+.rv__title{margin:0;color:#fff;font-size:clamp(32px,5vw,76px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.02;text-shadow:0 1px 30px rgba(0,0,0,.5)}
+.rv__cta{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 30px;border:1.5px solid #fff;color:var(--ink);background:#fff;font-size:15px;letter-spacing:.01em;cursor:pointer;transition:background-color .3s var(--ease),color .3s var(--ease)}
+.rv__cta::after{content:"↗";font-size:16px}
+.rv__cta:hover{background:transparent;color:#fff}
+@media(max-width:760px){.reveal-sec{height:auto;background:var(--paper)}.reveal-sticky{position:static;height:auto}.reveal-fig{position:relative;inset:auto;height:clamp(380px,80vh,600px)}.rv__render{clip-path:inset(0 50% 0 0)}.rv__divider{left:50%}.rv__title{font-size:clamp(24px,7vw,38px)}.rv__copy{width:88vw;bottom:24px;gap:18px}.rv__tag{top:16px}}
+
+/* ============ 5 · СТУДИЯ ============ */
+.studio{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(40px,6vw,90px);align-items:center}
+.bignum{font-size:clamp(64px,10vw,150px);font-weight:var(--w-semibold);letter-spacing:-.05em;line-height:.86}
+.studio .lead{margin-top:20px;max-width:42ch}
+.studio .btn{margin-top:28px}
+.studio-photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--grid-gap)}
+.studio-photos .figure:nth-child(2){margin-top:36px}
+.studio-photos .figure:nth-child(3){margin-top:-18px}
+.studio-photos .shot{aspect-ratio:3/4}
+
+/* ============ 6 · ТАРИФЫ ============ */
+.tariffs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gap)}
+.tcard{border:var(--bw) solid var(--border);padding:34px 30px;display:flex;flex-direction:column;min-height:380px;transition:border-color .4s var(--ease),transform .4s var(--ease)}
+.tcard{position:relative}
+.tcard:hover{border-color:var(--ink);transform:translateY(-8px)}
+.tcard::after{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--ink);transition:width .45s var(--ease)}
+.tcard.mid::after{background:var(--paper)}
+.tcard:hover::after{width:100%}
+.tcard.hi{border-color:var(--ink)}
+.tcard.mid{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.tcard.mid .tname,.tcard.mid li{color:rgba(252,252,252,.72)}
+.tcard.mid li::before{color:rgba(252,252,252,.5)}
+.tcard.mid .price{color:#fff}
+.tcard.mid .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.tcard.mid .btn:hover{background:transparent;color:var(--paper)}
+.tname{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-2);font-weight:var(--w-semibold)}
+.tdesc{font-size:14.5px;color:var(--text-2);margin-top:10px;line-height:1.4}
+.tcard.mid .tdesc{color:rgba(252,252,252,.72)}
+.price{font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin:18px 0 2px}
+.price small{font-size:.9rem;color:var(--text-2);font-weight:var(--w-medium)}
+.tcard ul{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:11px}
+.tcard li{font-size:14.5px;color:var(--text-2);padding-left:18px;position:relative;line-height:1.4}
+.tcard li::before{content:"—";position:absolute;left:0;color:var(--border)}
+.tcard .spacer{flex:1}
+.tcard .btn{width:100%;justify-content:center;margin-top:26px}
+
+/* ============ 6.5 · КАЛЬКУЛЯТОР (квиз-лидген) ============ */
+.calc{margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:1.5fr .9fr;gap:clamp(32px,5vw,72px);align-items:start}
+.calc-grid{display:flex;flex-direction:column}
+.calc-row{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center;padding:clamp(18px,2.2vw,28px) 0;border-top:var(--bw) solid var(--border)}
+.calc-row:last-child{border-bottom:var(--bw) solid var(--border)}
+.calc-q{font-size:14px;letter-spacing:.04em;color:var(--text-2)}
+.calc-slider{display:flex;align-items:center;gap:20px}
+.calc-slider input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:2px;background:var(--border);outline:none;cursor:pointer}
+.calc-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ink);cursor:pointer}
+.calc-slider input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--ink);cursor:pointer}
+.calc-val{font-size:clamp(18px,1.6vw,22px);font-weight:var(--w-semibold);white-space:nowrap;min-width:84px;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);background:transparent;transition:.25s var(--ease);cursor:pointer}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.calc-form{display:flex;flex-direction:column;gap:14px;border:var(--bw) solid var(--border);padding:clamp(26px,3vw,38px);background:var(--surface-warm)}
+.calc-form .ttl{font-size:clamp(1.1rem,1.6vw,1.4rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin-bottom:4px}
+.calc-form .sub{font-size:14px;color:var(--text-2);line-height:1.45;margin-bottom:8px}
+.calc-form .field{margin:0;background:transparent}
+.calc-form .btn{justify-content:center;margin-top:8px}
+
+/* ============ 7 · КОНТАКТ (арт-директор) ============ */
+.contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
+.cap-photo{margin:0;position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--surface-warm)}
+.cap-photo img{width:100%;height:100%;object-fit:cover}
+.cap-photo figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;gap:2px;padding:16px 18px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.cap-photo .pn{font-size:clamp(16px,1.4vw,20px);font-weight:var(--w-semibold);letter-spacing:-.01em}
+.cap-photo .pr{font-size:12.5px;color:rgba(255,255,255,.85);letter-spacing:.02em}
+.cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
+.cap-form .field{flex:1 1 200px;margin:0}
+.cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+.cap-quick{margin-top:30px}
+.qlabel{display:block;font-size:13px;letter-spacing:.06em;color:var(--text-2);margin-bottom:14px}
+/* манифест «no stress» */
+.mf-h{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);letter-spacing:-.035em;line-height:1.04;max-width:20ch;margin-top:14px}
+.mf-sub{margin-top:clamp(18px,2vw,26px);font-size:clamp(1.05rem,1.5vw,1.35rem);color:var(--text-2);max-width:54ch;line-height:1.5}
+.messengers{display:flex;gap:12px;flex-wrap:wrap}
+.msg{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);transition:.3s var(--ease)}
+.msg:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ============ FOOTER ============ */
+footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
+.foot a{color:#b9b9b8}.foot a:hover{color:#fff}
+.foot .col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a7975;margin-bottom:16px;font-weight:var(--w-semibold)}
+.foot .col div{font-size:14.5px;margin-bottom:9px}
+.foot-logo img{height:40px}
+.foot-tag{margin-top:16px;max-width:260px;color:#7a7975;font-size:14px}
+.foot-btm{max-width:var(--maxw);margin:48px auto 0;padding-top:22px;border-top:var(--bw) solid rgba(252,252,252,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7a7975}
+
+/* ============ ПРОГРЕСС-БАР ============ */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:70;transform:scaleX(0);transform-origin:left}
+
+/* ============ КИНО-ГЛАВЫ (pinned full-bleed) ============ */
+.chapter{position:relative;z-index:2}
+.chapter__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+.chapter__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.chapter__veil{position:absolute;inset:0;background:#000;opacity:.5;z-index:1}
+.chapter__copy{position:relative;z-index:2;max-width:1100px;padding:0 var(--pad);text-align:center;color:#fff;will-change:transform,opacity}
+.ch-eyebrow{font-size:.92rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;margin-bottom:26px;font-weight:var(--w-semibold)}
+.ch-h{font-size:clamp(32px,5.4vw,90px);font-weight:var(--w-semibold);line-height:1.04;letter-spacing:-.03em;text-wrap:balance;color:#fff}
+.ch-state{display:flex;flex-direction:column;gap:clamp(6px,1vh,16px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.12}
+.ch-state .ln1,.ch-state .ln2{font-size:clamp(28px,4.4vw,62px);color:#fff;display:block}
+.ch-num{font-size:clamp(96px,19vw,280px);font-weight:var(--w-semibold);line-height:.82;letter-spacing:-.05em;color:#fff}
+.ch-sub{font-size:clamp(18px,1.9vw,27px);color:rgba(255,255,255,.9);max-width:40ch;margin:26px auto 0;line-height:1.4;font-weight:var(--w-medium)}
+.ch-sub b{font-weight:var(--w-semibold);color:#fff}
+.chapter__copy .btn{margin-top:34px;border-color:#fff;background:#fff;color:var(--ink)}
+.chapter__copy .btn:hover{background:transparent;color:#fff}
+/* видео-глава «как hero»: команда тёмным фоном, градиент снизу, текст внизу-слева */
+.chapter--reel .chapter__sticky{place-items:end start}
+.chapter--reel .chapter__veil{background:linear-gradient(180deg,rgba(17,15,13,.28) 0%,rgba(17,15,13,0) 28%,rgba(17,15,13,.18) 55%,rgba(17,15,13,.74) 100%);opacity:1}
+.chapter--reel .chapter__copy{text-align:left;max-width:1180px;padding-bottom:clamp(56px,8vh,110px)}
+.chapter--reel .ch-state{align-items:flex-start}
+.chapter--closing .chapter__img{object-position:center 58%}
+.ch-state--how .ln1{font-size:clamp(26px,3.6vw,54px);line-height:1.06}
+.ch-cycle{margin-top:clamp(20px,3vh,34px);font-size:clamp(12.5px,1.05vw,15px);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.92);display:flex;flex-wrap:wrap;align-items:center}
+.ch-cycle i{margin:0 .8em;color:rgba(255,255,255,.45);font-style:normal}
+.ch-stats{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,76px);margin-top:clamp(28px,4vh,48px)}
+.ch-stats .stat{display:flex;flex-direction:column;gap:8px}
+.ch-stats .stat-n{font-size:clamp(40px,5vw,78px);font-weight:var(--w-semibold);letter-spacing:-.04em;line-height:.88;color:#fff}
+.ch-stats .stat-l{font-size:clamp(13px,1vw,15px);color:rgba(255,255,255,.82);max-width:16ch;line-height:1.3}
+
+/* светлая глава: яркое видео + тёмный текст (для высокоключевого ролика команды) */
+.chapter--light .chapter__veil{background:#fff;opacity:.25}
+.chapter--light .chapter__copy{color:var(--ink)}
+.chapter--light .ch-eyebrow{color:var(--ink)}
+.chapter--light .ch-num{color:var(--ink)}
+.chapter--light .ch-sub{color:var(--text-2)}
+.chapter--light .ch-sub b{color:var(--ink)}
+.chapter--light .chapter__copy .btn{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chapter--light .chapter__copy .btn:hover{background:transparent;color:var(--ink)}
+
+/* ============ STICKY-СТОПКА ============ */
+.stack{position:relative;z-index:2;background:var(--paper)}
+.stack__head{max-width:var(--maxw);margin:0 auto;padding:clamp(40px,6vw,72px) var(--pad) 0}
+.stack__card{position:sticky;top:0;height:100svh;display:grid;place-items:center;will-change:transform}
+.stack__inner{position:relative;width:min(1180px,88vw);height:min(76vh,820px);overflow:hidden;background:var(--surface-warm)}
+.stack__inner img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.stack__dim{position:absolute;inset:0;z-index:1;background:#000;opacity:0;pointer-events:none;will-change:opacity}
+.stack__cap{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:clamp(28px,3vw,44px);color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,0))}
+.stack__cap .nm{font-weight:var(--w-semibold);font-size:clamp(24px,2.6vw,40px);letter-spacing:-.02em;line-height:1.05}
+.stack__cap .mt{color:rgba(255,255,255,.85);font-size:clamp(13px,1vw,15px);white-space:nowrap}
+/* закреплённая метка раздела (висит, пока листаются кадры) */
+.stack__tag{position:sticky;top:clamp(78px,9vh,104px);z-index:6;height:0;pointer-events:none}
+.stack__tag .chip{position:absolute;left:var(--pad);top:0;display:inline-flex;align-items:center;gap:12px;color:#fff;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;background:rgba(0,0,0,.42);padding:9px 16px}
+
+/* ============ MARQUEE ============ */
+.marquee-sec{position:relative;z-index:2;background:var(--paper);padding-top:clamp(72px,9vw,128px);padding-bottom:clamp(28px,3.5vw,52px);overflow:hidden}
+.marquee-lead{max-width:var(--maxw);margin:0 auto clamp(24px,3vw,40px);padding:0 var(--pad)}
+.marquee-lead .eyebrow{display:block;margin-bottom:12px}
+.marquee-lead .ml-h{font-size:clamp(1.6rem,3vw,2.6rem);font-weight:var(--w-semibold);letter-spacing:-.025em;line-height:1.1;max-width:24ch;color:var(--ink)}
+.marquee__inner.big{font-size:clamp(26px,4.4vw,60px);font-weight:var(--w-semibold);letter-spacing:-.025em;color:var(--ink);gap:.55em}
+.marquee__inner.big .dot{color:var(--text-2)}
+
+/* sticky mobile cta */
+.sticky-cta{display:none}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:900px){
+  .nav{display:none}
+  .hgallery{height:auto!important}
+  .hgallery__sticky{position:static;height:auto;display:block;padding:90px 0 20px}
+  .hgallery__head{margin-bottom:24px}
+  .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch}
+  .hcard{width:78vw;scroll-snap-align:start}
+  .hscrollhint{display:none}
+  .steps{grid-template-columns:1fr 1fr;row-gap:36px}
+  .ready{grid-template-columns:1fr 1fr}
+  .studio,.contact{grid-template-columns:1fr;gap:40px}
+  .calc{grid-template-columns:1fr;gap:32px}
+  .calc-row{grid-template-columns:1fr;gap:12px;align-items:start}
+  .tariffs{grid-template-columns:1fr}
+  .diptych,.diptych.offset,.diptych.offset.rev{grid-template-columns:1fr}
+  .studio-photos .figure:nth-child(n){margin-top:0}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
+  .sticky-cta .btn{flex:1;justify-content:center}
+}
+@media (max-width:560px){
+  .ready{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Прелоадер: счётчик + занавес вверх, прячет буферизацию hero-видео -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-logo"><img src="assets/logo-white.png" alt=""></div>
+  <span class="pl-num">0</span>
+  <div class="pl-bar"><span></span></div>
+</div>
+<script>
+(function(){
+  var d=document.documentElement, pre=document.getElementById('preloader');
+  if(!pre){return;}
+  d.classList.add('pl-lock');
+  var numEl=pre.querySelector('.pl-num'), barEl=pre.querySelector('.pl-bar span');
+  function finish(){ d.classList.remove('pl-lock'); pre.classList.add('is-done');
+    setTimeout(function(){ if(pre.parentNode) pre.parentNode.removeChild(pre); },1100); }
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){ finish(); return; }
+  var start=performance.now(), shown=0, loaded=false;
+  window.addEventListener('load',function(){ loaded=true; });
+  setTimeout(function(){ loaded=true; },4500);   // страховка
+  function frame(now){
+    var t=(now-start)/1000;
+    var ceil=loaded?100:Math.min(92,t/1.5*92);
+    shown+=(ceil-shown)*0.11;
+    var v=Math.round(shown);
+    if(v>=100){v=100;}
+    numEl.textContent=v;
+    barEl.style.transform='scaleX('+(shown/100)+')';
+    if(v>=100 && loaded && t>1.0){ numEl.textContent='100'; finish(); return; }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<div class="progress"></div>
+
+<header id="top">
+  <div class="bar">
+    <a href="#top" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="#projects">Проекты</a><a href="#tariffs">Услуги</a><a href="#how">О студии</a><a href="#contact">Контакты</a>
+    </nav>
+    <a href="#contact" class="cta">Обсудить идею</a>
+  </div>
+</header>
+
+<!-- 1 · HERO -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="out/hero_16x9_poster.jpg">
+    <source src="out/hero_16x9.webm" type="video/webm">
+    <source src="out/hero_16x9_web.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+  <div class="hero-in">
+    <h1 class="hr hr1">Эстетика,<br>подчинённая логике</h1>
+    <p class="lead hr hr2">Студия рационального дизайна, ремонта и комплектации&nbsp;— для&nbsp;тех, кто ценит своё время.</p>
+  </div>
+  <a href="#projects" class="scrollcue hr hr3" aria-label="Листать вниз"></a>
+</section>
+
+<!-- 2 · НАШИ ПРОЕКТЫ (горизонтальная закреплённая галерея) -->
+<section class="hgallery" id="projects">
+  <div class="hgallery__sticky">
+    <div class="hgallery__head">
+      <h2 class="h2" data-split>Наши проекты</h2>
+    </div>
+    <div class="hgallery__track">
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-01.jpg" alt="Квартира на Острове"></div>
+        <div class="proj-cap"><span class="nm">Квартира на Острове</span><span>112 м² · 2025</span></div></article>
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-02.jpg" alt="Пентхаус, Symbol"></div>
+        <div class="proj-cap"><span class="nm">Пентхаус, Symbol</span><span>180 м² · 2025</span></div></article>
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-03.jpg" alt="Семейная, Shagal"></div>
+        <div class="proj-cap"><span class="nm">Семейная, Shagal</span><span>96 м² · 2024</span></div></article>
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-04.jpg" alt="Квартира, Зиларт"></div>
+        <div class="proj-cap"><span class="nm">Квартира, Зиларт</span><span>78 м² · 2024</span></div></article>
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-05.jpg" alt="Дом, Новорижское"></div>
+        <div class="proj-cap"><span class="nm">Дом, Новорижское</span><span>240 м² · 2024</span></div></article>
+      <article class="hcard"><div class="hshot"><img src="assets/img/proj-06.jpg" alt="Квартира, Алия"></div>
+        <div class="proj-cap"><span class="nm">Квартира, Алия</span><span>104 м² · 2023</span></div></article>
+      <a class="hcard hcard--all" href="projects.html">
+        <div class="hshot--all">
+          <div class="all-collage" aria-hidden="true">
+            <img src="assets/img/top-01.jpg" alt=""><img src="assets/img/top-02.jpg" alt="">
+            <img src="assets/img/top-03.jpg" alt=""><img src="assets/img/top-04.jpg" alt="">
+            <img src="assets/img/top-05.jpg" alt=""><img src="assets/img/top-06.jpg" alt="">
+          </div>
+          <span class="all-label">Все<br>проекты</span>
+          <span class="all-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · ГОТОВЫЕ ИНТЕРЬЕРЫ (рендер → фото по скроллу) -->
+<!-- ГЕОГРАФИЯ ПРОЕКТОВ · бегущая строка ЖК -->
+<section class="marquee-sec">
+  <div class="marquee-lead">
+    <span class="eyebrow" data-reveal="fade">География проектов</span>
+    <div class="ml-h" data-reveal>Наши интерьеры&nbsp;— в популярных жилых комплексах Москвы и Санкт-Петербурга</div>
+  </div>
+  <div class="marquee"><div class="marquee__inner big">
+    <span>Остров</span><span class="dot">·</span><span>Symbol</span><span class="dot">·</span><span>Shagal</span><span class="dot">·</span><span>Зиларт</span><span class="dot">·</span><span>Новорижское</span><span class="dot">·</span><span>Алия</span><span class="dot">·</span>
+    <span>Остров</span><span class="dot">·</span><span>Symbol</span><span class="dot">·</span><span>Shagal</span><span class="dot">·</span><span>Зиларт</span><span class="dot">·</span><span>Новорижское</span><span class="dot">·</span><span>Алия</span><span class="dot">·</span>
+  </div></div>
+</section>
+
+<!-- ГОТОВЫЕ ИНТЕРЬЕРЫ · один широкий кадр, рендер → фото по скроллу -->
+<section class="reveal-sec" id="ready" style="height:235vh">
+  <div class="reveal-sticky">
+    <figure class="reveal-fig" data-reveal-photo>
+      <img class="rv__photo" src="assets/img/ready-photo.jpg" alt="Фото реализованного объекта" draggable="false">
+      <img class="rv__render" src="assets/img/ready-render.jpg" alt="Визуализация проекта" draggable="false">
+      <div class="rv__divider"><span class="rv__handle"></span></div>
+      <div class="rv__scrim"></div>
+      <div class="rv__copy">
+        <h2 class="rv__title" data-reveal>Мы реализуем наши интерьеры под&nbsp;ключ</h2>
+        <a class="rv__cta" href="#contact">Получить презентацию с реализованными проектами</a>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 · ТАРИФЫ -->
+<section class="section" id="tariffs"><div class="container">
+  <div class="sec-intro">
+    <div class="eyebrow" data-reveal="fade">Дизайн-проект</div>
+    <h2 class="h2" data-split>Смарт · Бизнес · Ультра</h2>
+    <p class="lead" data-reveal>Объём и смету фиксируем до старта. Цена — за дизайн-проект; ремонт и комплектацию считаем под объект.</p>
+  </div>
+  <div class="tariffs" data-stagger>
+    <div class="tcard">
+      <div class="tname">Смарт</div>
+      <div class="tdesc">Когда ремонт ведёте сами, а нужен грамотный проект.</div>
+      <div class="price">от 0 000 <small>₽/м²</small></div>
+      <ul><li>Планировка и зонирование</li><li>Визуализации ключевых зон</li><li>Подбор отделки</li></ul>
+      <div class="spacer"></div>
+      <a href="#contact" class="btn btn--ghost">Запросить смету</a>
+    </div>
+    <div class="tcard hi">
+      <div class="tname">Бизнес</div>
+      <div class="tdesc">Полный проект с надзором — строит ваш подрядчик или наш.</div>
+      <div class="price">от 0 000 <small>₽/м²</small></div>
+      <ul><li>Всё из «Смарт»</li><li>Полная рабочая документация</li><li>Авторский надзор</li><li>Спецификации и комплектовочные ведомости</li></ul>
+      <div class="spacer"></div>
+      <a href="#contact" class="btn">Запросить смету</a>
+    </div>
+    <div class="tcard mid">
+      <div class="tname">Ультра</div>
+      <div class="tdesc">Под ключ: проект, ремонт, мебель и заселение — на нас.</div>
+      <div class="price">от 0 000 <small>₽/м²</small></div>
+      <ul><li>Всё из «Бизнес»</li><li>Индивидуальная мебель</li><li>Комплектация под ключ</li><li>Сопровождение заселения</li></ul>
+      <div class="spacer"></div>
+      <a href="#contact" class="btn btn--ghost">Запросить смету</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 5 · ОДНА КОМАНДА (видео команды на фоне + ключевые цифры) -->
+<section class="chapter chapter--reel" id="how" style="height:190vh">
+  <div class="chapter__sticky">
+    <video class="chapter__img" autoplay muted loop playsinline preload="auto" poster="assets/team_dark_poster.jpg">
+      <source src="assets/team_dark.mp4" type="video/mp4">
+    </video>
+    <div class="chapter__veil"></div>
+    <div class="chapter__copy">
+      <p class="ch-state ch-state--how">
+        <span class="ln1">Одна команда —</span>
+        <span class="ln1">от чертежа до расставленной мебели</span>
+      </p>
+      <div class="ch-stats">
+        <div class="stat"><span class="stat-n" data-count="600" data-count-suffix="+">600+</span><span class="stat-l">реализованных проектов</span></div>
+        <div class="stat"><span class="stat-n" data-count="50" data-count-suffix="+">50+</span><span class="stat-l">специалистов в студии</span></div>
+        <div class="stat"><span class="stat-n" data-count="4">4</span><span class="stat-l">человека ведут ваш проект</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.5 · НАША ИСТОРИЯ (карусель глав → VC.ru) -->
+<section class="hgallery hgallery--story" id="story">
+  <div class="hgallery__sticky">
+    <div class="hgallery__head">
+      <div class="hg-head-l">
+        <div class="eyebrow" data-reveal="fade">О студии</div>
+        <h2 class="h2" data-split>Наша история</h2>
+      </div>
+      <div class="hg-head-r" data-reveal>
+        <p class="hg-lead">Рассказываем без прикрас, как студия росла&nbsp;— от первых заказов до 600+&nbsp;реализованных проектов. Девять глав, написанных по&nbsp;ходу пути.</p>
+        <a class="hg-more" href="https://nostress-design.ru/about" target="_blank" rel="noopener">Узнать больше о компании <span>↗</span></a>
+      </div>
+    </div>
+    <div class="hgallery__track">
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/560941-kak-odna-studiya-rynok-dizayna-intererov-menyala-glava-1-pervye-polgoda-raboty" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-01.jpg" alt="Глава 1 — Первые полгода работы"></div>
+        <div class="story-cap"><span class="story-ch">Глава 1</span><span class="story-tt">Первые полгода работы</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/666685-kak-odna-studiya-rynok-dizayna-intererov-menyala-glava-2-silnaya-komanda-zalog-uspeha" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-02.jpg" alt="Глава 2 — Сильная команда"></div>
+        <div class="story-cap"><span class="story-ch">Глава 2</span><span class="story-tt">Сильная команда&nbsp;— залог успеха</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/793785-kak-odna-studiya-rynok-dizayna-intererov-menyala-glava-3-pervyy-million-i-kazahstan" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-03.jpg" alt="Глава 3 — Первый миллион и Казахстан"></div>
+        <div class="story-cap"><span class="story-ch">Глава 3</span><span class="story-tt">Первый миллион и&nbsp;Казахстан</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/989235-kak-odna-studiya-rynok-dizayna-intererov-menyala-glava-4-kak-nanimat-silnyh-dizaynerov-ne-teryaya-na-eto-kuchu-vremeni" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-04.jpg" alt="Глава 4 — Как нанимать сильных дизайнеров"></div>
+        <div class="story-cap"><span class="story-ch">Глава 4</span><span class="story-tt">Как нанимать сильных дизайнеров</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/life/1325069-kak-odna-studiya-rynok-dizaina-intererov-menyala-glava-5-bolshie-vzlety-i-podrostkovye-trudnosti" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-05.jpg" alt="Глава 5 — Большие взлёты и подростковые трудности"></div>
+        <div class="story-cap"><span class="story-ch">Глава 5</span><span class="story-tt">Большие взлёты и&nbsp;трудности роста</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-nostress-design/1841802-kak-odna-studiya-rynok-dizaina-intererov-menyala-glava-6-a-kogda-bylo-legko" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-06.jpg" alt="Глава 6 — А когда было легко?"></div>
+        <div class="story-cap"><span class="story-ch">Глава 6</span><span class="story-tt">А когда было легко?</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/life/2060130-kak-studiya-dizayna-intererov-menyala-rynok-glava-7-ryvok-k-tseli" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-07.jpg" alt="Глава 7 — Рывок к цели"></div>
+        <div class="story-cap"><span class="story-ch">Глава 7</span><span class="story-tt">Рывок к цели</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/life/2623325-glava-8-kak-my-spravlyaemsya-s-krizisom-v-dizayne-intererov" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-08.jpg" alt="Глава 8 — Мы пока не там, где хотим быть"></div>
+        <div class="story-cap"><span class="story-ch">Глава 8</span><span class="story-tt">Мы пока не там, где&nbsp;хотим быть</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/life/2694631-kak-studiya-dizayna-intererov-spravlyaetsya-s-krizisom" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-09.jpg" alt="Глава 9 — Яма"></div>
+        <div class="story-cap"><span class="story-ch">Глава 9</span><span class="story-tt">Яма</span><span class="story-read">Читать статью ↗</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · КОНТАКТ (консультация с арт-директором) -->
+<section class="section" id="contact"><div class="container">
+  <div class="contact">
+    <figure class="cap-photo" data-reveal="scale">
+      <img src="assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
+      <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
+    </figure>
+    <div class="cap-body">
+      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
+      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
+      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
+      <form class="cap-form" data-reveal onsubmit="return false">
+        <input class="field" placeholder="Как к вам обращаться">
+        <input class="field" placeholder="+7 ___ ___-__-__">
+        <button class="btn">Обсудить идею с арт-директором</button>
+      </form>
+      <div class="cap-quick" data-reveal="fade">
+        <span class="qlabel">или напишите сразу</span>
+        <div class="messengers">
+          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 674-12-67</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ЗАВЕРШЕНИЕ · Красиво / удобно / под ключ -->
+<section class="chapter chapter--closing" style="height:150vh">
+  <div class="chapter__sticky">
+    <img class="chapter__img" src="assets/img/closing.jpg" alt="">
+    <div class="chapter__veil"></div>
+    <div class="chapter__copy">
+      <p class="ch-state">
+        <span class="ln1">Красиво&nbsp;— значит удобно.</span>
+        <span class="ln2">Под&nbsp;ключ&nbsp;— значит вовремя.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · ФУТЕР -->
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="foot-logo"><img src="assets/logo-white.png" alt="NoStress Design"></div>
+      <div class="foot-tag">Эстетика, подчинённая логике.</div>
+    </div>
+    <div class="col"><h4>Навигация</h4>
+      <div><a href="#projects">Проекты</a></div><div><a href="#tariffs">Услуги</a></div><div><a href="#how">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
+    <div class="col"><h4>Контакты</h4>
+      <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+  </div>
+  <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
+</footer>
+
+<div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
+
+<script>
+/* калькулятор-квиз: ползунок площади + выбор чипов (одиночный в группе) */
+(function(){
+  var a=document.getElementById('cArea'), av=document.getElementById('cAreaVal');
+  if(a&&av) a.addEventListener('input',function(){ av.textContent=a.value; });
+  document.querySelectorAll('.chips').forEach(function(g){
+    g.addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c) return;
+      g.querySelectorAll('.chip').forEach(function(x){ x.classList.remove('is-on'); });
+      c.classList.add('is-on');
+    });
+  });
+})();
+</script>
+<!-- Motion как UMD-глобал (классический скрипт — грузится и с file://) -->
+<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<script src="motion.js"></script>
+
+</body>
+</html>

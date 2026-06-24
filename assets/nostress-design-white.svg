@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+  <style>
+    .word { font-family: 'Inter', 'SF Pro Display', -apple-system, sans-serif; font-weight: 500; font-size: 56px; fill: #FFFFFF; letter-spacing: -0.02em; }
+  </style>
+  <text class="word" x="0" y="52">nostress</text>
+  <text class="word" x="0" y="108">design.</text>
+</svg>

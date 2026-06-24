@@ -1,0 +1,5 @@
+**/src/
+**/page.pdf
+node_modules/
+.DS_Store
+*.zip

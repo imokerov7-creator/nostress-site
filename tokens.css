@@ -1,0 +1,168 @@
+/* ============================================================
+   NoStress — Стиль-кит (OH-based)
+   Фундамент стиля сайта. Цвета, шрифт, типошкала, ритм.
+   Значения взяты 1:1 из oharchitecture.com.au (его CSS).
+   Подключать ПЕРВЫМ, до motion.css.
+
+   ⚠️ Site-override: палитра монохромная, как у OH — фирменный
+   Clay/терракота на сайте НЕ используется (решение для сайта,
+   бренд-книга не меняется). См. README.md.
+   ============================================================ */
+
+@font-face{
+  font-family:"PP Neue Montreal";
+  src:url("fonts/PPNeueMontreal-Variable.woff2") format("woff2");
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+
+:root{
+  /* ---- ПАЛИТРА (монохром, точные hex из OH) ---- */
+  --ink:#080807;          /* near-black — текст, контраст, тёмный футер */
+  --paper:#fcfcfc;        /* off-white — основной фон страницы */
+  --surface-warm:#f1f0ee; /* тёплый светло-серый — alt-секции, карточки */
+  --border:#dcddde;       /* серый — разделители, бордеры, инактив */
+  --text-2:#545454;       /* тёмно-серый — вторичный текст, meta */
+  --char:#292929;         /* уголь — тёмные блоки, инпуты */
+
+  /* семантические алиасы */
+  --bg:var(--paper);
+  --surface:var(--paper);
+  --text:var(--ink);
+  --overlay:rgba(8,8,7,.5);   /* вуаль под текстом на фото */
+  --overlay-soft:rgba(8,8,7,.28);
+
+  /* ---- ТИПОГРАФИКА (PP Neue Montreal, веса как у OH) ---- */
+  --sans:"PP Neue Montreal",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --w-medium:530;         /* основной текст */
+  --w-semibold:650;       /* заголовки */
+
+  --lh-display:.95;       /* line-height дисплея (OH) */
+  --lh-head:1.05;         /* line-height заголовков (OH) */
+  --lh-text:1.5;          /* line-height текста (читабельность) */
+  --tracking-tight:-.05em;/* трекинг крупных заголовков (OH) */
+
+  /* ---- РИТМ / СЕТКА (rem-шкала OH) ---- */
+  --pad:clamp(20px,5vw,72px);   /* боковые поля */
+  --maxw:1640px;                /* контейнер */
+  --grid-gap:clamp(16px,2vw,32px);
+  --sec-small:clamp(56px,8vw,80px);   /* 5rem  */
+  --sec-main:clamp(80px,11vw,112px);  /* 7rem  */
+  --sec-large:clamp(112px,15vw,160px);/* 10rem */
+  --space-s:1.5rem;
+  --space-l:3rem;
+  --bw:.094rem;                 /* border-width (OH) */
+
+  /* ---- ДВИЖЕНИЕ (единый ритм; детали в motion.css) ---- */
+  --ease:cubic-bezier(.22,1,.36,1);   /* мягкий expo-out */
+  --ease-in:cubic-bezier(.55,0,.45,1);
+  --dur-fast:.18s;
+  --dur:.4s;
+}
+
+/* ---- RESET ---- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  font-weight:var(--w-medium);
+  background:var(--bg);
+  color:var(--text);
+  font-size:17px;
+  line-height:var(--lh-text);
+  letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:none}
+::selection{background:var(--ink);color:var(--paper)}
+
+/* ---- КОНТЕЙНЕР / СЕКЦИИ ---- */
+.container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+.section{padding-block:var(--sec-main)}
+.section--lg{padding-block:var(--sec-large)}
+.section--sm{padding-block:var(--sec-small)}
+.section--warm{background:var(--surface-warm)}
+.section--dark{background:var(--ink);color:var(--paper)}
+.section--dark .meta,.section--dark .lead{color:#b9b9b8}
+hr,.rule{border:none;border-top:var(--bw) solid var(--border);margin-block:var(--space-l)}
+.section--dark .rule{border-color:rgba(252,252,252,.16)}
+
+/* ---- ТИПОШКАЛА (rem-значения OH в адаптивном clamp) ---- */
+.h-display{
+  font-size:clamp(3rem,9vw,7rem);          /* OH display 7rem */
+  font-weight:var(--w-semibold);
+  line-height:var(--lh-display);
+  letter-spacing:var(--tracking-tight);
+}
+.h1{font-size:clamp(2.4rem,6.4vw,5rem);font-weight:var(--w-semibold);line-height:var(--lh-head);letter-spacing:var(--tracking-tight)}
+.h2{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:var(--lh-head);letter-spacing:-.04em}
+.h3{font-size:clamp(1.6rem,3.6vw,3rem);font-weight:var(--w-semibold);line-height:var(--lh-head);letter-spacing:-.025em}
+.h4{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:var(--w-semibold);line-height:1.2;letter-spacing:-.02em}
+.h5{font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:var(--w-semibold);line-height:1.2;letter-spacing:-.015em}
+.h6{font-size:1rem;font-weight:var(--w-semibold);line-height:1.2;letter-spacing:-.01em}
+
+.text-large,.lead{font-size:clamp(1.05rem,1.5vw,1.25rem);font-weight:var(--w-medium);line-height:1.45;color:var(--text-2)}
+.text-main{font-size:1rem;font-weight:var(--w-medium);line-height:1.5}
+.text-small{font-size:.875rem;font-weight:var(--w-medium);line-height:1.4}
+.eyebrow{
+  font-size:.75rem;font-weight:var(--w-semibold);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-2);
+}
+.meta{font-size:.8125rem;font-weight:var(--w-medium);letter-spacing:.02em;color:var(--text-2)}
+
+/* ---- КОМПОНЕНТЫ ---- */
+/* кнопки: монохромная инверсия (OH-логика) */
+.btn{
+  display:inline-flex;align-items:center;gap:.6em;
+  padding:.85em 1.5em;border-radius:0;
+  border:var(--bw) solid var(--ink);
+  font-size:.95rem;font-weight:var(--w-semibold);letter-spacing:-.01em;
+  background:var(--ink);color:var(--paper);
+  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+  will-change:transform;
+}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper)}
+.section--dark .btn{border-color:var(--paper);background:var(--paper);color:var(--ink)}
+.section--dark .btn:hover{background:transparent;color:var(--paper)}
+
+/* ссылка с подчёркиванием-«рисованием» */
+.link{position:relative;font-weight:var(--w-semibold);letter-spacing:-.01em}
+.link::after{
+  content:"";position:absolute;left:0;bottom:-2px;width:100%;height:var(--bw);
+  background:currentColor;transform:scaleX(0);transform-origin:right;
+  transition:transform var(--dur) var(--ease);
+}
+.link:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* карточка проекта */
+.card{display:block;background:var(--surface)}
+.card__media{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--surface-warm)}
+.card__media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);will-change:transform}
+.card:hover .card__media img{transform:scale(1.045)}
+.card__row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-top:1rem}
+.badge{
+  display:inline-block;padding:.3em .7em;border:var(--bw) solid var(--border);
+  font-size:.7rem;font-weight:var(--w-semibold);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);
+}
+
+/* поле формы (OH: тонкая нижняя линия, без скруглений) */
+.field{display:block;width:100%;padding:.9em 0;background:transparent;
+  border:none;border-bottom:var(--bw) solid var(--border);
+  font:inherit;color:var(--ink);transition:border-color var(--dur) var(--ease)}
+.field::placeholder{color:#9a9a99}
+.field:focus{outline:none;border-bottom-color:var(--ink)}
+
+/* фокус-кольцо (доступность) */
+:where(a,button,.field,[tabindex]):focus-visible{
+  outline:2px solid var(--ink);outline-offset:3px;border-radius:1px;
+}
+
+/* ---- REDUCED MOTION (страховка на уровне токенов) ---- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}

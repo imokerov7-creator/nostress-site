@@ -1,0 +1,72 @@
+/* ============================================================
+   NoStress — Стиль-кит (OH-based) · motion.css
+   Моушен-слой: начальные состояния + утилиты.
+   Сама логика — в motion.js (движок Motion + Lenis).
+   Подключать ПОСЛЕ tokens.css.
+
+   Принцип: анимируем только transform + opacity (GPU).
+   Выразительно, но сдержанно — премиум через спокойствие.
+   ============================================================ */
+
+/* ---- НАЧАЛЬНЫЕ СОСТОЯНИЯ (до JS-инициализации) ----
+   .js-motion ставится на <html> скриптом. Без JS / при
+   reduced-motion контент виден сразу — деградация безопасна. */
+
+.js-motion [data-reveal]{opacity:0;transform:translateY(28px)}
+.js-motion [data-reveal="fade"]{transform:none}
+.js-motion [data-reveal="scale"]{transform:scale(.96)}
+
+/* masked reveal заголовка — слова выезжают снизу, остаются в строку */
+.js-motion [data-split] .line{display:inline-block;overflow:hidden;vertical-align:top}
+.js-motion [data-split] .line__inner{display:inline-block;transform:translateY(110%);will-change:transform}
+
+/* clip-reveal изображения (штора снизу вверх + лёгкий зум рамки) */
+.js-motion [data-clip]{clip-path:inset(0 0 100% 0);transform:scale(1.04);will-change:clip-path,transform}
+
+/* параллакс-контейнер: чуть выше рамки, чтобы было что сдвигать */
+[data-parallax]{will-change:transform}
+
+/* ---- CUSTOM CURSOR ---- */
+.cursor{
+  position:fixed;top:0;left:0;z-index:9999;pointer-events:none;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--ink);
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;          /* читается на любом фоне */
+  transition:width .3s var(--ease),height .3s var(--ease),background-color .3s var(--ease);
+}
+.cursor--ring{
+  width:42px;height:42px;background:transparent;
+  border:var(--bw) solid #fff;mix-blend-mode:difference;
+}
+.cursor.is-hover{width:56px;height:56px}
+.cursor.is-down{width:30px;height:30px}
+html.has-cursor,html.has-cursor *{cursor:none!important}
+
+/* magnetic-элементы держим на transform */
+[data-magnetic]{will-change:transform}
+
+/* ---- ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ-РЯД ---- */
+.hscroll{overflow:hidden}
+.hscroll__track{display:flex;gap:var(--grid-gap);will-change:transform}
+.hscroll__item{flex:0 0 clamp(220px,30vw,420px)}
+
+/* ---- MARQUEE (бегущая строка, CSS) ---- */
+.marquee{overflow:hidden;white-space:nowrap}
+.marquee__inner{display:inline-flex;gap:1.2em;animation:marquee 28s linear infinite;will-change:transform}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---- УТИЛИТЫ ---- */
+[data-stagger]>*{will-change:transform,opacity}
+
+/* ---- REDUCED MOTION: показать всё, отключить движение ---- */
+@media (prefers-reduced-motion:reduce){
+  .js-motion [data-reveal],
+  .js-motion [data-reveal="scale"]{opacity:1!important;transform:none!important}
+  .js-motion [data-split] .line__inner{transform:none!important}
+  .js-motion [data-clip]{clip-path:none!important;transform:none!important}
+  .js-motion [data-clip] img{transform:none!important}
+  .cursor{display:none!important}
+  html.has-cursor,html.has-cursor *{cursor:auto!important}
+  .marquee__inner{animation:none!important}
+}

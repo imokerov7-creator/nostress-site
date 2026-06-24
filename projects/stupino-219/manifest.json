@@ -1,0 +1,155 @@
+{
+ "kuhnya-gostinaya": [
+  {
+   "f": "kuhnya-gostinaya-25.jpg",
+   "ar": 2.0,
+   "hero": true
+  },
+  {
+   "f": "kuhnya-gostinaya-20.jpg",
+   "ar": 1.5,
+   "hero": false
+  },
+  {
+   "f": "kuhnya-gostinaya-21.jpg",
+   "ar": 0.667,
+   "hero": false
+  },
+  {
+   "f": "kuhnya-gostinaya-18.jpg",
+   "ar": 0.625,
+   "hero": false
+  }
+ ],
+ "master-spalnya": [
+  {
+   "f": "master-spalnya-09.jpg",
+   "ar": 1.5,
+   "hero": true
+  },
+  {
+   "f": "master-spalnya-11.jpg",
+   "ar": 1.5,
+   "hero": false
+  },
+  {
+   "f": "master-spalnya-06.jpg",
+   "ar": 0.625,
+   "hero": false
+  }
+ ],
+ "master-sanuzel": [
+  {
+   "f": "master-sanuzel-15.jpg",
+   "ar": 0.667,
+   "hero": true
+  },
+  {
+   "f": "master-sanuzel-14.jpg",
+   "ar": 0.667,
+   "hero": false
+  },
+  {
+   "f": "master-sanuzel-16.jpg",
+   "ar": 0.667,
+   "hero": false
+  }
+ ],
+ "detskaya": [
+  {
+   "f": "detskaya-45.jpg",
+   "ar": 1.5,
+   "hero": true
+  },
+  {
+   "f": "detskaya-46.jpg",
+   "ar": 0.667,
+   "hero": false
+  },
+  {
+   "f": "detskaya-43.jpg",
+   "ar": 0.667,
+   "hero": false
+  }
+ ],
+ "gostevaya-1": [
+  {
+   "f": "gostevaya-1-30.jpg",
+   "ar": 2.0,
+   "hero": true
+  },
+  {
+   "f": "gostevaya-1-31.jpg",
+   "ar": 1.5,
+   "hero": false
+  },
+  {
+   "f": "gostevaya-1-32.jpg",
+   "ar": 0.667,
+   "hero": false
+  }
+ ],
+ "gostevaya-2": [
+  {
+   "f": "gostevaya-2-36.jpg",
+   "ar": 1.5,
+   "hero": true
+  },
+  {
+   "f": "gostevaya-2-39.jpg",
+   "ar": 1.5,
+   "hero": false
+  },
+  {
+   "f": "gostevaya-2-35.jpg",
+   "ar": 0.667,
+   "hero": false
+  }
+ ],
+ "kinozal": [
+  {
+   "f": "kinozal-56.jpg",
+   "ar": 1.5,
+   "hero": true
+  },
+  {
+   "f": "kinozal-53.jpg",
+   "ar": 1.5,
+   "hero": false
+  }
+ ],
+ "prihozhaya": [
+  {
+   "f": "prihozhaya-02.jpg",
+   "ar": 0.625,
+   "hero": true
+  },
+  {
+   "f": "prihozhaya-04.jpg",
+   "ar": 0.625,
+   "hero": false
+  },
+  {
+   "f": "prihozhaya-05.jpg",
+   "ar": 0.667,
+   "hero": false
+  }
+ ],
+ "lestnica-koridor": [
+  {
+   "f": "lestnica-koridor-28.jpg",
+   "ar": 0.625,
+   "hero": true
+  },
+  {
+   "f": "lestnica-koridor-27.jpg",
+   "ar": 0.625,
+   "hero": false
+  },
+  {
+   "f": "lestnica-koridor-29.jpg",
+   "ar": 0.625,
+   "hero": false
+  }
+ ]
+}
