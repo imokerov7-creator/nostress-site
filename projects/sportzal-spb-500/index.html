@@ -64,6 +64,9 @@ section.section--warm{background:var(--surface-warm)}
   font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
 /* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
 .galrow{display:flex;gap:var(--g);margin-top:var(--g)}
+.gal .galrow{justify-content:center}
+.gal .gframe img{transition:none}
+.gal .gframe:hover img{transform:none}
 .room .galrow:first-of-type{margin-top:0}
 .galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
 .gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
@@ -159,7 +162,6 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta .btn{flex:1;justify-content:center}
 }
 </style>
-<script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 </head>
 <body>
 <div class="progress"></div>
@@ -182,13 +184,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <a href="#about" class="cover-cue" aria-label="Листать вниз"></a>
 </section>
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Спортивный клуб, который не отпускает после тренировки.</p>
-      <p class="intro-text" data-reveal>500 квадратных метров под спортивный клуб в Петербурге, где задача звучала шире, чем спортзал. Владелец хотел, чтобы человек задерживался и после того, как закончил заниматься. Мы собрали пространство вокруг тёплого камня и глубокого винного цвета: травертиновые стены, терраццо с красной крошкой, бордовые потолки с тёплой подсветкой. Кофейня встречает у входа, раздевалки сделали витриной, а студия для растяжки получила деревянный потолок и свет с трёх сторон.</p>
+      <p class="intro-concept">Спортивный клуб, который не отпускает после тренировки.</p>
+      <p class="intro-text">500 квадратных метров под спортивный клуб в Петербурге, где задача звучала шире, чем спортзал. Владелец хотел, чтобы человек задерживался и после того, как закончил заниматься. Мы собрали пространство вокруг тёплого камня и глубокого винного цвета: травертиновые стены, терраццо с красной крошкой, бордовые потолки с тёплой подсветкой. Кофейня встречает у входа, раздевалки сделали витриной, а студия для растяжки получила деревянный потолок и свет с трёх сторон.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Коммерция: спортивный клуб</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Чтобы человек задерживался и после тренировки</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Тёплый камень и винный цвет, кофейня у входа, раздевалки-витрина, студия растяжки</div></div>
@@ -198,9 +200,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <section class="gal">
 
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Зона кафе-бара</div>
+    <div class="roomlabel">Зона кафе-бара</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.972"><div class="gframe par"><img src="img/r0-0.jpg" alt="Зона кафе-бара" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.972"><div class="gframe"><img src="img/r0-0.jpg" alt="Зона кафе-бара"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r0-1.jpg" alt="Зона кафе-бара"></div></div>
@@ -208,27 +210,27 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Зона свободных весов и тренажеров</div>
+    <div class="roomlabel">Зона свободных весов и тренажеров</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.715"><div class="gframe par"><img src="img/r1-0.jpg" alt="Зона свободных весов и тренажеров" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.715"><div class="gframe"><img src="img/r1-0.jpg" alt="Зона свободных весов и тренажеров"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/r1-1.jpg" alt="Зона свободных весов и тренажеров"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Зона единоборств</div>
+    <div class="roomlabel">Зона единоборств</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.357"><div class="gframe par"><img src="img/r2-0.jpg" alt="Зона единоборств" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.357"><div class="gframe"><img src="img/r2-0.jpg" alt="Зона единоборств"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.775"><div class="gframe"><img src="img/r2-1.jpg" alt="Зона единоборств"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Комнаты переодевания</div>
+    <div class="roomlabel">Комнаты переодевания</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.976"><div class="gframe par"><img src="img/r3-0.jpg" alt="Комнаты переодевания" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.976"><div class="gframe"><img src="img/r3-0.jpg" alt="Комнаты переодевания"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.671"><div class="gframe"><img src="img/r3-1.jpg" alt="Комнаты переодевания"></div></div>
@@ -238,20 +240,20 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 </section>
 <section class="section section--warm" id="contact"><div class="container">
   <div class="contact">
-    <figure class="cap-photo" data-reveal="scale">
+    <figure class="cap-photo">
       <img src="../../assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
-      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
-      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашем проекте</h2>
-      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
-      <form class="cap-form" data-reveal onsubmit="return false">
+      <div class="eyebrow">Консультация с арт-директором</div>
+      <h2 class="h2" style="margin-top:14px">Поговорим о вашем проекте</h2>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form" onsubmit="return false">
         <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
         <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
         <button class="btn">Записаться к арт-директору</button>
       </form>
-      <div class="cap-quick" data-reveal="fade">
+      <div class="cap-quick">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
           <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>

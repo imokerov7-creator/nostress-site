@@ -64,6 +64,9 @@ section.section--warm{background:var(--surface-warm)}
   font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
 /* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
 .galrow{display:flex;gap:var(--g);margin-top:var(--g)}
+.gal .galrow{justify-content:center}
+.gal .gframe img{transition:none}
+.gal .gframe:hover img{transform:none}
 .room .galrow:first-of-type{margin-top:0}
 .galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
 .gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
@@ -159,7 +162,6 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta .btn{flex:1;justify-content:center}
 }
 </style>
-<script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 </head>
 <body>
 <div class="progress"></div>
@@ -182,13 +184,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <a href="#about" class="cover-cue" aria-label="Листать вниз"></a>
 </section>
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Квартира, где у каждого нашлось своё.</p>
-      <p class="intro-text" data-reveal>Семья пришла к нам с нехваткой воздуха: вещи копились по углам, утро начиналось с поиска нужной рубашки. Мы перебрали 101 метр так, чтобы у каждого было своё место. Сердце квартиры — гостиная с кухней и прихожей в одном дыхании: графит, тёплое дерево, тёмный мрамор за телевизором. Хозяйская спальня живёт отдельной тишиной, у детей светлая комната со стеной для лазания и столом у окна.</p>
+      <p class="intro-concept">Квартира, где у каждого нашлось своё.</p>
+      <p class="intro-text">Семья пришла к нам с нехваткой воздуха: вещи копились по углам, утро начиналось с поиска нужной рубашки. Мы перебрали 101 метр так, чтобы у каждого было своё место. Сердце квартиры — гостиная с кухней и прихожей в одном дыхании: графит, тёплое дерево, тёмный мрамор за телевизором. Хозяйская спальня живёт отдельной тишиной, у детей светлая комната со стеной для лазания и столом у окна.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Семья с детьми</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Не хватало воздуха — вещи по углам, утро на бегу</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Открытая гостиная-кухня, гардеробная и хранение, своя зона для каждого</div></div>
@@ -198,9 +200,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <section class="gal">
 
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Кухня-гостиная</div>
+    <div class="roomlabel">Кухня-гостиная</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.0"><div class="gframe par"><img src="img/r0-0.jpg" alt="Кухня-гостиная" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.0"><div class="gframe"><img src="img/r0-0.jpg" alt="Кухня-гостиная"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.792"><div class="gframe"><img src="img/r0-1.jpg" alt="Кухня-гостиная"></div></div>
@@ -208,9 +210,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Мастер-спальня</div>
+    <div class="roomlabel">Мастер-спальня</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.6"><div class="gframe par"><img src="img/r1-0.jpg" alt="Мастер-спальня" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.6"><div class="gframe"><img src="img/r1-0.jpg" alt="Мастер-спальня"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.6"><div class="gframe"><img src="img/r1-1.jpg" alt="Мастер-спальня"></div></div>
@@ -218,34 +220,34 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Гостевая спальня</div>
+    <div class="roomlabel">Гостевая спальня</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.6"><div class="gframe par"><img src="img/r2-0.jpg" alt="Гостевая спальня" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.6"><div class="gframe"><img src="img/r2-0.jpg" alt="Гостевая спальня"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.0"><div class="gframe"><img src="img/r2-1.jpg" alt="Гостевая спальня"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Детская</div>
+    <div class="roomlabel">Детская</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.491"><div class="gframe par"><img src="img/r3-0.jpg" alt="Детская" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.491"><div class="gframe"><img src="img/r3-0.jpg" alt="Детская"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.747"><div class="gframe"><img src="img/r3-1.jpg" alt="Детская"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Мастер санузел</div>
+    <div class="roomlabel">Мастер санузел</div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.231"><div class="gframe"><img src="img/r4-0.jpg" alt="Мастер санузел"></div></div>
       <div class="greveal down" style="--ar:0.54"><div class="gframe"><img src="img/r4-1.jpg" alt="Мастер санузел"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Прихожая</div>
+    <div class="roomlabel">Прихожая</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.0"><div class="gframe par"><img src="img/r5-0.jpg" alt="Прихожая" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.0"><div class="gframe"><img src="img/r5-0.jpg" alt="Прихожая"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.54"><div class="gframe"><img src="img/r5-1.jpg" alt="Прихожая"></div></div>
@@ -255,20 +257,20 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 </section>
 <section class="section section--warm" id="contact"><div class="container">
   <div class="contact">
-    <figure class="cap-photo" data-reveal="scale">
+    <figure class="cap-photo">
       <img src="../../assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
-      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
-      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
-      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
-      <form class="cap-form" data-reveal onsubmit="return false">
+      <div class="eyebrow">Консультация с арт-директором</div>
+      <h2 class="h2" style="margin-top:14px">Поговорим о вашей квартире</h2>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form" onsubmit="return false">
         <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
         <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
         <button class="btn">Записаться к арт-директору</button>
       </form>
-      <div class="cap-quick" data-reveal="fade">
+      <div class="cap-quick">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
           <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>

@@ -64,6 +64,9 @@ section.section--warm{background:var(--surface-warm)}
   font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
 /* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
 .galrow{display:flex;gap:var(--g);margin-top:var(--g)}
+.gal .galrow{justify-content:center}
+.gal .gframe img{transition:none}
+.gal .gframe:hover img{transform:none}
 .room .galrow:first-of-type{margin-top:0}
 .galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
 .gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
@@ -159,7 +162,6 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta .btn{flex:1;justify-content:center}
 }
 </style>
-<script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -188,13 +190,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 
 <!-- 2 · ИНТРО -->
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Дом, в котором вечер наконец принадлежит тебе.</p>
-      <p class="intro-text" data-reveal>Через все 219&nbsp;метров и&nbsp;оба этажа мы&nbsp;провели один цвет: приглушённый оливковый по&nbsp;филёнчатым панелям и&nbsp;тёплое тёмное дерево под&nbsp;ногами. Это неоклассика без&nbsp;музейной строгости. Кухня и&nbsp;гостиная открыты, поэтому семья весь день рядом, а&nbsp;спальни и&nbsp;санузлы уходят в&nbsp;глубокий спокойный тон. От&nbsp;порога в&nbsp;доме становится тихо. А&nbsp;вечер здесь собирают наверху&nbsp;— в&nbsp;кинозале на&nbsp;втором этаже.</p>
+      <p class="intro-concept">Дом, в котором вечер наконец принадлежит тебе.</p>
+      <p class="intro-text">Через все 219&nbsp;метров и&nbsp;оба этажа мы&nbsp;провели один цвет: приглушённый оливковый по&nbsp;филёнчатым панелям и&nbsp;тёплое тёмное дерево под&nbsp;ногами. Это неоклассика без&nbsp;музейной строгости. Кухня и&nbsp;гостиная открыты, поэтому семья весь день рядом, а&nbsp;спальни и&nbsp;санузлы уходят в&nbsp;глубокий спокойный тон. От&nbsp;порога в&nbsp;доме становится тихо. А&nbsp;вечер здесь собирают наверху&nbsp;— в&nbsp;кинозале на&nbsp;втором этаже.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Семья: родители и&nbsp;дети, два&nbsp;этажа</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Чтобы от&nbsp;порога было спокойно, а&nbsp;вечер принадлежал семье</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Один цвет через весь дом&nbsp;— приглушённый оливковый и&nbsp;тёплое тёмное дерево. Неоклассика без&nbsp;музейной строгости</div></div>
@@ -206,9 +208,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <section class="gal">
 
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Кухня-гостиная</div>
+    <div class="roomlabel">Кухня-гостиная</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.0"><div class="gframe par"><img src="img/kuhnya-gostinaya-25.jpg" alt="Кухня-гостиная" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.0"><div class="gframe"><img src="img/kuhnya-gostinaya-25.jpg" alt="Кухня-гостиная"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/kuhnya-gostinaya-20.jpg" alt="Кухня-гостиная"></div></div>
@@ -217,9 +219,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Мастер-спальня</div>
+    <div class="roomlabel">Мастер-спальня</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.5"><div class="gframe par"><img src="img/master-spalnya-09.jpg" alt="Мастер-спальня" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/master-spalnya-09.jpg" alt="Мастер-спальня"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/master-spalnya-11.jpg" alt="Мастер-спальня"></div></div>
@@ -227,7 +229,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Мастер-санузел</div>
+    <div class="roomlabel">Мастер-санузел</div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.667"><div class="gframe"><img src="img/master-sanuzel-15.jpg" alt="Мастер-санузел"></div></div>
       <div class="greveal down" style="--ar:0.667"><div class="gframe"><img src="img/master-sanuzel-14.jpg" alt="Мастер-санузел"></div></div>
@@ -235,9 +237,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Детская</div>
+    <div class="roomlabel">Детская</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.5"><div class="gframe par"><img src="img/detskaya-45.jpg" alt="Детская" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/detskaya-45.jpg" alt="Детская"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.667"><div class="gframe"><img src="img/detskaya-46.jpg" alt="Детская"></div></div>
@@ -245,9 +247,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Гостевая спальня</div>
+    <div class="roomlabel">Гостевая спальня</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:2.0"><div class="gframe par"><img src="img/gostevaya-1-30.jpg" alt="Гостевая спальня" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:2.0"><div class="gframe"><img src="img/gostevaya-1-30.jpg" alt="Гостевая спальня"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/gostevaya-1-31.jpg" alt="Гостевая спальня"></div></div>
@@ -255,9 +257,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Гостевая спальня</div>
+    <div class="roomlabel">Гостевая спальня</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.5"><div class="gframe par"><img src="img/gostevaya-2-36.jpg" alt="Гостевая спальня" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/gostevaya-2-36.jpg" alt="Гостевая спальня"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/gostevaya-2-39.jpg" alt="Гостевая спальня"></div></div>
@@ -265,16 +267,16 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Кинозал</div>
+    <div class="roomlabel">Кинозал</div>
     <div class="galrow">
-      <div class="greveal up" style="--ar:1.5"><div class="gframe par"><img src="img/kinozal-56.jpg" alt="Кинозал" data-parallax="0.1"></div></div>
+      <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/kinozal-56.jpg" alt="Кинозал"></div></div>
     </div>
     <div class="galrow">
       <div class="greveal up" style="--ar:1.5"><div class="gframe"><img src="img/kinozal-53.jpg" alt="Кинозал"></div></div>
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Прихожая</div>
+    <div class="roomlabel">Прихожая</div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.625"><div class="gframe"><img src="img/prihozhaya-02.jpg" alt="Прихожая"></div></div>
       <div class="greveal down" style="--ar:0.625"><div class="gframe"><img src="img/prihozhaya-04.jpg" alt="Прихожая"></div></div>
@@ -282,7 +284,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
   </div>
   <div class="room">
-    <div class="roomlabel" data-reveal="fade">Лестница и коридор</div>
+    <div class="roomlabel">Лестница и коридор</div>
     <div class="galrow">
       <div class="greveal up" style="--ar:0.625"><div class="gframe"><img src="img/lestnica-koridor-28.jpg" alt="Лестница и коридор"></div></div>
       <div class="greveal down" style="--ar:0.625"><div class="gframe"><img src="img/lestnica-koridor-27.jpg" alt="Лестница и коридор"></div></div>
@@ -295,20 +297,20 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <!-- 4 · КОНТАКТ -->
 <section class="section section--warm" id="contact"><div class="container">
   <div class="contact">
-    <figure class="cap-photo" data-reveal="scale">
+    <figure class="cap-photo">
       <img src="../../assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
-      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
-      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашем доме</h2>
-      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
-      <form class="cap-form" data-reveal onsubmit="return false">
+      <div class="eyebrow">Консультация с арт-директором</div>
+      <h2 class="h2" style="margin-top:14px">Поговорим о вашем доме</h2>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form" onsubmit="return false">
         <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
         <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
         <button class="btn">Записаться к арт-директору</button>
       </form>
-      <div class="cap-quick" data-reveal="fade">
+      <div class="cap-quick">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
           <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>
