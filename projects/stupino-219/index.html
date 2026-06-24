@@ -58,6 +58,11 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (OH justified rows: ряды равной высоты, full-bleed) ============ */
 .gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(10px,1.1vw,18px)}
+/* СТАТИЧНАЯ ГАЛЕРЕЯ — анимации сняты (обложка не затронута) */
+.gal .greveal{clip-path:none!important;transform:none!important;opacity:1!important}
+.gal .gframe{clip-path:none!important;transform:none!important}
+.gal .gframe img{position:static!important;top:auto!important;left:auto!important;width:100%!important;height:100%!important;transform:none!important;transition:none!important}
+.gal .gframe:hover img{transform:none!important}
 .room{margin-top:clamp(40px,5vw,80px)}
 .room:first-child{margin-top:0}
 .roomlabel{margin:0 0 clamp(16px,1.6vw,24px);padding:0 var(--pad);
@@ -188,13 +193,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 
 <!-- 2 · ИНТРО -->
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Дом, в котором вечер наконец принадлежит тебе.</p>
-      <p class="intro-text" data-reveal>Через все 219&nbsp;метров и&nbsp;оба этажа мы&nbsp;провели один цвет: приглушённый оливковый по&nbsp;филёнчатым панелям и&nbsp;тёплое тёмное дерево под&nbsp;ногами. Это неоклассика без&nbsp;музейной строгости. Кухня и&nbsp;гостиная открыты, поэтому семья весь день рядом, а&nbsp;спальни и&nbsp;санузлы уходят в&nbsp;глубокий спокойный тон. От&nbsp;порога в&nbsp;доме становится тихо. А&nbsp;вечер здесь собирают наверху&nbsp;— в&nbsp;кинозале на&nbsp;втором этаже.</p>
+      <p class="intro-concept">Дом, в котором вечер наконец принадлежит тебе.</p>
+      <p class="intro-text">Через все 219&nbsp;метров и&nbsp;оба этажа мы&nbsp;провели один цвет: приглушённый оливковый по&nbsp;филёнчатым панелям и&nbsp;тёплое тёмное дерево под&nbsp;ногами. Это неоклассика без&nbsp;музейной строгости. Кухня и&nbsp;гостиная открыты, поэтому семья весь день рядом, а&nbsp;спальни и&nbsp;санузлы уходят в&nbsp;глубокий спокойный тон. От&nbsp;порога в&nbsp;доме становится тихо. А&nbsp;вечер здесь собирают наверху&nbsp;— в&nbsp;кинозале на&nbsp;втором этаже.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Семья: родители и&nbsp;дети, два&nbsp;этажа</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Чтобы от&nbsp;порога было спокойно, а&nbsp;вечер принадлежал семье</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Один цвет через весь дом&nbsp;— приглушённый оливковый и&nbsp;тёплое тёмное дерево. Неоклассика без&nbsp;музейной строгости</div></div>
