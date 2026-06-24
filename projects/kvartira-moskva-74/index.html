@@ -58,13 +58,12 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (центрированная masonry, кадры целиком, без обрезки) ============ */
 .gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(14px,1.6vw,26px)}
-.gal .room{max-width:var(--maxw);margin:clamp(44px,5vw,84px) auto 0;padding:0 var(--pad)}
+.gal .room{max-width:1280px;margin:clamp(44px,5vw,84px) auto 0;padding:0 var(--pad)}
 .gal .room:first-child{margin-top:0}
 .roomlabel{margin:0 0 clamp(16px,1.6vw,24px);font-size:.8125rem;font-weight:var(--w-semibold);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
-.masonry{column-count:2;column-gap:var(--g)}
-.masonry .gframe{break-inside:avoid;margin:0 0 var(--g);overflow:hidden;background:var(--surface-warm)}
-.masonry .gframe img{width:100%;height:auto;display:block}
-@media(max-width:760px){.masonry{column-count:1}}
+.masonry{display:flex;flex-direction:column;align-items:center;gap:clamp(18px,2vw,34px)}
+.masonry .gframe{margin:0;width:auto;max-width:100%;overflow:hidden}
+.masonry .gframe img{width:auto;max-width:100%;max-height:84vh;height:auto;display:block}
 
 /* ============ БЛОК 4 · КОНТАКТ / ФОРМА ЗАХВАТА (компонент с главной) ============ */
 .contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
