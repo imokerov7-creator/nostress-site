@@ -58,6 +58,11 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (OH justified rows: ряды равной высоты, full-bleed) ============ */
 .gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(10px,1.1vw,18px)}
+/* СТАТИЧНАЯ ГАЛЕРЕЯ — анимации сняты (обложка не затронута) */
+.gal .greveal{clip-path:none!important;transform:none!important;opacity:1!important}
+.gal .gframe{clip-path:none!important;transform:none!important}
+.gal .gframe img{position:static!important;top:auto!important;left:auto!important;width:100%!important;height:100%!important;transform:none!important;transition:none!important}
+.gal .gframe:hover img{transform:none!important}
 .room{margin-top:clamp(40px,5vw,80px)}
 .room:first-child{margin-top:0}
 .roomlabel{margin:0 0 clamp(16px,1.6vw,24px);padding:0 var(--pad);
@@ -182,13 +187,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <a href="#about" class="cover-cue" aria-label="Листать вниз"></a>
 </section>
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Квартира, где вечер начинается с вида на воду.</p>
-      <p class="intro-text" data-reveal>160 метров в Петербурге для семьи, которая ценит тишину и пространство. Кухня в ореховом шпоне с островом на четверых, техника спрятана за фасадами. Столовая у панорамного окна, за которым город и вода, а гостиную держит стена из дикого камня и низкий модульный диван. Отдельная медиакомната с проектором и кожаными креслами — кино без компромиссов.</p>
+      <p class="intro-concept">Квартира, где вечер начинается с вида на воду.</p>
+      <p class="intro-text">160 метров в Петербурге для семьи, которая ценит тишину и пространство. Кухня в ореховом шпоне с островом на четверых, техника спрятана за фасадами. Столовая у панорамного окна, за которым город и вода, а гостиную держит стена из дикого камня и низкий модульный диван. Отдельная медиакомната с проектором и кожаными креслами — кино без компромиссов.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Семья, ценящая тишину и пространство</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Тишина, пространство, вид на воду</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Ореховый шпон, дикий камень, медиакомната, натуральные материалы</div></div>

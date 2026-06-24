@@ -58,6 +58,11 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ БЛОК 3 · ГАЛЕРЕЯ ПО КОМНАТАМ (OH justified rows: ряды равной высоты, full-bleed) ============ */
 .gal{position:relative;z-index:2;background:var(--paper);padding:clamp(28px,3.5vw,44px) 0 var(--sec-main);--g:clamp(10px,1.1vw,18px)}
+/* СТАТИЧНАЯ ГАЛЕРЕЯ — анимации сняты (обложка не затронута) */
+.gal .greveal{clip-path:none!important;transform:none!important;opacity:1!important}
+.gal .gframe{clip-path:none!important;transform:none!important}
+.gal .gframe img{position:static!important;top:auto!important;left:auto!important;width:100%!important;height:100%!important;transform:none!important;transition:none!important}
+.gal .gframe:hover img{transform:none!important}
 .room{margin-top:clamp(40px,5vw,80px)}
 .room:first-child{margin-top:0}
 .roomlabel{margin:0 0 clamp(16px,1.6vw,24px);padding:0 var(--pad);
@@ -182,13 +187,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <a href="#about" class="cover-cue" aria-label="Листать вниз"></a>
 </section>
 <section class="section" id="about"><div class="container">
-  <div class="eyebrow" data-reveal="fade">О проекте</div>
+  <div class="eyebrow">О проекте</div>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="intro-concept" data-split>Квартира, где вечер наконец-то тихий.</p>
-      <p class="intro-text" data-reveal>74 метра в Москве, где мы убрали лишний шум — и визуальный, и бытовой. Стены держим в тёплом грейже, пол светлый дуб, и свет в комнатах кажется мягче даже в серый день. Кухня открыта в гостиную, поэтому готовить и быть с семьёй можно одновременно. Спальня почти без цвета: здесь спят, а не доделывают дела.</p>
+      <p class="intro-concept">Квартира, где вечер наконец-то тихий.</p>
+      <p class="intro-text">74 метра в Москве, где мы убрали лишний шум — и визуальный, и бытовой. Стены держим в тёплом грейже, пол светлый дуб, и свет в комнатах кажется мягче даже в серый день. Кухня открыта в гостиную, поэтому готовить и быть с семьёй можно одновременно. Спальня почти без цвета: здесь спят, а не доделывают дела.</p>
     </div>
-    <div class="intro-facts" data-stagger>
+    <div class="intro-facts">
       <div class="fact"><div class="k">Для кого</div><div class="v">Семья</div></div>
       <div class="fact"><div class="k">Задача</div><div class="v">Убрать лишний шум — визуальный и бытовой</div></div>
       <div class="fact"><div class="k">Решение</div><div class="v">Тёплый грейж и светлый дуб, открытая кухня-гостиная, скрытое хранение</div></div>
