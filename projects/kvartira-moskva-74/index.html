@@ -65,8 +65,8 @@ section.section--warm{background:var(--surface-warm)}
 /* ряд: ширина каждого кадра ∝ его соотношению сторон (--ar = ширина/высота) → высота в ряду одинаковая */
 .galrow{display:flex;gap:var(--g);margin-top:var(--g)}
 .gal .galrow{justify-content:center}
-.gal .gframe img{transition:none}
-.gal .gframe:hover img{transform:none}
+.gal .gframe img{transition:none!important}
+.gal .gframe:hover img{transform:none!important}
 .room .galrow:first-of-type{margin-top:0}
 .galrow>.greveal{flex:var(--ar,1.5) 1 0;min-width:0}
 .gframe{position:relative;overflow:hidden;background:var(--surface-warm);aspect-ratio:var(--ar,1.5)}
