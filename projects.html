@@ -68,14 +68,19 @@ html.rv .work__cap{opacity:0;transform:translateY(20px);
 html.rv .work.is-in .work__cap{opacity:1;transform:none}
 
 /* ---- CTA В КОНЦЕ СТРАНИЦЫ ---- */
-.cta-band{background:var(--surface-warm);padding-block:clamp(76px,12vw,150px)}
-.cta-inner{display:flex;flex-direction:column;align-items:center;text-align:center}
-.cta-band .eyebrow{margin-bottom:clamp(18px,2vw,26px)}
+.cta-band{position:relative;overflow:hidden;background:var(--ink);padding-block:clamp(104px,15vw,196px)}
+.cta-bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover}
+.cta-scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(17,15,13,.8) 0%,rgba(17,15,13,.66) 44%,rgba(17,15,13,.86) 100%)}
+.cta-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center}
+.cta-band .eyebrow{margin-bottom:clamp(18px,2vw,26px);color:rgba(255,255,255,.82)}
 .cta-h{font-size:clamp(2.1rem,5.4vw,4.6rem);font-weight:var(--w-semibold);
-  line-height:1.02;letter-spacing:-.035em;max-width:16ch}
+  line-height:1.02;letter-spacing:-.035em;max-width:16ch;color:#fff;text-shadow:0 2px 36px rgba(0,0,0,.4)}
 .cta-lead{margin-top:clamp(18px,2vw,26px);max-width:46ch;
-  font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--text-2);line-height:1.5}
-.cta-band .btn{margin-top:clamp(26px,3vw,40px)}
+  font-size:clamp(1.05rem,1.5vw,1.3rem);color:rgba(255,255,255,.9);line-height:1.5;text-shadow:0 1px 22px rgba(0,0,0,.4)}
+.btn{border-radius:var(--r-btn)}
+.cta-band .btn{margin-top:clamp(26px,3vw,40px);background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.cta-band .btn:hover{background:transparent;color:var(--paper);border-color:var(--paper)}
 /* reveal CTA через тот же надёжный IO (.is-in), не через inView */
 html.rv .cta-inner>*{opacity:0;transform:translateY(22px);
   transition:opacity .75s var(--ease),transform .75s var(--ease)}
@@ -111,6 +116,21 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
   .sticky-cta .btn{flex:1;justify-content:center}
 }
+
+/* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» (единое для сайта) ---- */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 </head>
@@ -122,7 +142,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <div class="bar">
     <a href="index.html" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
     <nav class="nav">
-      <a href="projects.html" class="is-active">Проекты</a><a href="index.html#tariffs">Услуги</a><a href="index.html#how">О студии</a><a href="index.html#contact">Контакты</a>
+      <a href="projects.html" class="is-active">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="index.html#how">О студии</a><a href="index.html#contact">Контакты</a>
     </nav>
     <a href="index.html#contact" class="cta">Обсудить идею</a>
   </div>
@@ -138,53 +158,56 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <!-- СЕТКА ПРОЕКТОВ (full-bleed) -->
 <section class="work-sec">
   <div class="work-grid">
-    <!-- ТОП-6 (помечены top6) — впереди -->
-    <a class="work" href="#"><div class="work__media has-video"><img src="assets/img/work-02.jpg" alt="Дом в Ступино, 219 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-02.jpg"><source src="assets/video/work-02.webm" type="video/webm"><source src="assets/video/work-02.mp4" type="video/mp4"></video></div>
+    <!-- ТОП-6 — флагманы -->
+    <a class="work" href="projects/stupino-219/index.html"><div class="work__media has-video"><img src="assets/img/work-02.jpg" alt="Дом в Ступино, 219 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-02.jpg"><source src="assets/video/work-02.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Дом в Ступино <i class="work__arr">↗</i></span><span class="work__meta">219&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media has-video"><img src="assets/img/work-07.jpg" alt="Квартира в Москве, 72 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-07.jpg"><source src="assets/video/work-07.mp4" type="video/mp4"></video></div>
+    <a class="work" href="projects/kvartira-moskva-72/index.html"><div class="work__media has-video"><img src="assets/img/work-07.jpg" alt="Квартира в Москве, 72 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-07.jpg"><source src="assets/video/work-07.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">72&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media has-video"><img src="assets/img/work-11.jpg" alt="Дом в Пушкино, 230 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-11.jpg"><source src="assets/video/work-11.mp4" type="video/mp4"></video></div>
+    <a class="work" href="projects/dom-pushkino-230/index.html"><div class="work__media has-video"><img src="assets/img/work-11.jpg" alt="Дом в Пушкино, 230 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-11.jpg"><source src="assets/video/work-11.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Дом в Пушкино <i class="work__arr">↗</i></span><span class="work__meta">230&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media has-video"><img src="assets/img/work-12.jpg" alt="Квартира в Москве, 101 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-12.jpg"><source src="assets/video/work-12.mp4" type="video/mp4"></video></div>
+    <a class="work" href="projects/kvartira-moskva-101/index.html"><div class="work__media has-video"><img src="assets/img/work-12.jpg" alt="Квартира в Москве, 101 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-12.jpg"><source src="assets/video/work-12.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">101&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media has-video"><img src="assets/img/work-17.jpg" alt="Квартира в Санкт-Петербурге, 38 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-17.jpg"><source src="assets/video/work-17.mp4" type="video/mp4"></video></div>
+    <a class="work" href="projects/kvartira-spb-38/index.html"><div class="work__media has-video"><img src="assets/img/work-17.jpg" alt="Квартира в Санкт-Петербурге, 38 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-17.jpg"><source src="assets/video/work-17.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">38&nbsp;м²</span></div></a>
-    <!-- остальные проекты -->
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-01.jpg" alt="Квартира в Санкт-Петербурге, 95 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">95&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-03.jpg" alt="Дом в Ленинградской области, 145 м²"></div>
-      <div class="work__cap"><span class="work__nm">Дом в Ленинградской области <i class="work__arr">↗</i></span><span class="work__meta">145&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-04.jpg" alt="Квартира в Москве, 74 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">74&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-05.jpg" alt="Квартира в Санкт-Петербурге, 67 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">67&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-06.jpg" alt="Дом в Истре, 125 м²"></div>
-      <div class="work__cap"><span class="work__nm">Дом в Истре <i class="work__arr">↗</i></span><span class="work__meta">125&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-08.jpg" alt="Дом в Пушкино, 106 м²"></div>
-      <div class="work__cap"><span class="work__nm">Дом в Пушкино <i class="work__arr">↗</i></span><span class="work__meta">106&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-09.jpg" alt="Квартира в Санкт-Петербурге, 72 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">72&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-10.jpg" alt="Квартира в Москве, 120 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">120&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-13.jpg" alt="Квартира в Санкт-Петербурге, 74 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">74&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-14.jpg" alt="Квартира в Санкт-Петербурге, 160 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">160&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-15.jpg" alt="Квартира в Москве, 89 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">89&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-16.jpg" alt="Квартира в Москве, 76 м²"></div>
-      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">76&nbsp;м²</span></div></a>
-    <a class="work" href="#"><div class="work__media"><img src="assets/img/work-18.jpg" alt="Спортзал в Санкт-Петербурге, 500 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-18.jpg"><source src="assets/video/work-18.mp4" type="video/mp4"></video></div>
+    <a class="work" href="projects/sportzal-spb-500/index.html"><div class="work__media has-video"><img src="assets/img/work-18.jpg" alt="Спортзал в Санкт-Петербурге, 500 м²"><video class="work__vid" muted loop playsinline preload="none" poster="assets/img/work-18.jpg"><source src="assets/video/work-18.mp4" type="video/mp4"></video></div>
       <div class="work__cap"><span class="work__nm">Спортзал в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">500&nbsp;м²</span></div></a>
+    <!-- ТОП-10 — следующие 4 -->
+    <a class="work" href="projects/dom-pushkino-106/index.html"><div class="work__media"><img src="assets/img/work-08.jpg" alt="Дом в Пушкино, 106 м²"></div>
+      <div class="work__cap"><span class="work__nm">Дом в Пушкино <i class="work__arr">↗</i></span><span class="work__meta">106&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-spb-95/index.html"><div class="work__media"><img src="assets/img/work-01.jpg" alt="Квартира в Санкт-Петербурге, 95 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">95&nbsp;м²</span></div></a>
+    <a class="work" href="projects/dom-lenoblast-145/index.html"><div class="work__media"><img src="assets/img/work-03.jpg" alt="Дом в Ленинградской области, 145 м²"></div>
+      <div class="work__cap"><span class="work__nm">Дом в Ленинградской области <i class="work__arr">↗</i></span><span class="work__meta">145&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-spb-160/index.html"><div class="work__media"><img src="assets/img/work-14.jpg" alt="Квартира в Санкт-Петербурге, 160 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">160&nbsp;м²</span></div></a>
+    <!-- Остальные проекты -->
+    <a class="work" href="projects/dom-istra-125/index.html"><div class="work__media"><img src="assets/img/work-06.jpg" alt="Дом в Истре, 125 м²"></div>
+      <div class="work__cap"><span class="work__nm">Дом в Истре <i class="work__arr">↗</i></span><span class="work__meta">125&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-moskva-74/index.html"><div class="work__media"><img src="assets/img/work-04.jpg" alt="Квартира в Москве, 74 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">74&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-spb-72/index.html"><div class="work__media"><img src="assets/img/work-09.jpg" alt="Квартира в Санкт-Петербурге, 72 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">72&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-moskva-89/index.html"><div class="work__media"><img src="assets/img/work-15.jpg" alt="Квартира в Москве, 89 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">89&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-moskva-120/index.html"><div class="work__media"><img src="assets/img/work-10.jpg" alt="Квартира в Москве, 120 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">120&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-moskva-76/index.html"><div class="work__media"><img src="assets/img/work-16.jpg" alt="Квартира в Москве, 76 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Москве <i class="work__arr">↗</i></span><span class="work__meta">76&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-spb-67/index.html"><div class="work__media"><img src="assets/img/work-05.jpg" alt="Квартира в Санкт-Петербурге, 67 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">67&nbsp;м²</span></div></a>
+    <a class="work" href="projects/kvartira-spb-74/index.html"><div class="work__media"><img src="assets/img/work-13.jpg" alt="Квартира в Санкт-Петербурге, 74 м²"></div>
+      <div class="work__cap"><span class="work__nm">Квартира в Санкт-Петербурге <i class="work__arr">↗</i></span><span class="work__meta">74&nbsp;м²</span></div></a>
   </div>
 </section>
 
 <!-- CTA: подборка проектов под запрос -->
-<section class="cta-band"><div class="container cta-inner">
-  <div class="eyebrow">Подборка под запрос</div>
-  <h2 class="cta-h">Подберём проекты<br>в вашем стиле</h2>
-  <p class="cta-lead">Расскажите про объект&nbsp;— площадь, планировку, что нравится. Соберём похожие работы из&nbsp;нашей базы и&nbsp;покажем, как может выглядеть ваш.</p>
-  <a href="index.html#contact" class="btn">Обсудить идею</a>
+<section class="cta-band">
+  <video class="cta-bg" autoplay muted loop playsinline preload="metadata" poster="assets/img/cta-team.jpg"><source src="assets/video/cta-team.mp4" type="video/mp4"></video>
+  <div class="cta-scrim"></div>
+  <div class="container cta-inner">
+  <h2 class="cta-h">Покажем, каким может быть ваш дом</h2>
+  <p class="cta-lead">Расскажите про объект и&nbsp;что вам нравится. Соберём проекты в&nbsp;вашем духе из&nbsp;тех, что уже сделали,&nbsp;— и&nbsp;вы увидите будущий интерьер ещё до&nbsp;старта.</p>
+  <a href="index.html#contact" class="btn">Получить подборку</a>
 </div></section>
 
 <!-- ФУТЕР -->
@@ -195,7 +218,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="foot-tag">Эстетика, подчинённая логике.</div>
     </div>
     <div class="col"><h4>Навигация</h4>
-      <div><a href="projects.html">Проекты</a></div><div><a href="index.html#tariffs">Услуги</a></div><div><a href="index.html#how">О студии</a></div><div><a href="index.html#contact">Контакты</a></div></div>
+      <div><a href="projects.html">Проекты</a></div><div><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span></div><div><a href="index.html#how">О студии</a></div><div><a href="index.html#contact">Контакты</a></div></div>
     <div class="col"><h4>Контакты</h4>
       <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
   </div>

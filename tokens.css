@@ -166,3 +166,50 @@ hr,.rule{border:none;border-top:var(--bw) solid var(--border);margin-block:var(-
   html{scroll-behavior:auto}
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+
+/* ============================================================
+   НАВИГАЦИЯ САЙТА: выпадающее «Услуги» + мобильное бургер-меню
+   (разметку бургера строит motion.js из ссылок .nav)
+   ============================================================ */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+
+.burger{display:none;position:relative;z-index:75;width:44px;height:44px;flex:none;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.burger span{position:absolute;left:10px;right:10px;height:1.5px;background:#fff;transition:transform .3s var(--ease)}
+.burger span:nth-child(1){top:18px}
+.burger span:nth-child(2){bottom:17px}
+html.menu-open .burger span:nth-child(1){transform:translateY(4px) rotate(45deg)}
+html.menu-open .burger span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:65;background:#161311;padding:110px var(--pad) 44px;overflow:auto;
+  opacity:0;visibility:hidden;transition:opacity .32s var(--ease),visibility 0s linear .32s}
+html.menu-open .mnav{opacity:1;visibility:visible;transition-delay:0s}
+html.menu-open,html.menu-open body{overflow:hidden}
+.mnav__links{display:flex;flex-direction:column;align-items:flex-start}
+.mnav__links>a{color:#fff;font-size:30px;font-weight:var(--w-semibold);letter-spacing:-.025em;line-height:1.1;padding:12px 0}
+.mnav__sub{display:flex;flex-direction:column;align-self:stretch;margin:2px 0 14px;padding-left:20px;border-left:1px solid rgba(252,252,252,.22)}
+.mnav__sub a{color:rgba(255,255,255,.8);font-size:18px;padding:9px 0}
+.mnav__links>*{opacity:0;transform:translateY(16px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+html.menu-open .mnav__links>*{opacity:1;transform:none}
+html.menu-open .mnav__links>*:nth-child(2){transition-delay:.05s}
+html.menu-open .mnav__links>*:nth-child(3){transition-delay:.1s}
+html.menu-open .mnav__links>*:nth-child(4){transition-delay:.15s}
+html.menu-open .mnav__links>*:nth-child(5){transition-delay:.2s}
+html.menu-open .mnav__links>*:nth-child(6){transition-delay:.25s}
+.mnav__cta{margin-top:30px}
+html.menu-open header{z-index:75}
+html.menu-open header::before{opacity:0}
+html.menu-open .bar .cta{opacity:0;pointer-events:none}
+@media (min-width:901px){.burger,.mnav{display:none !important}}
+@media (max-width:900px){.burger{display:block;margin-left:auto}.bar .cta{margin-left:auto}.burger{margin-left:0}}

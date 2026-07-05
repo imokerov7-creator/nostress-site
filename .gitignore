@@ -3,3 +3,8 @@
 node_modules/
 .DS_Store
 *.zip
+*.bak
+*.imgbak
+*.linkbak
+*.orderbak
+*.predeic2bak

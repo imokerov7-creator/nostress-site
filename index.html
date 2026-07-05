@@ -206,10 +206,15 @@ section.section--warm{background:var(--surface-warm)}
 .tcard.mid .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .tcard.mid .btn:hover{background:transparent;color:var(--paper)}
 .tname{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-2);font-weight:var(--w-semibold)}
-.tdesc{font-size:14.5px;color:var(--text-2);margin-top:10px;line-height:1.4}
+.ttag{font-size:15px;color:var(--ink);margin-top:7px;font-weight:var(--w-medium);letter-spacing:-.01em;line-height:1.25}
+.tcard.mid .ttag{color:#fff}
+.tdesc{font-size:14.5px;color:var(--text-2);margin-top:9px;line-height:1.4;min-height:3.05em}
 .tcard.mid .tdesc{color:rgba(252,252,252,.72)}
-.price{font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin:18px 0 2px}
+.price{font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin:16px 0 2px}
 .price small{font-size:.9rem;color:var(--text-2);font-weight:var(--w-medium)}
+.tcard.mid .price small{color:rgba(252,252,252,.7)}
+.tmeta{font-size:13px;color:var(--text-2);margin-top:7px;letter-spacing:.005em;line-height:1.35;min-height:2.5em}
+.tcard.mid .tmeta{color:rgba(252,252,252,.7)}
 .tcard ul{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:11px}
 .tcard li{font-size:14.5px;color:var(--text-2);padding-left:18px;position:relative;line-height:1.4}
 .tcard li::before{content:"—";position:absolute;left:0;color:var(--border)}
@@ -356,6 +361,21 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 @media (max-width:560px){
   .ready{grid-template-columns:1fr}
 }
+
+/* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» (единое для сайта) ---- */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
 </style>
 </head>
 <body>
@@ -399,7 +419,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <div class="bar">
     <a href="#top" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
     <nav class="nav">
-      <a href="#projects">Проекты</a><a href="#tariffs">Услуги</a><a href="#how">О студии</a><a href="#contact">Контакты</a>
+      <a href="#projects">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="#how">О студии</a><a href="#contact">Контакты</a>
     </nav>
     <a href="#contact" class="cta">Обсудить идею</a>
   </div>
@@ -426,18 +446,18 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <h2 class="h2" data-split>Наши проекты</h2>
     </div>
     <div class="hgallery__track">
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-01.jpg" alt="Квартира на Острове"></div>
-        <div class="proj-cap"><span class="nm">Квартира на Острове</span><span>112 м² · 2025</span></div></article>
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-02.jpg" alt="Пентхаус, Symbol"></div>
-        <div class="proj-cap"><span class="nm">Пентхаус, Symbol</span><span>180 м² · 2025</span></div></article>
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-03.jpg" alt="Семейная, Shagal"></div>
-        <div class="proj-cap"><span class="nm">Семейная, Shagal</span><span>96 м² · 2024</span></div></article>
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-04.jpg" alt="Квартира, Зиларт"></div>
-        <div class="proj-cap"><span class="nm">Квартира, Зиларт</span><span>78 м² · 2024</span></div></article>
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-05.jpg" alt="Дом, Новорижское"></div>
-        <div class="proj-cap"><span class="nm">Дом, Новорижское</span><span>240 м² · 2024</span></div></article>
-      <article class="hcard"><div class="hshot"><img src="assets/img/proj-06.jpg" alt="Квартира, Алия"></div>
-        <div class="proj-cap"><span class="nm">Квартира, Алия</span><span>104 м² · 2023</span></div></article>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/stupino-219/index.html"><div class="hshot"><img src="assets/img/proj-01.jpg" alt="Дом в Ступино, 219 м²"></div>
+        <div class="proj-cap"><span class="nm">Дом в Ступино</span><span>219&nbsp;м²</span></div></a>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/kvartira-moskva-72/index.html"><div class="hshot"><img src="assets/img/proj-02.jpg" alt="Квартира в Москве, 72 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Москве</span><span>72&nbsp;м²</span></div></a>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/dom-pushkino-230/index.html"><div class="hshot"><img src="assets/img/proj-03.jpg" alt="Дом в Пушкино, 230 м²"></div>
+        <div class="proj-cap"><span class="nm">Дом в Пушкино</span><span>230&nbsp;м²</span></div></a>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/kvartira-moskva-101/index.html"><div class="hshot"><img src="assets/img/proj-04.jpg" alt="Квартира в Москве, 101 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Москве</span><span>101&nbsp;м²</span></div></a>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/kvartira-spb-38/index.html"><div class="hshot"><img src="assets/img/proj-05.jpg" alt="Квартира в Санкт-Петербурге, 38 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Санкт-Петербурге</span><span>38&nbsp;м²</span></div></a>
+      <a class="hcard" href="../Редизайн%20сайта%202026/Сайт/projects/sportzal-spb-500/index.html"><div class="hshot"><img src="assets/img/proj-06.jpg" alt="Спортзал в Санкт-Петербурге, 500 м²"></div>
+        <div class="proj-cap"><span class="nm">Спортзал в Санкт-Петербурге</span><span>500&nbsp;м²</span></div></a>
       <a class="hcard hcard--all" href="projects.html">
         <div class="hshot--all">
           <div class="all-collage" aria-hidden="true">
@@ -492,27 +512,33 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <div class="tariffs" data-stagger>
     <div class="tcard">
       <div class="tname">Смарт</div>
-      <div class="tdesc">Когда ремонт ведёте сами, а нужен грамотный проект.</div>
-      <div class="price">от 0 000 <small>₽/м²</small></div>
-      <ul><li>Планировка и зонирование</li><li>Визуализации ключевых зон</li><li>Подбор отделки</li></ul>
+      <div class="ttag">Рациональный быстрый старт</div>
+      <div class="tdesc">Аренда, флиппинг и коммерция до&nbsp;300&nbsp;м². Когда нужен грамотный проект для быстрого старта.</div>
+      <div class="price">2 900 <small>₽/м²</small></div>
+      <div class="tmeta">Срок от&nbsp;15 раб. дней&nbsp;· разрабатывает дизайнер</div>
+      <ul><li>Замеры и 1 планировочное решение</li><li>Пакет чертежей для старта стройки</li><li>AI-визуализации интерьера</li><li>Предварительная финкарта</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn btn--ghost">Запросить смету</a>
+      <a href="#contact" class="btn btn--ghost">Узнать подробнее</a>
     </div>
     <div class="tcard hi">
       <div class="tname">Бизнес</div>
-      <div class="tdesc">Полный проект с надзором — строит ваш подрядчик или наш.</div>
-      <div class="price">от 0 000 <small>₽/м²</small></div>
-      <ul><li>Всё из «Смарт»</li><li>Полная рабочая документация</li><li>Авторский надзор</li><li>Спецификации и комплектовочные ведомости</li></ul>
+      <div class="ttag">Эстетика и точный расчёт</div>
+      <div class="tdesc">Квартира для себя в&nbsp;ЖК комфорт+&nbsp;и бизнес, частный дом или коммерция до&nbsp;500&nbsp;м².</div>
+      <div class="price">4 900 <small>₽/м²</small></div>
+      <div class="tmeta">Срок от&nbsp;25 раб. дней&nbsp;· разрабатывает ведущий дизайнер</div>
+      <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Полный пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn">Запросить смету</a>
+      <a href="#contact" class="btn">Узнать подробнее</a>
     </div>
     <div class="tcard mid">
       <div class="tname">Ультра</div>
-      <div class="tdesc">Под ключ: проект, ремонт, мебель и заселение — на нас.</div>
-      <div class="price">от 0 000 <small>₽/м²</small></div>
-      <ul><li>Всё из «Бизнес»</li><li>Индивидуальная мебель</li><li>Комплектация под ключ</li><li>Сопровождение заселения</li></ul>
+      <div class="ttag">Максимальный результат и сервис</div>
+      <div class="tdesc">ЖК бизнес и премиум, дом от&nbsp;300&nbsp;м², коммерция от&nbsp;500&nbsp;м². Всё под ключ.</div>
+      <div class="price">8 900 <small>₽/м²</small></div>
+      <div class="tmeta">Срок от&nbsp;33 раб. дней&nbsp;· разрабатывает арт-директор</div>
+      <ul><li>BIM-обмер 2.0 и расширенные чертежи</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn btn--ghost">Запросить смету</a>
+      <a href="#contact" class="btn btn--ghost">Узнать подробнее</a>
     </div>
   </div>
 </div></section>

@@ -270,3 +270,41 @@
    initReveal, initStagger, initClip, initRevealSwap, initParallax, initCounter]
     .forEach(function (fn) { try { fn(); } catch (e) { console.error("[motion]", fn.name, e); } });
 })();
+
+
+/* ==== МОБИЛЬНОЕ БУРГЕР-МЕНЮ: строится из ссылок .nav (см. tokens.css) ==== */
+(function(){
+  if(document.querySelector('.burger')) return;
+  var bar=document.querySelector('header .bar'), nav=bar&&bar.querySelector('.nav');
+  if(!bar||!nav) return;
+  var btn=document.createElement('button');
+  btn.className='burger'; btn.type='button';
+  btn.setAttribute('aria-label','Меню'); btn.setAttribute('aria-expanded','false');
+  btn.innerHTML='<span></span><span></span>';
+  bar.appendChild(btn);
+  var panel=document.createElement('div'); panel.className='mnav';
+  var links=document.createElement('nav'); links.className='mnav__links';
+  Array.prototype.forEach.call(nav.children, function(el){
+    if(el.classList&&el.classList.contains('has-sub')){
+      var top=el.querySelector('a'), a=document.createElement('a');
+      a.href=top.getAttribute('href'); a.textContent='Услуги'; links.appendChild(a);
+      var sub=document.createElement('div'); sub.className='mnav__sub';
+      el.querySelectorAll('.sub__panel a').forEach(function(s){
+        var c=document.createElement('a'); c.href=s.getAttribute('href'); c.textContent=s.textContent; sub.appendChild(c);
+      });
+      links.appendChild(sub);
+    }else if(el.tagName==='A'){
+      var n=document.createElement('a'); n.href=el.getAttribute('href'); n.textContent=el.textContent; links.appendChild(n);
+    }
+  });
+  var cta=bar.querySelector('.cta');
+  if(cta){var b=document.createElement('a'); b.href=cta.getAttribute('href'); b.textContent=cta.textContent; b.className='cta mnav__cta'; links.appendChild(b);}
+  panel.appendChild(links); document.body.appendChild(panel);
+  function close(){document.documentElement.classList.remove('menu-open');btn.setAttribute('aria-expanded','false');}
+  btn.addEventListener('click',function(){
+    var open=document.documentElement.classList.toggle('menu-open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  panel.addEventListener('click',function(e){ if(e.target.closest('a')) close(); });
+  window.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();

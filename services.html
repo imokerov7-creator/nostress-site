@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Услуги — NoStress Design</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+/* ============ ПОВЕРХ ТОКЕНОВ: страница «Услуги» ============ */
+/* акцент-цвет (как на главной/проектах) — только для CTA в шапке */
+:root{--accent:#6E2A35;--accent-press:#581F28;--on-accent:#FFFFFF;--r-btn:100px}
+
+/* ---- ШАПКА (ЕДИНАЯ ДЛЯ ВСЕГО САЙТА: тёмный градиент, белый логотип) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:60}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(17,15,13,.68) 0%,rgba(17,15,13,.34) 56%,rgba(17,15,13,0) 100%)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(34px,3.4vw,46px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(26px,2.4vw,40px);font-size:clamp(15px,1.15vw,17px);letter-spacing:.005em}
+.nav a{color:#fff;font-weight:450;text-shadow:0 1px 14px rgba(0,0,0,.45);position:relative;padding:2px 0;transition:opacity .3s var(--ease)}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:currentColor;transition:right .3s var(--ease)}
+.nav a:hover::after,.nav a.is-active::after{right:0}
+.cta{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);padding:12px 26px;border-radius:var(--r-btn);font-size:clamp(14px,1.05vw,16px);font-weight:500;letter-spacing:.005em;transition:background-color .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease)}
+.cta:hover{background:var(--accent-press);border-color:var(--accent-press);color:var(--on-accent)}
+
+/* ---- 1 · ГЕРОЙ (фоновое видео команды, тёмный оверлей, белый текст) ---- */
+.intro{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;padding-bottom:clamp(30px,3.6vw,52px)}
+.intro .container{position:relative;z-index:2}
+.intro__media{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--char)}
+.intro__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;
+  filter:brightness(.86) contrast(1.02);            /* команда видна, но мягко приглушена */
+  opacity:0;animation:heroVideoIn 1.8s var(--ease) .15s forwards}
+@keyframes heroVideoIn{to{opacity:1}}
+/* scrim: лёгкая подложка по кадру + усиленный низ только под текстом */
+.intro__media::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(8,8,7,.22)}
+.intro__media::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,8,7,.24) 0%,rgba(8,8,7,0) 30%,rgba(8,8,7,.34) 64%,rgba(8,8,7,.9) 100%)}
+.intro .eyebrow{margin-bottom:clamp(16px,2vw,22px);color:rgba(255,255,255,.82)}
+.intro h1{font-size:clamp(2.7rem,7.6vw,6.6rem);font-weight:var(--w-semibold);
+  line-height:.98;letter-spacing:-.045em;max-width:18ch;color:#fff;
+  text-shadow:0 1px 44px rgba(0,0,0,.34)}
+.intro .lead{max-width:50ch;margin-top:clamp(20px,2.4vw,30px);
+  color:rgba(255,255,255,.92);text-shadow:0 1px 24px rgba(0,0,0,.4)}
+
+/* ---- 2 · ЧЕТЫРЕ НАПРАВЛЕНИЯ (карточки как на странице «Проекты»: фото + подпись под ним) ---- */
+.dirs-sec{padding-top:var(--sec-main);padding-bottom:clamp(120px,14vw,190px)}
+.dirs{display:grid;grid-template-columns:1fr 1fr;column-gap:0;row-gap:clamp(48px,6vw,92px)}
+.dir{display:block;color:inherit}
+.dir__media{position:relative;overflow:hidden;aspect-ratio:3/2;background:var(--surface-warm)}
+.dir__media img{width:100%;height:100%;object-fit:cover;
+  transition:transform 1.05s var(--ease);will-change:transform}
+.dir:hover .dir__media img{transform:scale(1.05)}
+.dir__cap{display:flex;flex-direction:column;align-items:flex-start;
+  padding:clamp(16px,1.4vw,24px) clamp(16px,2.4vw,44px) 0}
+.dir__nm{display:inline-flex;align-items:center;gap:.34em;
+  font-weight:560;font-size:clamp(23px,2.3vw,42px);
+  letter-spacing:-.022em;line-height:1.05;color:var(--ink);
+  transition:transform .55s var(--ease)}
+.dir__arr{font-size:.5em;font-weight:var(--w-medium);opacity:0;transform:translateX(-10px);
+  transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.dir:hover .dir__nm{transform:translateX(12px)}
+.dir:hover .dir__arr{opacity:.5;transform:translateX(0)}
+.dir__meta{margin-top:clamp(9px,.8vw,14px);font-size:clamp(14px,1.05vw,17px);color:var(--text-2)}
+.dir__price{margin-top:clamp(7px,.6vw,11px);font-size:clamp(13px,.95vw,15px);color:var(--text-2);letter-spacing:.005em}
+.dirs-note{text-align:center;margin:clamp(64px,8vw,120px) auto 0;padding:0 var(--pad);
+  display:flex;flex-direction:column;align-items:center;gap:clamp(16px,1.6vw,24px)}
+.dirs-note__eye{font:var(--w-medium) 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--text-2)}
+.dirs-note__h{max-width:22ch;margin:0;font-weight:var(--w-semibold);
+  font-size:clamp(28px,4.4vw,64px);line-height:1.06;letter-spacing:-.035em;color:var(--ink)}
+/* reveal: clip-wipe фото + подпись (как .work на projects) */
+html.rv .dir__media{clip-path:inset(0 0 100% 0);transform:scale(1.04);
+  transition:clip-path 1.05s var(--ease),transform 1.05s var(--ease);will-change:clip-path,transform}
+html.rv .dirs.is-in .dir__media{clip-path:inset(0 0 0 0);transform:none}
+html.rv .dir__cap{opacity:0;transform:translateY(20px);
+  transition:opacity .8s var(--ease) .08s,transform .8s var(--ease) .08s}
+html.rv .dirs.is-in .dir__cap{opacity:1;transform:none}
+html.rv .dirs.is-in .dir:nth-child(2) .dir__media,
+html.rv .dirs.is-in .dir:nth-child(2) .dir__cap{transition-delay:.08s}
+html.rv .dirs.is-in .dir:nth-child(3) .dir__media,
+html.rv .dirs.is-in .dir:nth-child(3) .dir__cap{transition-delay:.14s}
+html.rv .dirs.is-in .dir:nth-child(4) .dir__media,
+html.rv .dirs.is-in .dir:nth-child(4) .dir__cap{transition-delay:.2s}
+
+/* ---- 3 · ПОЛНЫЙ ЦИКЛ — sticky-стек карточек (тёмная сцена, как OH /process) ---- */
+.flow-sec{
+  background:#000;
+  color:#F0ECE4;
+  position:relative;z-index:2;
+  margin-top:clamp(-56px,-4.5vw,-28px);              /* тёмная «шторка» наезжает на светлую секцию выше */
+  border-radius:clamp(20px,3vw,44px) clamp(20px,3vw,44px) 0 0;
+  padding:var(--sec-large) 0 clamp(96px,12vw,140px);
+  --stk-top:clamp(72px,12vh,120px);   /* высота шапки + воздух */
+  --stk-step:14px;                    /* инкремент top — «веер» стопки */
+  --stk-scene:#0c0b0a;                /* почти чёрная карточка (не серая) */
+  --stk-line:rgba(255,255,255,.14);
+  --stk-2:rgba(255,255,255,.6);
+  --stk-3:rgba(255,255,255,.42);
+  -webkit-font-smoothing:antialiased;
+}
+/* full-width: контейнер без max-width; только шапка инсетится по краям */
+.flow-inner{max-width:none;margin:0;padding:0}
+
+.flow-head{max-width:760px;margin:0 0 clamp(40px,6vw,80px);padding-inline:var(--pad)}
+.flow-eyebrow{display:inline-flex;align-items:center;gap:12px;
+  font:var(--w-medium) 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stk-2);margin:0 0 22px}
+.flow-eyebrow::before{content:"";width:26px;height:1.5px;background:var(--accent);display:block}
+.flow-h2{margin:0;font:var(--w-semibold) clamp(34px,5vw,76px)/1.02 var(--sans);
+  letter-spacing:-.025em;color:#fff}
+.flow-sub{margin:22px 0 0;max-width:46ch;
+  font:400 clamp(15px,1.4vw,19px)/1.55 var(--sans);color:var(--stk-2)}
+
+.stk-track{display:flex;flex-direction:column;gap:clamp(20px,4vh,52px)}
+
+/* карточка во всю ширину экрана: картинка слева + контент справа */
+.stk-card{position:relative;z-index:calc(var(--i,0) + 1);display:grid;
+  grid-template-columns:1fr 1fr;align-items:stretch;
+  min-height:clamp(420px,66vh,640px);
+  background:var(--stk-scene);border-top:1.5px solid var(--stk-line);
+  overflow:hidden;transform-origin:center top}
+.stk-card:nth-child(even){background:#070605}
+
+/* sticky-стек включается только при html.rv */
+html.rv .stk-card{position:sticky;top:calc(var(--stk-top) + var(--i,0) * var(--stk-step));
+  will-change:transform;box-shadow:0 -1px 0 rgba(255,255,255,.10);transition:none}
+
+.stk-veil{position:absolute;inset:0;background:var(--ink);
+  opacity:0;pointer-events:none;z-index:3}
+
+/* фото-плашка слева */
+.stk-media{position:relative;overflow:hidden;background:#16150F}
+.stk-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.03);transition:transform 1.1s var(--ease);will-change:transform}
+.stk-card:hover .stk-media img{transform:scale(1.08)}
+/* мягкая граница фото с контентом */
+.stk-media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset -40px 0 60px -40px rgba(0,0,0,.5)}
+
+/* контент справа */
+.stk-body{display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(34px,5vw,84px)}
+.stk-kicker{display:inline-flex;align-items:baseline;gap:14px;margin-bottom:clamp(14px,1.6vw,22px)}
+.stk-tag{display:inline-flex;align-items:center;gap:9px;
+  font:var(--w-medium) 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--stk-3)}
+.stk-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.stk-index{font:var(--w-semibold) clamp(34px,3.6vw,60px)/.9 var(--sans);
+  letter-spacing:-.03em;color:#F0ECE4;font-variant-numeric:tabular-nums}
+.stk-index small{font-size:.3em;font-weight:var(--w-medium);color:var(--stk-3);margin-left:.25em;letter-spacing:.06em}
+.stk-title{margin:0;font:var(--w-semibold) clamp(28px,3.4vw,54px)/1.04 var(--sans);
+  letter-spacing:-.02em;color:#fff}
+.stk-desc{margin:18px 0 0;max-width:42ch;
+  font:400 clamp(15px,1.45vw,19px)/1.55 var(--sans);color:var(--stk-2)}
+
+@media (max-width:760px){
+  .flow-sec{--stk-step:8px;--stk-top:clamp(60px,11vh,92px)}
+  .stk-card{grid-template-columns:1fr;grid-template-rows:auto auto;min-height:auto}
+  .stk-media{aspect-ratio:16/10}
+  .stk-media img{position:absolute}
+  .stk-body{padding:clamp(26px,7vw,40px)}
+  .stk-title{font-size:clamp(24px,6.6vw,34px)}
+  .stk-desc{max-width:100%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html.rv .stk-card{position:relative;top:auto;transform:none!important;will-change:auto;box-shadow:none}
+  .stk-veil{display:none}
+}
+
+.btn{border-radius:var(--r-btn)}
+
+/* ---- 4 · КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной, как на странице проекта) ---- */
+.consult-sec{padding-block:var(--sec-large);background:var(--surface-warm)}
+.contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
+.cap-photo{margin:0;position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--surface-warm)}
+.cap-photo img{width:100%;height:100%;object-fit:cover}
+.cap-photo figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;gap:2px;padding:16px 18px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.cap-photo .pn{font-size:clamp(16px,1.4vw,20px);font-weight:var(--w-semibold);letter-spacing:-.01em}
+.cap-photo .pr{font-size:12.5px;color:rgba(255,255,255,.85);letter-spacing:.02em}
+.cap-body .eyebrow{display:block}
+.cap-body h2{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:1.04;letter-spacing:-.04em;max-width:18ch}
+.cap-body .lead{font-size:clamp(1.05rem,1.4vw,1.25rem);line-height:1.5;color:var(--text-2);max-width:52ch}
+.cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
+.cap-form .ifield{flex:1 1 200px;display:block;width:100%;padding:.9em 0;background:transparent;border:none;border-bottom:var(--bw) solid var(--border);font:inherit;color:var(--ink);transition:border-color var(--dur) var(--ease)}
+.cap-form .ifield::placeholder{color:#9a9a99}
+.cap-form .ifield:focus{outline:none;border-bottom-color:var(--ink)}
+.cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink)}
+.cap-form .btn:hover{background:transparent;color:var(--ink)}
+.cap-quick{margin-top:30px}
+.qlabel{display:block;font-size:13px;letter-spacing:.06em;color:var(--text-2);margin-bottom:14px}
+.messengers{display:flex;gap:12px;flex-wrap:wrap}
+.msg{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);transition:.3s var(--ease)}
+.msg:hover{border-color:var(--ink);color:var(--ink)}
+/* reveal блока консультации через тот же IO (.is-in) */
+html.rv .contact>*{opacity:0;transform:translateY(22px);
+  transition:opacity .75s var(--ease),transform .75s var(--ease)}
+html.rv .consult-sec.is-in .contact>*{opacity:1;transform:none}
+html.rv .consult-sec.is-in .contact>*:nth-child(2){transition-delay:.1s}
+
+/* ---- ИНТРО reveal ---- */
+html.rv .intro .eyebrow,html.rv .intro h1,html.rv .intro .lead{opacity:0;transform:translateY(18px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+html.rv .intro.is-in .eyebrow{opacity:1;transform:none}
+html.rv .intro.is-in h1{opacity:1;transform:none;transition-delay:.08s}
+html.rv .intro.is-in .lead{opacity:1;transform:none;transition-delay:.16s}
+
+
+/* ---- ФУТЕР (как на главной/проектах) ---- */
+footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
+.foot a{color:#b9b9b8}.foot a:hover{color:#fff}
+.foot .col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a7975;margin-bottom:16px;font-weight:var(--w-semibold)}
+.foot .col div{font-size:14.5px;margin-bottom:9px}
+.foot-logo img{height:40px}
+.foot-tag{margin-top:16px;max-width:260px;color:#7a7975;font-size:14px}
+.foot-btm{max-width:var(--maxw);margin:48px auto 0;padding-top:22px;border-top:var(--bw) solid rgba(252,252,252,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7a7975}
+
+/* ---- ПРОГРЕСС-БАР ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:70;transform:scaleX(0);transform-origin:left}
+
+/* ---- STICKY MOBILE CTA ---- */
+.sticky-cta{display:none}
+
+/* ---- АДАПТИВ ---- */
+@media (max-width:900px){
+  .nav{display:none}
+  /* лид героя не должен уходить под фиксированную sticky-кнопку */
+  .intro{padding-bottom:clamp(104px,24vw,150px)}
+  .dirs{grid-template-columns:1fr;gap:clamp(14px,3vw,18px)}
+  .contact{grid-template-columns:1fr;gap:36px}
+  .cap-photo{aspect-ratio:4/3;max-height:60vh}
+  .dir{min-height:auto;gap:clamp(40px,12vw,56px)}
+  .dir__nm{font-size:clamp(26px,7vw,38px)}
+  .dir__more{opacity:1;transform:none}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);
+    border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
+  .sticky-cta .btn{flex:1;justify-content:center}
+}
+
+/* ============ БЛОК БОЛИ · ПОЧЕМУ ОДНА КОМАНДА (editorial) ============ */
+.why-sec{background:var(--paper);padding-block:var(--sec-large)}
+.why{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.why-eyebrow{display:inline-flex;align-items:center;gap:12px;
+  font:var(--w-medium) 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.why-eyebrow::before{content:"";width:26px;height:1.5px;background:var(--accent);display:block}
+.why-h{max-width:900px;margin:clamp(24px,3vw,40px) 0 0;
+  font-weight:560;font-size:clamp(26px,3.4vw,50px);line-height:1.14;letter-spacing:-.02em;color:var(--ink)}
+.why-sub{max-width:560px;margin:clamp(18px,2vw,28px) 0 0;
+  font-size:clamp(17px,1.35vw,21px);line-height:1.5;color:var(--text-2)}
+/* why-sec: появление/уход вынесены на scroll-linked движок Motion (скрипт ниже).
+   Если Motion недоступен / reduced-motion — блок статично виден, без гейта. */
+
+/* ============ РЕНДЕР → РЕАЛЬНОСТЬ (перенос слайдера с главной) ============ */
+.reveal-sec{position:relative;z-index:2;background:var(--ink)}
+.reveal-sticky{position:sticky;top:0;height:100svh;overflow:hidden}
+.reveal-fig{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:var(--surface-warm);cursor:ew-resize;touch-action:pan-y}
+.reveal-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.rv__photo{z-index:1}
+.rv__render{z-index:2;clip-path:inset(0 18% 0 0);will-change:clip-path}
+.rv__divider{position:absolute;top:0;bottom:0;left:82%;width:2px;margin-left:-1px;background:#fff;z-index:3;box-shadow:0 0 18px rgba(0,0,0,.4);transition:opacity .3s var(--ease);will-change:left}
+.rv__handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(0,0,0,.32);cursor:ew-resize}
+.rv__handle::before{content:"‹ ›";font-size:18px;letter-spacing:3px;font-weight:300;color:var(--ink)}
+.rv__scrim{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(0deg,rgba(17,15,13,.82) 0%,rgba(17,15,13,.46) 38%,rgba(17,15,13,.30) 70%,rgba(17,15,13,.30) 100%)}
+.rv__copy{position:absolute;left:50%;bottom:clamp(54px,9vh,104px);transform:translateX(-50%);z-index:4;width:min(92vw,920px);display:flex;flex-direction:column;align-items:center;gap:clamp(22px,2.6vw,32px);text-align:center;pointer-events:none}
+.rv__title{margin:0;color:#fff;font-size:clamp(32px,5vw,76px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.02;text-shadow:0 1px 30px rgba(0,0,0,.5)}
+.rv__cta{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 30px;border:1.5px solid #fff;color:var(--ink);background:#fff;font-size:15px;letter-spacing:.01em;cursor:pointer;transition:background-color .3s var(--ease),color .3s var(--ease)}
+.rv__cta::after{content:"↗";font-size:16px}
+.rv__cta:hover{background:transparent;color:#fff}
+@media(max-width:760px){.reveal-sec{height:auto!important;background:var(--paper)}.reveal-sticky{position:static;height:auto}.reveal-fig{position:relative;inset:auto;height:clamp(380px,80vh,600px)}.rv__render{clip-path:inset(0 50% 0 0)}.rv__divider{left:50%}.rv__title{font-size:clamp(24px,7vw,38px)}.rv__copy{width:88vw;bottom:24px;gap:18px}}
+
+/* ============ ТАКТИЛЬНОСТЬ: press-feedback (Emil) ============ */
+.rv__handle{transition:transform .18s var(--ease)}
+.reveal-fig.is-drag .rv__handle,.rv__handle:active{transform:translate(-50%,-50%) scale(.94)}
+.cta,.msg,.rv__cta,.cap-form .btn{transition-property:background-color,border-color,color,transform;transition-duration:.3s;transition-timing-function:var(--ease)}
+.cta:active,.msg:active,.rv__cta:active,.cap-form .btn:active,.sticky-cta .btn:active{transform:scale(.97);transition-duration:.16s}
+
+
+/* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» (единое для сайта) ---- */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+</style>
+<script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
+</head>
+<body>
+
+<div class="progress"></div>
+
+<header id="top">
+  <div class="bar">
+    <a href="index.html" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="projects.html">Проекты</a><span class="has-sub"><a href="services.html" class="is-active">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="index.html#how">О студии</a><a href="index.html#contact">Контакты</a>
+    </nav>
+    <a href="index.html#contact" class="cta">Обсудить идею</a>
+  </div>
+</header>
+
+<!-- 1 · ГЕРОЙ -->
+<section class="intro">
+  <div class="intro__media">
+    <img src="assets/img/hero-team.jpg" alt="Команда студии NoStress Design">
+  </div>
+  <div class="container">
+    <h1>От приёмки до заселения — одна команда</h1>
+    <p class="lead">Дизайн, ремонт и&nbsp;обстановку берём на&nbsp;себя.<br>Вы&nbsp;возвращаетесь в&nbsp;готовый&nbsp;дом.</p>
+  </div>
+</section>
+
+<!-- 1.5 · ПОЧЕМУ ОДНА КОМАНДА (блок боли, editorial) -->
+<section class="why-sec">
+  <div class="why">
+    <span class="why-eyebrow">Почему одна команда</span>
+    <p class="why-h">Обычно вы сами сводите дизайнера, прораба и&nbsp;мебельщика&nbsp;— и&nbsp;разбираете, кто виноват в&nbsp;переделках и&nbsp;сорванных сроках.</p>
+    <p class="why-sub">Мы ведём весь цикл одной командой. За&nbsp;сроки, качество и&nbsp;результат отвечаем мы, а&nbsp;не&nbsp;вы. Отсюда и&nbsp;название студии.</p>
+  </div>
+</section>
+
+<!-- 2 · ЧЕТЫРЕ НАПРАВЛЕНИЯ (во всю ширину, как на «Проектах») -->
+<section class="dirs-sec">
+  <div class="dirs">
+    <a class="dir" href="design-project.html">
+      <div class="dir__media"><img src="assets/img/dir-01.jpg" alt="Дизайн-проект" loading="lazy"></div>
+      <div class="dir__cap">
+        <span class="dir__nm">Дизайн-проект <i class="dir__arr">↗</i></span>
+        <span class="dir__meta">Разработаем интерьер под&nbsp;ваши сценарии жизни</span>
+        <span class="dir__price">от&nbsp;2&nbsp;900&nbsp;₽/м²</span>
+      </div>
+    </a>
+    <a class="dir" href="remont.html">
+      <div class="dir__media"><img src="assets/img/dir-02.jpg" alt="Ремонт под ключ" loading="lazy"></div>
+      <div class="dir__cap">
+        <span class="dir__nm">Ремонт под ключ <i class="dir__arr">↗</i></span>
+        <span class="dir__meta">Реализуем проект своими бригадами&nbsp;— вы не&nbsp;ищете подрядчиков</span>
+        <span class="dir__price">от&nbsp;25&nbsp;000&nbsp;₽/м²</span>
+      </div>
+    </a>
+    <a class="dir" href="nadzor.html">
+      <div class="dir__media"><img src="assets/img/dir-03.jpg" alt="Авторский надзор" loading="lazy"></div>
+      <div class="dir__cap">
+        <span class="dir__nm">Авторский надзор <i class="dir__arr">↗</i></span>
+        <span class="dir__meta">Выезжаем на&nbsp;площадку и&nbsp;следим, чтобы построили точно по&nbsp;проекту</span>
+        <span class="dir__price">от&nbsp;50&nbsp;000&nbsp;₽ в&nbsp;месяц</span>
+      </div>
+    </a>
+    <a class="dir" href="komplektaciya.html">
+      <div class="dir__media"><img src="assets/img/dir-04.jpg" alt="Комплектация и меблировка" loading="lazy"></div>
+      <div class="dir__cap">
+        <span class="dir__nm">Комплектация и&nbsp;меблировка <i class="dir__arr">↗</i></span>
+        <span class="dir__meta">Подберём чистовые материалы и&nbsp;мебель, договоримся о&nbsp;специальных условиях</span>
+        <span class="dir__price">от&nbsp;40&nbsp;000&nbsp;₽</span>
+      </div>
+    </a>
+  </div>
+  <div class="dirs-note">
+    <span class="dirs-note__eye" data-reveal="fade">Форматы работы</span>
+    <p class="dirs-note__h" data-split>От планировки до заселения — весь путь под ключ. Или только дизайн-проект.</p>
+  </div>
+</section>
+
+<!-- 3 · ПОЛНЫЙ ЦИКЛ (sticky-стек карточек, тёмная сцена) -->
+<section class="flow-sec" id="flow" aria-labelledby="flow-h2">
+  <div class="flow-inner">
+
+    <div class="flow-head">
+      <span class="flow-eyebrow">Полный цикл</span>
+      <h2 class="flow-h2" id="flow-h2">Как мы ведём проект</h2>
+      <p class="flow-sub">От пустой квартиры до&nbsp;готового дома&nbsp;— ведём все пять этапов сами, без передачи на&nbsp;сторону.</p>
+    </div>
+
+    <div class="stk-track">
+
+      <article class="stk-card" style="--i:0">
+        <div class="stk-media"><img src="assets/img/stk-01.jpg" alt="Приёмка квартиры" loading="lazy"></div>
+        <div class="stk-body">
+          <div class="stk-kicker"><span class="stk-tag">Этап</span><span class="stk-index">01<small>/ 05</small></span></div>
+          <h3 class="stk-title">Приёмка</h3>
+          <p class="stk-desc">Принимаем квартиру у&nbsp;застройщика, фиксируем состояние и&nbsp;делаем точные замеры.</p>
+        </div>
+        <div class="stk-veil" aria-hidden="true"></div>
+      </article>
+
+      <article class="stk-card" style="--i:1">
+        <div class="stk-media"><img src="assets/img/stk-02.jpg" alt="Дизайн-проект" loading="lazy"></div>
+        <div class="stk-body">
+          <div class="stk-kicker"><span class="stk-tag">Этап</span><span class="stk-index">02<small>/ 05</small></span></div>
+          <h3 class="stk-title">Дизайн-проект</h3>
+          <p class="stk-desc">Планировка, визуализации и&nbsp;рабочая документация&nbsp;— всё, по&nbsp;чему пойдёт ремонт.</p>
+        </div>
+        <div class="stk-veil" aria-hidden="true"></div>
+      </article>
+
+      <article class="stk-card" style="--i:2">
+        <div class="stk-media"><img src="assets/img/stk-03.jpg" alt="Ремонт под авторским надзором" loading="lazy"></div>
+        <div class="stk-body">
+          <div class="stk-kicker"><span class="stk-tag">Этап</span><span class="stk-index">03<small>/ 05</small></span></div>
+          <h3 class="stk-title">Ремонт</h3>
+          <p class="stk-desc">Отделка строго по&nbsp;проекту&nbsp;— следим за&nbsp;качеством на&nbsp;каждом этапе.</p>
+        </div>
+        <div class="stk-veil" aria-hidden="true"></div>
+      </article>
+
+      <article class="stk-card" style="--i:3">
+        <div class="stk-media"><img src="assets/img/stk-04.jpg" alt="Комплектация: мебель, свет и декор" loading="lazy"></div>
+        <div class="stk-body">
+          <div class="stk-kicker"><span class="stk-tag">Этап</span><span class="stk-index">04<small>/ 05</small></span></div>
+          <h3 class="stk-title">Комплектация</h3>
+          <p class="stk-desc">Мебель, свет и&nbsp;декор: подбираем, заказываем, собираем и&nbsp;расставляем по&nbsp;местам.</p>
+        </div>
+        <div class="stk-veil" aria-hidden="true"></div>
+      </article>
+
+      <article class="stk-card" style="--i:4">
+        <div class="stk-media"><img src="assets/img/stk-05.jpg" alt="Заселение в готовый дом" loading="lazy"></div>
+        <div class="stk-body">
+          <div class="stk-kicker"><span class="stk-tag">Этап</span><span class="stk-index">05<small>/ 05</small></span></div>
+          <h3 class="stk-title">Заселение</h3>
+          <p class="stk-desc">Передаём готовый дом под&nbsp;ключ&nbsp;— остаётся только зайти и&nbsp;жить.</p>
+        </div>
+        <div class="stk-veil" aria-hidden="true"></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 3.5 · РЕНДЕР → РЕАЛЬНОСТЬ (слайдер с главной; скролл ведёт шов, можно и тянуть) -->
+<section class="reveal-sec" style="height:235vh">
+  <div class="reveal-sticky">
+    <figure class="reveal-fig" data-reveal-photo>
+      <img class="rv__photo" src="assets/img/ready-photo.jpg" alt="Фото реализованного объекта" draggable="false">
+      <img class="rv__render" src="assets/img/ready-render.jpg" alt="Визуализация проекта" draggable="false">
+      <div class="rv__divider"><span class="rv__handle"></span></div>
+      <div class="rv__scrim"></div>
+      <div class="rv__copy">
+        <h2 class="rv__title">Проект и&nbsp;реальность совпадают</h2>
+        <a class="rv__cta" href="#contact">Получить презентацию с реализованными проектами</a>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной) -->
+<section class="consult-sec" id="contact"><div class="container">
+  <div class="contact">
+    <figure class="cap-photo">
+      <img src="assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
+      <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
+    </figure>
+    <div class="cap-body">
+      <div class="eyebrow">Консультация с арт-директором</div>
+      <h2 class="h2" style="margin-top:14px">Поговорим о вашей квартире</h2>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form" onsubmit="return false">
+        <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
+        <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
+        <button class="btn">Записаться к арт-директору</button>
+      </form>
+      <div class="cap-quick">
+        <span class="qlabel">или напишите сразу</span>
+        <div class="messengers">
+          <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>
+          <a class="msg" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a>
+          <a class="msg" href="tel:+79856741267">+7 985 674-12-67</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ФУТЕР -->
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="foot-logo"><img src="assets/logo-white.png" alt="NoStress Design"></div>
+      <div class="foot-tag">Эстетика, подчинённая логике.</div>
+    </div>
+    <div class="col"><h4>Навигация</h4>
+      <div><a href="projects.html">Проекты</a></div><div><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span></div><div><a href="index.html#how">О студии</a></div><div><a href="index.html#contact">Контакты</a></div></div>
+    <div class="col"><h4>Контакты</h4>
+      <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+  </div>
+  <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
+</footer>
+
+<div class="sticky-cta"><a href="index.html#contact" class="btn" style="border-radius:var(--r-btn)">Обсудить идею</a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<script src="motion.js"></script>
+
+<!-- надёжный scroll-reveal: свой IntersectionObserver + failsafe (как в projects.html/index.html) -->
+<script>
+(function(){
+  var d=document.documentElement;
+  if(!d.classList.contains('rv')){return;}
+  var els=[].slice.call(document.querySelectorAll('.intro, .dirs, .consult-sec'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(c){c.classList.add('is-in');});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(c){ io.observe(c); });
+  setTimeout(function(){ els.forEach(function(c){ c.classList.add('is-in'); }); },2600); // failsafe
+})();
+</script>
+
+<!-- Блок боли: scroll-linked «вытекание» и уход (Motion-движок). Без Motion / reduced-motion — статично видно. -->
+<script>
+(function(){
+  var M = window.Motion;
+  if(!M || !M.scroll || !M.animate) return;                 // нет движка → блок остаётся статично видимым
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var sec = document.querySelector('.why-sec'); if(!sec) return;
+  var eb = sec.querySelector('.why-eyebrow'),
+      h  = sec.querySelector('.why-h'),
+      sub= sec.querySelector('.why-sub');
+  // keyframes [вход, держим, держим, уход] — opacity гаснет только на реальном уходе за верх
+  if(h)   M.scroll(M.animate(h,   { opacity:[0,1,1,0], y:[64,0,0,-56],
+             filter:['blur(6px)','blur(0px)','blur(0px)','blur(4px)'] }, { ease:'linear' }),
+             { target: sec, offset:['start end','end start'] });
+  if(sub) M.scroll(M.animate(sub, { opacity:[0,1,1,0], y:[88,0,0,-40] }, { ease:'linear' }),
+             { target: sec, offset:['start 0.85','end start'] });
+  if(eb)  M.scroll(M.animate(eb,  { opacity:[0,1,1,0], y:[30,0,0,-24] }, { ease:'linear' }),
+             { target: sec, offset:['start end','end 0.35'] });
+})();
+</script>
+
+<!-- FLOW sticky-stack: карточки наезжают стопкой (классический IIFE, file://). -->
+<script>
+(function () {
+  var root = document.documentElement;
+  var sec = document.getElementById('flow');
+  if (!sec) return;
+  if (!root.classList.contains('rv')) return;        // нет rv (reduced-motion / no-JS-эквивалент) → обычный список
+
+  var cards = Array.prototype.slice.call(sec.querySelectorAll('.stk-card'));
+  if (!cards.length) return;
+
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var ticking = false;
+
+  function clear() {
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].style.transform = '';
+      cards[i].style.filter = '';
+      var v = cards[i].querySelector('.stk-veil');
+      if (v) v.style.opacity = '0';
+    }
+  }
+
+  function update() {
+    ticking = false;
+    if (mq.matches) { clear(); return; }
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var next = cards[i + 1];
+      var veil = card.querySelector('.stk-veil');
+      if (!next) {                                    // последняя не уезжает под низ
+        card.style.transform = 'translateZ(0)';
+        card.style.filter = '';
+        if (veil) veil.style.opacity = '0';
+        continue;
+      }
+      var h = card.offsetHeight || 1;
+      var gap = next.getBoundingClientRect().top - card.getBoundingClientRect().top;
+      var p = (h - gap) / h;                          // 0 → не накрыта, ~1 → под стопкой
+      if (p < 0) p = 0; else if (p > 1) p = 1;
+      var s = 1 - 0.06 * p;                           // чуть глубже scale-down к .94
+      var ty = -10 * p;                               // лёгкий подъём накрываемой карточки
+      card.style.transform = 'translateZ(0) translateY(' + ty.toFixed(1) + 'px) scale(' + s.toFixed(4) + ')';
+      if (veil) veil.style.opacity = (0.6 * p).toFixed(3);
+    }
+  }
+
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  if (mq.addEventListener) mq.addEventListener('change', onScroll);
+  else if (mq.addListener) mq.addListener(onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
