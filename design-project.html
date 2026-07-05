@@ -158,7 +158,13 @@ html.rv .stk-card{position:sticky;top:calc(var(--stk-top) + var(--i,0) * var(--s
   font:var(--w-medium) 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--stk-3)}
 
 @media (max-width:760px){
-  .flow-sec{--stk-step:8px;--stk-top:clamp(60px,11vh,92px)}
+  .flow-sec{--stk-step:8px;--stk-top:clamp(60px,11vh,92px);
+    --stk-3:rgba(255,255,255,.6)}                     /* мобайл: контраст подписей сроков */
+  /* мобайл: без sticky-веера — обычный вертикальный поток, без полосок-обрезков */
+  .stk-card,html.rv .stk-card{position:static!important;transform:none!important;
+    will-change:auto;box-shadow:none;filter:none!important}
+  .stk-track{height:auto!important}
+  .stk-veil{display:none}
   .stk-card{grid-template-columns:1fr;grid-template-rows:auto auto;min-height:auto}
   .stk-media{aspect-ratio:16/10}
   .stk-media img{position:absolute}
@@ -226,9 +232,16 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 /* ---- STICKY MOBILE CTA ---- */
 .sticky-cta{display:none}
 
+/* подсказка про пакеты: на десктопе hover-текст, на мобиле tap-текст */
+.hint-mobile{display:none}
+
 /* ---- АДАПТИВ ---- */
 @media (max-width:900px){
   .nav{display:none}
+  .hint-desktop{display:none}
+  .hint-mobile{display:inline}
+  #sys-h br{display:none}                             /* мобайл: без принудительного переноса */
+  .cap-form .ifield::placeholder{color:#6E6862}
   /* лид героя не должен уходить под фиксированную sticky-кнопку */
   .intro{padding-bottom:clamp(104px,24vw,150px)}
   .dirs{grid-template-columns:1fr;gap:clamp(14px,3vw,18px)}
@@ -633,7 +646,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
     <div class="sys__head">
       <span class="sys__eyebrow">Рабочая документация</span>
       <h2 class="sys__h">Из чего состоит альбом проекта</h2>
-      <p class="sys__lead">Глубина рабочей документации зависит от&nbsp;тарифа. Наведите на&nbsp;пакет&nbsp;— увидите полный состав альбома для каждого.</p>
+      <p class="sys__lead">Глубина рабочей документации зависит от&nbsp;тарифа. <span class="hint-desktop">Наведите на&nbsp;пакет&nbsp;— увидите полный состав альбома для каждого.</span><span class="hint-mobile">Раскройте пакет&nbsp;— внутри полный состав альбома.</span></p>
     </div>
 
     <div class="pkg-rail">
@@ -900,7 +913,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
   <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
 </footer>
 
-<div class="sticky-cta"><a href="index.html#contact" class="btn" style="border-radius:var(--r-btn)">Обсудить идею</a></div>
+<div class="sticky-cta"><a href="#contact" class="btn" style="border-radius:var(--r-btn)">Обсудить идею</a></div>
 
 <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
 <script src="motion.js"></script>
@@ -1018,6 +1031,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
   if (!cards.length) return;
 
   var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mqMobile = window.matchMedia('(max-width: 760px)');   // мобайл: веер выключен, поток
   var ticking = false;
 
   function clear() {
@@ -1031,7 +1045,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
 
   function update() {
     ticking = false;
-    if (mq.matches) { clear(); return; }
+    if (mq.matches || mqMobile.matches) { clear(); return; }
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
       var next = cards[i + 1];
@@ -1058,6 +1072,8 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
   window.addEventListener('resize', onScroll, { passive: true });
   if (mq.addEventListener) mq.addEventListener('change', onScroll);
   else if (mq.addListener) mq.addListener(onScroll);
+  if (mqMobile.addEventListener) mqMobile.addEventListener('change', onScroll);
+  else if (mqMobile.addListener) mqMobile.addListener(onScroll);
   update();
 })();
 </script>

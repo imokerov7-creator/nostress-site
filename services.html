@@ -156,7 +156,10 @@ html.rv .stk-card{position:sticky;top:calc(var(--stk-top) + var(--i,0) * var(--s
   font:400 clamp(15px,1.45vw,19px)/1.55 var(--sans);color:var(--stk-2)}
 
 @media (max-width:760px){
-  .flow-sec{--stk-step:8px;--stk-top:clamp(60px,11vh,92px)}
+  .flow-sec{--stk-step:8px;--stk-top:clamp(60px,11vh,92px);height:auto!important}
+  /* пиннинг стопки выключен: этапы обычным вертикальным потоком, без полосок-обрезков */
+  html.rv .stk-card,.stk-card{position:static!important;top:auto!important;transform:none!important;box-shadow:none}
+  .stk-veil{display:none}
   .stk-card{grid-template-columns:1fr;grid-template-rows:auto auto;min-height:auto}
   .stk-media{aspect-ratio:16/10}
   .stk-media img{position:absolute}
@@ -229,6 +232,10 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .nav{display:none}
   /* лид героя не должен уходить под фиксированную sticky-кнопку */
   .intro{padding-bottom:clamp(104px,24vw,150px)}
+  /* плейсхолдеры формы читабельнее на мобиле */
+  .cap-form .ifield::placeholder{color:#6E6862}
+  /* scale(1.04) пре-ревила карточек не должен давать горизонтальный скролл */
+  .dirs-sec{overflow-x:clip}
   .dirs{grid-template-columns:1fr;gap:clamp(14px,3vw,18px)}
   .contact{grid-template-columns:1fr;gap:36px}
   .cap-photo{aspect-ratio:4/3;max-height:60vh}

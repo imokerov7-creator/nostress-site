@@ -212,4 +212,26 @@ html.menu-open header{z-index:75}
 html.menu-open header::before{opacity:0}
 html.menu-open .bar .cta{opacity:0;pointer-events:none}
 @media (min-width:901px){.burger,.mnav{display:none !important}}
-@media (max-width:900px){.burger{display:block;margin-left:auto}.bar .cta{margin-left:auto}.burger{margin-left:0}}
+@media (max-width:900px){
+  /* хедерная CTA скрыта — остаётся только в бургер-меню; бургер прижат вправо */
+  .bar>.cta{display:none}
+  .burger{display:block;margin-left:auto}
+  /* пилюля CTA внутри бургер-меню (не наследует 30px/паддинги ссылок) */
+  .mnav__links>.mnav__cta{font-size:20px;padding:16px 34px;line-height:1}
+  /* solid-шапка после hero (класс hdr-solid ставит motion.js) */
+  html.hdr-solid header::before{background:var(--paper);height:100%;opacity:1}
+  html.hdr-solid header{border-bottom:1px solid var(--border)}
+  html.hdr-solid .logo img{filter:invert(1)}
+  html.hdr-solid .burger span{background:var(--ink)}
+  /* при открытом меню шапка стоит над тёмной панелью — вернуть светлые элементы */
+  html.menu-open header::before{opacity:0}
+  html.menu-open header{border-bottom-color:transparent}
+  html.menu-open .logo img{filter:none!important}
+  html.menu-open .burger span{background:#fff!important}
+  /* sticky-CTA: появляется после hero, прячется у контакта/футера (класс ставит motion.js) */
+  .sticky-cta{transition:transform .3s var(--ease)}
+  html.sticky-hidden .sticky-cta{transform:translateY(110%)}
+  /* тач-зоны футера */
+  .foot .col div a{display:inline-block;padding:9px 0}
+  .foot .col div{margin-bottom:2px}
+}

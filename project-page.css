@@ -162,3 +162,11 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
   .sticky-cta .btn{flex:1;justify-content:center}
 }
+
+/* ---- МОБИЛЬНЫЕ ФИКСЫ ---- */
+@media (max-width:760px){
+  /* лента «Другие проекты»: левая кромка карточек не прилипает к краю экрана */
+  .hgallery__track{padding-left:20px;scroll-padding-left:20px}
+  /* плейсхолдеры формы: контраст (Stone) */
+  .cap-form .ifield::placeholder{color:#6E6862}
+}

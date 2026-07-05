@@ -108,6 +108,8 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 /* ---- АДАПТИВ ---- */
 @media (max-width:900px){
   .nav{display:none}
+  /* финальный баннер: усиленный оверлей — текст читается на любом кадре видео */
+  .cta-scrim{background:linear-gradient(180deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.68) 44%,rgba(0,0,0,.88) 100%)}
   .work-grid{grid-template-columns:1fr;row-gap:clamp(40px,9vw,64px)}
   .work__cap{padding-inline:var(--pad)}
   .work__nm{font-size:clamp(23px,5.8vw,36px)}

@@ -247,6 +247,21 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta .btn{flex:1;justify-content:center}
 }
 
+/* ---- МОБИЛЬНЫЕ ФИКСЫ ---- */
+@media (max-width:760px){
+  /* галерея «визуализация/реализация»: только первые 6 пар (объекты 3–4 скрыты) */
+  #done .objs>.obj:nth-of-type(n+3){display:none}
+  /* подводка «слева/справа» врёт на мобиле (фото стоят вертикально) — скрываем,
+     лейблы «Визуализация/Реализация» остаются на самих кадрах */
+  #done .gal__sub{display:none}
+  /* «Изнанка»: единый квадратный аспект + последний кадр во всю ширину — без дыры в сетке */
+  .gal__grid--proc .g{aspect-ratio:1}
+  .gal__grid--proc .g img{object-fit:cover}
+  .gal__grid--proc .g:last-child{grid-column:1/-1;aspect-ratio:16/10}
+  /* осиротевший пилл в hero */
+  .hm-tag{display:none}
+}
+
 /* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» (единое для сайта) ---- */
 .nav .has-sub{position:relative;display:inline-flex;align-items:center}
 .nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}

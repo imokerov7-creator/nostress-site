@@ -174,6 +174,7 @@
 
   /* ---- 8d. ШИРОКИЙ КАДР: рендер «сходит» по скроллу, проступает фото ---- */
   function initRevealSwap() {
+    var MOBILE_BA = matchMedia("(max-width:760px)").matches;   // на мобиле скролл-привязка выключена
     $$("[data-reveal-photo]").forEach(function (fig) {
       var sec = fig.closest(".reveal-sec") || fig;
       var render = $(".rv__render", fig), divider = $(".rv__divider", fig);
@@ -187,7 +188,8 @@
       apply(100);
       // 1) СКРОЛЛ ведёт слайдер 100%→0% и доходит до САМОГО конца, пока блок ещё закреплён;
       //    затем готовый кадр «держится» на экране (раскрепление при 235vh — около 57%).
-      if (REDUCE) { apply(50); }
+      //    Мобилка (≤760px): блок не закреплён — скролл-привязку не запускаем, шов 50/50, drag остаётся.
+      if (REDUCE || MOBILE_BA) { apply(50); }
       else scroll(function (p) {
         if (dragging) return;
         apply(lerp(100, 0, clamp01((p - 0.10) / (0.46 - 0.10))));
@@ -307,4 +309,46 @@
   });
   panel.addEventListener('click',function(e){ if(e.target.closest('a')) close(); });
   window.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+
+
+/* ==== МОБИЛЬНЫЕ ФИКСЫ: solid-шапка после hero + sticky-CTA (см. tokens.css) ==== */
+(function(){
+  var mq = matchMedia('(max-width:900px)');
+  var html = document.documentElement;
+  var sticky = document.querySelector('.sticky-cta');
+  var hideZone = false, ticking = false;
+
+  function update(){
+    ticking = false;
+    if(!mq.matches){ html.classList.remove('hdr-solid'); html.classList.remove('sticky-hidden'); return; }
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    /* шапка: после hero (~0.8 экрана) — белая подложка, тёмный логотип */
+    html.classList.toggle('hdr-solid', y > window.innerHeight * 0.8);
+    /* sticky-CTA: показать после hero (0.7 экрана), спрятать у контакта/футера */
+    if(sticky) html.classList.toggle('sticky-hidden', !(y > window.innerHeight * 0.7) || hideZone);
+  }
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+
+  if(mq.matches && sticky) html.classList.add('sticky-hidden');   // начальное состояние — скрыт
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  if(mq.addEventListener) mq.addEventListener('change', onScroll);
+  else if(mq.addListener) mq.addListener(onScroll);
+
+  /* контакт/футер во вьюпорте → sticky-CTA прячется */
+  if(sticky && 'IntersectionObserver' in window){
+    var zones = [];
+    var c = document.getElementById('contact'); if(c) zones.push(c);
+    var f = document.querySelector('footer');   if(f) zones.push(f);
+    if(zones.length){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ e.target.__stkVis = e.isIntersecting; });
+        hideZone = zones.some(function(z){ return z.__stkVis; });
+        onScroll();
+      });
+      zones.forEach(function(z){ io.observe(z); });
+    }
+  }
+  update();
 })();
