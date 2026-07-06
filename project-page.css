@@ -170,3 +170,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   /* плейсхолдеры формы: контраст (Stone) */
   .cap-form .ifield::placeholder{color:#6E6862}
 }
+
+/* ЕДИНЫЙ СТИЛЬ КНОПОК: пилюли 100px, поля 12px (канон сайта) */
+.btn,.msg{border-radius:100px}
+.ifield{border-radius:12px}
