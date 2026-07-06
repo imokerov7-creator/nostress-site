@@ -278,6 +278,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .chapter{position:relative;z-index:2}
 .chapter__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
 .chapter__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.chapter__img--photo{display:none}
 .chapter__veil{position:absolute;inset:0;background:#000;opacity:.5;z-index:1}
 .chapter__copy{position:relative;z-index:2;max-width:1100px;padding:0 var(--pad);text-align:center;color:#fff;will-change:transform,opacity}
 .ch-eyebrow{font-size:.92rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;margin-bottom:26px;font-weight:var(--w-semibold)}
@@ -345,8 +346,15 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .hgallery{height:auto!important}
   .hgallery__sticky{position:static;height:auto;display:block;padding:90px 0 20px}
   .hgallery__head{margin-bottom:24px}
-  .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch}
+  .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch;scroll-padding-inline:var(--pad)}
   .hcard{width:78vw;scroll-snap-align:start}
+  /* главы-сцены без пиннинга: один экран, контент виден сразу */
+  .chapter{height:auto!important}
+  .chapter__sticky{position:static;height:100svh}
+  .chapter__copy,html.rv .chapter__copy{opacity:1!important;transform:none!important}
+  .chapter__img--photo{display:block}
+  .chapter__img--video{display:none}
+  .chapter--reel .chapter__copy{padding-bottom:120px}
   .hscrollhint{display:none}
   .steps{grid-template-columns:1fr 1fr;row-gap:36px}
   .ready{grid-template-columns:1fr 1fr}
@@ -547,9 +555,11 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <!-- 5 · ОДНА КОМАНДА (видео команды на фоне + ключевые цифры) -->
 <section class="chapter chapter--reel" id="how" style="height:190vh">
   <div class="chapter__sticky">
-    <video class="chapter__img" autoplay muted loop playsinline preload="auto" poster="assets/team_dark_poster.jpg">
-      <source src="assets/team_dark.mp4" type="video/mp4">
+    <img class="chapter__img chapter__img--photo" src="assets/img/team-mobile.jpg" alt="Команда NoStress Design">
+    <video class="chapter__img chapter__img--video" autoplay muted loop playsinline preload="none" poster="assets/team_dark_poster.jpg">
+      <source data-src="assets/team_dark.mp4" type="video/mp4">
     </video>
+    <script>(function(){var v=document.currentScript.previousElementSibling;if(matchMedia('(min-width:901px)').matches){var s=v.querySelector('source');s.src=s.getAttribute('data-src');v.load();v.play&&v.play().catch(function(){});}else{v.remove();}})();</script>
     <div class="chapter__veil"></div>
     <div class="chapter__copy">
       <p class="ch-state ch-state--how">
@@ -574,11 +584,14 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
         <h2 class="h2" data-split>Наша история</h2>
       </div>
       <div class="hg-head-r" data-reveal>
-        <p class="hg-lead">Рассказываем без прикрас, как студия росла&nbsp;— от первых заказов до 600+&nbsp;реализованных проектов. Девять глав, написанных по&nbsp;ходу пути.</p>
-        <a class="hg-more" href="https://nostress-design.ru/about" target="_blank" rel="noopener">Узнать больше о компании <span>↗</span></a>
+        <p class="hg-lead">Рассказываем без прикрас, как студия росла&nbsp;— от первых заказов до 600+&nbsp;реализованных проектов. Одиннадцать глав, написанных по&nbsp;ходу пути.</p>
+        <a class="hg-more" href="about.html">Узнать больше о компании <span>↗</span></a>
       </div>
     </div>
     <div class="hgallery__track">
+      <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/440538-kak-poluchit-krasivyy-dizayn-proekt-za-2-nedeli-i-30-tysyach-rubley" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-00.png" alt="Введение — Создание NoStress Design"></div>
+        <div class="story-cap"><span class="story-ch">Введение</span><span class="story-tt">Создание NoStress&nbsp;Design</span><span class="story-read">Читать статью ↗</span></div></a>
       <a class="hcard hcard--story" href="https://vc.ru/u/1217323-no-stress-design/560941-kak-odna-studiya-rynok-dizayna-intererov-menyala-glava-1-pervye-polgoda-raboty" target="_blank" rel="noopener">
         <div class="hshot"><img src="assets/img/story-01.jpg" alt="Глава 1 — Первые полгода работы"></div>
         <div class="story-cap"><span class="story-ch">Глава 1</span><span class="story-tt">Первые полгода работы</span><span class="story-read">Читать статью ↗</span></div></a>
@@ -606,6 +619,9 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <a class="hcard hcard--story" href="https://vc.ru/life/2694631-kak-studiya-dizayna-intererov-spravlyaetsya-s-krizisom" target="_blank" rel="noopener">
         <div class="hshot"><img src="assets/img/story-09.jpg" alt="Глава 9 — Яма"></div>
         <div class="story-cap"><span class="story-ch">Глава 9</span><span class="story-tt">Яма</span><span class="story-read">Читать статью ↗</span></div></a>
+      <a class="hcard hcard--story" href="https://vc.ru/life/2984461-peresborka-studii-dizayna-intererov" target="_blank" rel="noopener">
+        <div class="hshot"><img src="assets/img/story-10.png" alt="Глава 10 — Пересборка"></div>
+        <div class="story-cap"><span class="story-ch">Глава 10</span><span class="story-tt">Пересборка</span><span class="story-read">Читать статью ↗</span></div></a>
     </div>
   </div>
 </section>

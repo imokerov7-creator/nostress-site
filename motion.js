@@ -57,6 +57,7 @@
   /* ---- 4. ГЛАВЫ: full-bleed зум фона + плывущий текст ---- */
   function initChapters() {
     if (REDUCE) return;
+    if (matchMedia('(max-width:900px)').matches) return; // мобилка: главы статичны, без скролл-сцен
     $$(".chapter").forEach(function (ch) {
       var img = $(".chapter__img", ch), veil = $(".chapter__veil", ch), copy = $(".chapter__copy", ch);
       var T = { target: ch, offset: ["start start", "end start"] };
@@ -229,7 +230,7 @@
     $$("[data-count]").forEach(function (el) {
       var end = parseInt(el.getAttribute("data-count"), 10) || 0;
       var suf = el.getAttribute("data-count-suffix") || "";
-      if (REDUCE) { el.textContent = end + suf; return; }
+      if (REDUCE || matchMedia('(max-width:900px)').matches) { el.textContent = end + suf; return; } // мобилка: цифры сразу финальные
       var host = el.closest(".chapter") || el;
       var upd = function () {
         var r = host.getBoundingClientRect();
