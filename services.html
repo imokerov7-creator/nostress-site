@@ -323,7 +323,10 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <!-- 1 · ГЕРОЙ -->
 <section class="intro">
   <div class="intro__media">
-    <img src="assets/img/hero-team.jpg" alt="Команда студии NoStress Design">
+    <picture>
+      <source media="(max-width:900px)" srcset="assets/img/hero-team-mobile.jpg">
+      <img src="assets/img/hero-team.jpg" alt="Команда студии NoStress Design">
+    </picture>
   </div>
   <div class="container">
     <h1>От приёмки до заселения — одна команда</h1>

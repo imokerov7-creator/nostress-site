@@ -234,4 +234,6 @@ html.menu-open .bar .cta{opacity:0;pointer-events:none}
   /* тач-зоны футера */
   .foot .col div a{display:inline-block;padding:9px 0}
   .foot .col div{margin-bottom:2px}
+  /* мобильный футер компактный: навигация есть в бургере — оставляем эмблему и контакты */
+  .foot>.col:nth-child(2){display:none}
 }
