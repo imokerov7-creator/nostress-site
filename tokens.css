@@ -261,8 +261,9 @@ html.lead-open,html.lead-open body{overflow:hidden}
 /* ---- Мобильный блок контакта: фото компактно, форма видна сразу ---- */
 @media (max-width:760px){
   #contact .contact{gap:24px}
-  #contact .cap-photo{aspect-ratio:auto;height:200px;max-height:200px}
-  #contact .cap-photo img{object-position:50% 22%}
+  #contact .cap-photo{aspect-ratio:auto;height:230px;max-height:230px}
+  /* фото уже плотно скадрировано — прижимаем к верху, чтобы не резать голову */
+  #contact .cap-photo img{object-position:50% 4%}
 }
 
 /* ---- Иконка Telegram в мобильной шапке (лого по центру) ---- */
