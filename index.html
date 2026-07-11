@@ -130,8 +130,8 @@ section.section--warm{background:var(--surface-warm)}
 /* ховер главы: фото затемняется, «Читать статью» по центру (фидбэк Кирилла 11.07.26) */
 .hcard--story .hshot::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(17,15,13,0);transition:background-color .55s var(--ease)}
 .hcard--story:hover .hshot::after{background:rgba(17,15,13,.52)}
-.hcard--story .hshot::before{content:"Читать статью ↗";position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:clamp(14px,1.05vw,16px);letter-spacing:.02em;opacity:0;transform:translateY(6px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
-.hcard--story:hover .hshot::before{opacity:1;transform:none}
+.hcard--story .hshot::before{content:"Читать статью ↗";position:absolute;left:50%;top:50%;z-index:2;transform:translate(-50%,-50%) translateY(6px);background:var(--paper);color:var(--ink);padding:12px 24px;border-radius:100px;font-size:clamp(13.5px,1vw,15px);font-weight:var(--w-medium);letter-spacing:.005em;white-space:nowrap;opacity:0;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.hcard--story:hover .hshot::before{opacity:1;transform:translate(-50%,-50%)}
 @media (max-width:900px){
   .hgallery--story .hgallery__head{flex-direction:column;align-items:flex-start;gap:16px}
   .hg-head-l,.hg-head-r{max-width:none}
@@ -217,11 +217,17 @@ section.section--warm{background:var(--surface-warm)}
 .tf-col li{font-size:14.5px;color:var(--text-2);line-height:1.4;padding:11px 0;
   border-top:var(--bw) solid var(--border);transition:color .55s var(--ease),border-color .55s var(--ease)}
 .tf-spacer{flex:1}
-.tf-col .link{margin-top:clamp(24px,2.8vw,36px);align-self:flex-start;font-size:15px;transition:color .55s var(--ease)}
+.tf-btn{margin-top:clamp(24px,2.8vw,36px);align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;
+  padding:13px 28px;border:1.5px solid var(--ink);border-radius:var(--r-btn);color:var(--ink);
+  font-size:15px;font-weight:var(--w-medium);letter-spacing:.005em;
+  transition:background-color .55s var(--ease),color .55s var(--ease),border-color .55s var(--ease)}
+.tf-btn:hover{background:var(--ink);color:var(--paper)}
 /* инверсия текста — только на устройствах с курсором; на таче колонки статичные светлые */
 @media (hover:hover) and (pointer:fine){
   .tf-col:hover::before{transform:scaleY(1)}
-  .tf-col:hover .tf-name,.tf-col:hover .tf-tag,.tf-col:hover .tf-price,.tf-col:hover .link{color:var(--paper)}
+  .tf-col:hover .tf-name,.tf-col:hover .tf-tag,.tf-col:hover .tf-price{color:var(--paper)}
+  .tf-col:hover .tf-btn{border-color:var(--paper);color:var(--paper)}
+  .tf-col:hover .tf-btn:hover{background:var(--paper);color:var(--ink)}
   .tf-col:hover .tf-idx,.tf-col:hover .tf-desc,.tf-col:hover .tf-meta,.tf-col:hover li,.tf-col:hover .tf-price small{color:rgba(252,252,252,.72)}
   .tf-col:hover li{border-color:rgba(252,252,252,.22)}
 }
@@ -515,7 +521,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;15 раб. дней&nbsp;· разрабатывает дизайнер</div>
       <ul><li>Замеры и 1 планировочное решение</li><li>Пакет чертежей для старта стройки</li><li>AI-визуализации интерьера</li><li>Предварительная финкарта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="link">Узнать подробнее</a>
+      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">02</div>
@@ -526,7 +532,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;25 раб. дней&nbsp;· разрабатывает ведущий дизайнер</div>
       <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Полный пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="link">Узнать подробнее</a>
+      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">03</div>
@@ -537,7 +543,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;33 раб. дней&nbsp;· разрабатывает арт-директор</div>
       <ul><li>BIM-обмер 2.0 и расширенные чертежи</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="link">Узнать подробнее</a>
+      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
     </article>
   </div>
 </div></section>

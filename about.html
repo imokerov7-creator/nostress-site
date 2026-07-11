@@ -133,8 +133,8 @@ section.section--warm{background:var(--surface-warm)}
 /* ховер главы: фото затемняется, «Читать статью» по центру (фидбэк Кирилла 11.07.26) */
 .hcard--story .hshot::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(17,15,13,0);transition:background-color .55s var(--ease)}
 .hcard--story:hover .hshot::after{background:rgba(17,15,13,.52)}
-.hcard--story .hshot::before{content:"Читать статью ↗";position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:clamp(14px,1.05vw,16px);letter-spacing:.02em;opacity:0;transform:translateY(6px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
-.hcard--story:hover .hshot::before{opacity:1;transform:none}
+.hcard--story .hshot::before{content:"Читать статью ↗";position:absolute;left:50%;top:50%;z-index:2;transform:translate(-50%,-50%) translateY(6px);background:var(--paper);color:var(--ink);padding:12px 24px;border-radius:100px;font-size:clamp(13.5px,1vw,15px);font-weight:var(--w-medium);letter-spacing:.005em;white-space:nowrap;opacity:0;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.hcard--story:hover .hshot::before{opacity:1;transform:translate(-50%,-50%)}
 @media (max-width:900px){
   .hgallery--story .hgallery__head{flex-direction:column;align-items:flex-start;gap:16px}
   .hg-head-l,.hg-head-r{max-width:none}
@@ -629,7 +629,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <section class="section section--warm founder" id="founder"><div class="container">
   <div class="founder__grid">
     <figure class="founder__photo" data-reveal="scale">
-      <img src="assets/img/founders.jpg?v=2" alt="Илья Мокеров и Кирилл Судибор, основатели студии NoStress Design">
+      <img src="assets/img/founders.jpg?v=3" alt="Илья Мокеров и Кирилл Судибор, основатели студии NoStress Design">
     </figure>
     <div class="founder__body">
       <div class="eyebrow" data-reveal="fade">Слово основателей</div>

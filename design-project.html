@@ -319,11 +319,17 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .tf-col li{font-size:14.5px;color:var(--text-2);line-height:1.4;padding:11px 0;
   border-top:var(--bw) solid var(--border);transition:color .55s var(--ease),border-color .55s var(--ease)}
 .tf-spacer{flex:1}
-.tf-col .link{margin-top:clamp(24px,2.8vw,36px);align-self:flex-start;font-size:15px;transition:color .55s var(--ease)}
+.tf-btn{margin-top:clamp(24px,2.8vw,36px);align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;
+  padding:13px 28px;border:1.5px solid var(--ink);border-radius:var(--r-btn);color:var(--ink);
+  font-size:15px;font-weight:var(--w-medium);letter-spacing:.005em;
+  transition:background-color .55s var(--ease),color .55s var(--ease),border-color .55s var(--ease)}
+.tf-btn:hover{background:var(--ink);color:var(--paper)}
 /* инверсия текста — только на устройствах с курсором; на таче колонки статичные светлые */
 @media (hover:hover) and (pointer:fine){
   .tf-col:hover::before{transform:scaleY(1)}
-  .tf-col:hover .tf-name,.tf-col:hover .tf-tag,.tf-col:hover .tf-price,.tf-col:hover .link{color:var(--paper)}
+  .tf-col:hover .tf-name,.tf-col:hover .tf-tag,.tf-col:hover .tf-price{color:var(--paper)}
+  .tf-col:hover .tf-btn{border-color:var(--paper);color:var(--paper)}
+  .tf-col:hover .tf-btn:hover{background:var(--paper);color:var(--ink)}
   .tf-col:hover .tf-idx,.tf-col:hover .tf-desc,.tf-col:hover .tf-meta,.tf-col:hover li,.tf-col:hover .tf-price small{color:rgba(252,252,252,.72)}
   .tf-col:hover li{border-color:rgba(252,252,252,.22)}
 }
@@ -615,7 +621,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;100 000&nbsp;₽&nbsp;· срок от&nbsp;15 раб. дней&nbsp;· дизайнер</div>
       <ul><li>Замеры и 1 планировочное решение</li><li>Базовый пакет чертежей</li><li>AI-визуализации интерьера</li><li>Предварительная финансовая карта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="link tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">02</div>
@@ -626,7 +632,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;200 000&nbsp;₽&nbsp;· срок от&nbsp;25 раб. дней&nbsp;· ведущий дизайнер</div>
       <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Основной пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="link tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">03</div>
@@ -637,7 +643,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;500 000&nbsp;₽&nbsp;· срок от&nbsp;33 раб. дней&nbsp;· арт-директор</div>
       <ul><li>BIM-обмер 2.0 и расширенный пакет чертежей</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="link tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
     </article>
   </div>
   <div class="tcustom">
