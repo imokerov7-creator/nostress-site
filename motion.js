@@ -439,7 +439,7 @@
 
   // Кнопки-CTA, ведущие на #contact → попап (простые ссылки навигации не трогаем)
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('a.btn[href$="#contact"], a.cta[href$="#contact"], a.rv__cta[href$="#contact"], a.mnav__cta[href$="#contact"]');
+    var a = e.target.closest('a.btn[href$="#contact"], a.cta[href$="#contact"], a.rv__cta[href$="#contact"], a.mnav__cta[href$="#contact"], a.tf-cta[href$="#contact"]');
     if (!a) return;
     e.preventDefault();
     openModal();
