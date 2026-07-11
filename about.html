@@ -467,8 +467,8 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .hgallery--story .hshot{aspect-ratio:3/4}
 
 /* === Блок «Слово основателя» (портрет + манифест) === */
-.founder__grid{display:grid;grid-template-columns:clamp(240px,26vw,360px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
-.founder__photo{margin:0;overflow:hidden;aspect-ratio:3/4;background:var(--paper)}
+.founder__grid{display:grid;grid-template-columns:clamp(280px,30vw,430px) 1fr;gap:clamp(36px,5vw,72px);align-items:stretch}
+.founder__photo{margin:0;overflow:hidden;background:var(--paper);height:100%;min-height:420px}
 .founder__photo img{width:100%;height:100%;object-fit:cover}
 .founder__q{margin:0;padding:0;border:0}
 .founder__final{color:var(--ink)}
@@ -477,7 +477,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .founder__sign .fs-rl{font-size:13px;color:var(--text-2)}
 @media(max-width:900px){
   .founder__grid{grid-template-columns:1fr;gap:clamp(26px,6vw,36px);align-items:start}
-  .founder__photo{max-width:min(76vw,340px)}
+  .founder__photo{max-width:min(76vw,340px);height:auto;min-height:0;aspect-ratio:3/4}
 }
 </style>
 
@@ -568,7 +568,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     <div class="stat"><div class="stat__n" data-n="600" data-suf="+">600+</div><div class="stat__l">реализованных проектов</div></div>
     <div class="stat"><div class="stat__n" data-n="51">51</div><div class="stat__l">человек в&nbsp;команде</div></div>
     <div class="stat"><div class="stat__n" data-n="5" data-suf="&nbsp;лет">5&nbsp;лет</div><div class="stat__l">на&nbsp;рынке</div></div>
-    <div class="stat"><div class="stat__n" data-n="12">12</div><div class="stat__l">городов</div></div>
+    <div class="stat"><div class="stat__n" data-n="12">12</div><div class="stat__l">городов на&nbsp;карте наших проектов</div></div>
   </div>
 </div></section>
 
@@ -625,22 +625,22 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   </div>
 </section>
 
-<!-- 6.5 · СЛОВО ОСНОВАТЕЛЯ (манифест) -->
+<!-- 6.5 · СЛОВО ОСНОВАТЕЛЕЙ (манифест) -->
 <section class="section section--warm founder" id="founder"><div class="container">
   <div class="founder__grid">
     <figure class="founder__photo" data-reveal="scale">
-      <img src="assets/img/founder.jpg" alt="Илья Мокеров, основатель студии NoStress Design">
+      <img src="assets/img/founders.jpg" alt="Илья Мокеров и Кирилл Судибор, основатели студии NoStress Design">
     </figure>
     <div class="founder__body">
-      <div class="eyebrow" data-reveal="fade">Слово основателя</div>
+      <div class="eyebrow" data-reveal="fade">Слово основателей</div>
       <blockquote class="founder__q">
         <p class="mf-h" data-split>«Творчество остаётся творчеством, а&nbsp;процесс становится системой»</p>
         <p class="mf-sub" data-reveal>В&nbsp;дизайне интерьера много хаоса. Сроки плывут, смета удивляет в&nbsp;конце, решения принимаются на&nbsp;ходу. Мы строим студию иначе: проект разделён на&nbsp;понятные блоки&nbsp;— визуальный, технический, финансовый. Каждый этап согласовывается с&nbsp;вами, бюджет посчитан до&nbsp;начала ремонта.</p>
         <p class="mf-sub founder__final" data-reveal>NoStress Design&nbsp;— это когда красиво значит удобно, а&nbsp;«под ключ» значит вовремя.</p>
       </blockquote>
       <div class="founder__sign" data-reveal="fade">
-        <span class="fs-nm">Илья Мокеров</span>
-        <span class="fs-rl">основатель студии</span>
+        <span class="fs-nm">Илья Мокеров и&nbsp;Кирилл Судибор</span>
+        <span class="fs-rl">основатели студии</span>
       </div>
     </div>
   </div>
