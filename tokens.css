@@ -237,3 +237,45 @@ html.menu-open .bar .cta{opacity:0;pointer-events:none}
   /* мобильный футер компактный: навигация есть в бургере — оставляем эмблему и контакты */
   .foot>.col:nth-child(2){display:none}
 }
+
+/* ================= ПОПАП ЗАЯВКИ (общий, строится в motion.js) ================= */
+.lead-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden;pointer-events:none}
+.lead-modal__veil{position:absolute;inset:0;background:rgba(17,15,13,.56);opacity:0;transition:opacity .4s var(--ease)}
+.lead-modal__panel{position:relative;z-index:1;width:min(520px,100%);background:var(--paper);padding:clamp(30px,4vw,48px);opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+html.lead-open .lead-modal{visibility:visible;pointer-events:auto}
+html.lead-open .lead-modal__veil{opacity:1}
+html.lead-open .lead-modal__panel{opacity:1;transform:none}
+html.lead-open,html.lead-open body{overflow:hidden}
+.lead-modal__close{position:absolute;top:12px;right:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;cursor:pointer;font-size:19px;line-height:1;color:var(--text-2);transition:color .3s var(--ease)}
+.lead-modal__close:hover{color:var(--ink)}
+.lead-modal__h{margin:12px 0 0;font-size:clamp(24px,2.4vw,32px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.lead-modal__p{margin:14px 0 0;font-size:15.5px;line-height:1.5;color:var(--text-2)}
+.lead-modal__form{margin-top:24px;display:flex;flex-direction:column;gap:14px}
+.lead-modal__form .btn{justify-content:center;margin-top:6px}
+.lead-modal__panel.is-done .lead-modal__form,
+.lead-modal__panel.is-done .lead-modal__eyebrow,
+.lead-modal__panel.is-done .lead-modal__lead{display:none}
+.cap-thanks{font-size:17px;line-height:1.55;color:var(--ink)}
+.cap-thanks b{font-weight:var(--w-semibold)}
+
+/* ---- Мобильный блок контакта: фото компактно, форма видна сразу ---- */
+@media (max-width:760px){
+  #contact .contact{gap:24px}
+  #contact .cap-photo{aspect-ratio:auto;height:200px;max-height:200px}
+  #contact .cap-photo img{object-position:50% 22%}
+}
+
+/* ---- Иконка Telegram в мобильной шапке (лого по центру) ---- */
+.bar-tg{display:none}
+@media (max-width:900px){
+  header .bar{position:relative}
+  .bar .logo{position:absolute;left:50%;transform:translateX(-50%)}
+  .bar-tg{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;position:relative;z-index:75;color:#fff;transition:color .3s var(--ease)}
+  html.hdr-solid .bar-tg{color:var(--ink)}
+  html.menu-open .bar-tg{color:#fff!important}
+}
+
+/* ---- Контакты внизу бургер-меню ---- */
+.mnav__contacts{margin-top:34px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.mnav__contacts .mnav-tel{color:#fff;font-size:24px;font-weight:var(--w-semibold);letter-spacing:-.01em}
+.mnav__contacts a{color:rgba(255,255,255,.82);font-size:17px}

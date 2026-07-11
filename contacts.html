@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Контакты — NoStress Design</title>
+<meta name="description" content="Как связаться со студией NoStress Design: телефон, Telegram, MAX, почта. Отзывы на открытых площадках, вакансии и соцсети студии.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+/* ============ ПОВЕРХ ТОКЕНОВ: страница «Контакты» ============ */
+/* акцент-цвет (как на главной) — только для CTA в шапке */
+:root{--accent:#6E2A35;--accent-press:#581F28;--on-accent:#FFFFFF;--r-btn:100px;--r-input:12px}
+
+/* ---- ШАПКА (ЕДИНАЯ ДЛЯ ВСЕГО САЙТА: тёмный градиент, белый логотип) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:60}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(17,15,13,.68) 0%,rgba(17,15,13,.34) 56%,rgba(17,15,13,0) 100%)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(34px,3.4vw,46px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(26px,2.4vw,40px);font-size:clamp(15px,1.15vw,17px);letter-spacing:.005em}
+.nav a{color:#fff;font-weight:450;text-shadow:0 1px 14px rgba(0,0,0,.45);position:relative;padding:2px 0;transition:opacity .3s var(--ease)}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:currentColor;transition:right .3s var(--ease)}
+.nav a:hover::after,.nav a.is-active::after{right:0}
+.cta{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);padding:12px 26px;border-radius:var(--r-btn);font-size:clamp(14px,1.05vw,16px);font-weight:500;letter-spacing:.005em;transition:background-color .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease)}
+.cta:hover{background:var(--accent-press);border-color:var(--accent-press);color:var(--on-accent)}
+.btn{border-radius:var(--r-btn)}
+.field{padding:.85em 1em;border:var(--bw) solid var(--border);border-radius:var(--r-input);background:var(--paper)}
+.field:focus{border-color:var(--ink);border-bottom-color:var(--ink)}
+.msg{border-radius:var(--r-btn)}
+
+/* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» (единое для сайта) ---- */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+
+/* ---- ИНТРО-БЛОК ---- */
+.intro{padding-top:clamp(120px,15vh,184px);padding-bottom:clamp(40px,5vw,72px)}
+.intro .eyebrow{margin-bottom:clamp(16px,2vw,22px)}
+.intro h1{font-size:clamp(3rem,8.5vw,7.2rem);font-weight:var(--w-semibold);
+  line-height:.95;letter-spacing:-.045em}
+.intro .lead{max-width:52ch;margin-top:clamp(18px,2.2vw,28px)}
+
+/* ---- ХАБ: блок = левая шапка + правые строки-ссылки ---- */
+.hub{padding-block:clamp(56px,8vw,104px)}
+.hub__grid{display:grid;grid-template-columns:minmax(260px,1fr) 1.7fr;gap:clamp(32px,5vw,96px);align-items:start}
+.hub__head .h3{margin-top:14px;max-width:14ch}
+.hub__head .lead{margin-top:16px;max-width:38ch}
+
+.hrows{display:flex;flex-direction:column;border-top:var(--bw) solid var(--border)}
+.hrow{display:grid;grid-template-columns:1fr auto auto;align-items:baseline;gap:clamp(16px,2vw,32px);
+  padding:clamp(20px,2.6vw,34px) 0;border-bottom:var(--bw) solid var(--border);color:inherit}
+.hrow__t{font-size:clamp(1.35rem,2.6vw,2.35rem);font-weight:var(--w-semibold);letter-spacing:-.025em;
+  line-height:1.08;transition:transform .55s var(--ease)}
+.hrow__m{font-size:clamp(13px,1vw,15px);color:var(--text-2);letter-spacing:.01em;white-space:nowrap;
+  transition:color .55s var(--ease)}
+.hrow__a{font-size:clamp(1rem,1.4vw,1.3rem);font-weight:var(--w-medium);color:var(--text-2);
+  opacity:.35;transform:translate(-8px,6px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease),color .55s var(--ease)}
+.hrow:hover .hrow__t{transform:translateX(14px)}
+.hrow:hover .hrow__m{color:var(--ink)}
+.hrow:hover .hrow__a{opacity:1;transform:none;color:var(--ink)}
+
+/* тёмная секция «Работа в NoStress» */
+.hire{background:var(--ink);color:var(--paper);padding-block:clamp(88px,12vw,160px)}
+.hire .eyebrow{color:rgba(252,252,252,.6)}
+.hire__grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,96px);align-items:end}
+.hire__h{margin-top:14px;font-size:clamp(2.1rem,5.2vw,4.4rem);font-weight:var(--w-semibold);
+  line-height:1.02;letter-spacing:-.035em;max-width:15ch;color:#fff}
+.hire__lead{margin-top:clamp(18px,2vw,26px);max-width:46ch;color:#b9b9b8;
+  font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5}
+.hire__side{display:flex;justify-content:flex-end}
+.hire .btn{border-color:var(--paper);background:var(--paper);color:var(--ink);
+  transition:background-color .55s var(--ease),color .55s var(--ease),border-color .55s var(--ease)}
+.hire .btn:hover{background:transparent;color:var(--paper)}
+
+/* ---- КОНТАКТ (арт-директор, как на about) ---- */
+.contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
+.cap-photo{margin:0;position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--surface-warm)}
+.cap-photo img{width:100%;height:100%;object-fit:cover}
+.cap-photo figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;gap:2px;padding:16px 18px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.cap-photo .pn{font-size:clamp(16px,1.4vw,20px);font-weight:var(--w-semibold);letter-spacing:-.01em}
+.cap-photo .pr{font-size:12.5px;color:rgba(255,255,255,.85);letter-spacing:.02em}
+.cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
+.cap-form .field{flex:1 1 200px;margin:0}
+.cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+.cap-quick{margin-top:30px}
+.qlabel{display:block;font-size:13px;letter-spacing:.06em;color:var(--text-2);margin-bottom:14px}
+.messengers{display:flex;gap:12px;flex-wrap:wrap}
+.msg{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);transition:.5s var(--ease)}
+.msg:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ---- ФУТЕР (как на главной) ---- */
+footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
+.foot a{color:#b9b9b8}.foot a:hover{color:#fff}
+.foot .col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a7975;margin-bottom:16px;font-weight:var(--w-semibold)}
+.foot .col div{font-size:14.5px;margin-bottom:9px}
+.foot-logo img{height:40px}
+.foot-tag{margin-top:16px;max-width:260px;color:#7a7975;font-size:14px}
+.foot-btm{max-width:var(--maxw);margin:48px auto 0;padding-top:22px;border-top:var(--bw) solid rgba(252,252,252,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7a7975}
+
+/* ---- ПРОГРЕСС-БАР ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:70;transform:scaleX(0);transform-origin:left}
+
+/* ---- STICKY MOBILE CTA ---- */
+.sticky-cta{display:none}
+
+/* ---- АДАПТИВ ---- */
+@media (max-width:900px){
+  .nav{display:none}
+  .hub__grid{grid-template-columns:1fr;gap:clamp(24px,6vw,36px)}
+  .hub__head .h3,.hub__head .lead{max-width:none}
+  .hrow{grid-template-columns:1fr auto;row-gap:4px}
+  .hrow__m{grid-column:1;grid-row:2;white-space:normal}
+  .hrow__a{grid-column:2;grid-row:1}
+  .hrow:hover .hrow__t{transform:none}
+  .hire__grid{grid-template-columns:1fr;align-items:start;gap:32px}
+  .hire__side{justify-content:flex-start}
+  .contact{grid-template-columns:1fr;gap:40px}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);
+    border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
+  .sticky-cta .btn{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="progress"></div>
+
+<header id="top">
+  <div class="bar">
+    <a href="index.html" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="projects.html">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="about.html">О студии</a><a href="contacts.html" class="is-active">Контакты</a>
+    </nav>
+    <a href="#contact" class="cta">Обсудить идею</a>
+  </div>
+</header>
+
+<!-- 1 · ИНТРО -->
+<section class="intro"><div class="container">
+  <div class="eyebrow" data-reveal="fade">Контакты</div>
+  <h1 data-split>Мы на связи</h1>
+  <p class="lead" data-reveal>Пишите в&nbsp;мессенджеры, звоните или оставьте заявку внизу страницы&nbsp;— отвечаем в&nbsp;течение рабочего дня.</p>
+</div></section>
+
+<!-- 2 · СВЯЗАТЬСЯ -->
+<section class="hub" id="connect"><div class="container">
+  <div class="hub__grid">
+    <div class="hub__head">
+      <div class="eyebrow" data-reveal="fade">01 — Связаться</div>
+      <h2 class="h3" data-split>Напишите или позвоните</h2>
+      <p class="lead" data-reveal>Любой канал ведёт к&nbsp;живому человеку из&nbsp;команды, не&nbsp;к&nbsp;боту.</p>
+    </div>
+    <div class="hrows" data-stagger>
+      <a class="hrow" href="tel:+79856741267">
+        <span class="hrow__t">+7 985 67-412-67</span><span class="hrow__m">телефон</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://t.me/NoStress_Design" target="_blank" rel="noopener">
+        <span class="hrow__t">Telegram</span><span class="hrow__m">@NoStress_Design</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">
+        <span class="hrow__t">MAX</span><span class="hrow__m">мессенджер</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="mailto:info@nostress-design.ru">
+        <span class="hrow__t">info@nostress-design.ru</span><span class="hrow__m">почта</span><span class="hrow__a">↗</span></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3 · ОТЗЫВЫ -->
+<section class="hub section--warm" id="reviews"><div class="container">
+  <div class="hub__grid">
+    <div class="hub__head">
+      <div class="eyebrow" data-reveal="fade">02 — Отзывы</div>
+      <h2 class="h3" data-split>Что о нас пишут</h2>
+      <p class="lead" data-reveal>Отзывы клиентов на&nbsp;открытых площадках&nbsp;— как есть, без отбора.</p>
+    </div>
+    <div class="hrows" data-stagger>
+      <a class="hrow" href="https://yandex.ru/profile/192637125167" target="_blank" rel="noopener">
+        <span class="hrow__t">Яндекс Карты</span><span class="hrow__m">рейтинг и отзывы</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://2gis.ru/moscow/firm/70000001110748048" target="_blank" rel="noopener">
+        <span class="hrow__t">2ГИС</span><span class="hrow__m">отзывы о студии</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://www.avito.ru/brands/i254617686" target="_blank" rel="noopener">
+        <span class="hrow__t">Авито</span><span class="hrow__m">профиль студии</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://flatica.ru/pro/nostress-design" target="_blank" rel="noopener">
+        <span class="hrow__t">Флатика</span><span class="hrow__m">ex-Houzz</span><span class="hrow__a">↗</span></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 4 · РАБОТА В NOSTRESS -->
+<section class="hire" id="hire"><div class="container">
+  <div class="hire__grid">
+    <div>
+      <div class="eyebrow" data-reveal="fade">03 — Работа в NoStress</div>
+      <h2 class="hire__h" data-split>Ищем сильных в команду</h2>
+      <p class="hire__lead" data-reveal>Дизайнеры, проектировщики, комплектаторы и&nbsp;менеджеры&nbsp;— команда растёт вместе с&nbsp;проектами. Открытые вакансии и&nbsp;условия&nbsp;— на&nbsp;отдельной странице.</p>
+    </div>
+    <div class="hire__side" data-reveal>
+      <a class="btn" href="https://nostress-design.ru/hr" target="_blank" rel="noopener">Смотреть вакансии ↗</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 5 · МЫ В СОЦСЕТЯХ -->
+<section class="hub" id="social"><div class="container">
+  <div class="hub__grid">
+    <div class="hub__head">
+      <div class="eyebrow" data-reveal="fade">04 — Мы в соцсетях</div>
+      <h2 class="h3" data-split>Проекты и процесс</h2>
+      <p class="lead" data-reveal>Показываем готовые интерьеры, стройку и&nbsp;жизнь студии&nbsp;— в&nbsp;наших каналах.</p>
+    </div>
+    <div class="hrows" data-stagger>
+      <a class="hrow" href="https://t.me/design_bez_stressa" target="_blank" rel="noopener">
+        <span class="hrow__t">Telegram-канал</span><span class="hrow__m">«Дизайн без стресса»</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="https://www.pinterest.com/nostress_design" target="_blank" rel="noopener">
+        <span class="hrow__t">Pinterest</span><span class="hrow__m">@nostress_design</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="#">
+        <span class="hrow__t">Дзен</span><span class="hrow__m">статьи студии</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="#">
+        <span class="hrow__t">YouTube</span><span class="hrow__m">видео о проектах</span><span class="hrow__a">↗</span></a>
+      <a class="hrow" href="#">
+        <span class="hrow__t">Instagram</span><span class="hrow__m">портфолио и процесс</span><span class="hrow__a">↗</span></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 6 · КОНТАКТ (консультация с арт-директором) -->
+<section class="section" id="contact"><div class="container">
+  <div class="contact">
+    <figure class="cap-photo" data-reveal="scale">
+      <img src="assets/img/alena.jpg" alt="Алёна, арт-директор студии NoStress Design">
+      <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
+    </figure>
+    <div class="cap-body">
+      <div class="eyebrow" data-reveal="fade">Консультация</div>
+      <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
+      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
+      <form class="cap-form" data-reveal onsubmit="return false">
+        <input class="field" placeholder="Как к вам обращаться">
+        <input class="field" placeholder="+7 ___ ___-__-__">
+        <button class="btn">Отправить</button>
+      </form>
+      <div class="cap-quick" data-reveal="fade">
+        <span class="qlabel">или напишите сразу</span>
+        <div class="messengers">
+          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 7 · ФУТЕР -->
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="foot-logo"><img src="assets/logo-white.png" alt="NoStress Design"></div>
+      <div class="foot-tag">Эстетика, подчинённая логике.</div>
+    </div>
+    <div class="col"><h4>Навигация</h4>
+      <div><a href="projects.html">Проекты</a></div><div><a href="services.html">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="contacts.html">Контакты</a></div></div>
+    <div class="col"><h4>Контакты</h4>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+  </div>
+  <div class="foot-btm"><span>© 2022–2026 NoStress Design</span><span>Москва</span></div>
+</footer>
+
+<div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
+
+<!-- Motion UMD-глобал (как на главной) -->
+<script src="assets/motion-lib.js"></script>
+<script src="motion.js"></script>
+
+</body>
+</html>

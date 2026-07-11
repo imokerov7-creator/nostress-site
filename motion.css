@@ -56,6 +56,12 @@ html.has-cursor,html.has-cursor *{cursor:none!important}
 .marquee__inner{display:inline-flex;gap:1.2em;animation:marquee 28s linear infinite;will-change:transform}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+/* ---- ФОЛБЭК ГАЛЕРЕЙ: нативный горизонтальный скролл (нет Motion / reduced-motion) ---- */
+html.hg-static .hgallery{height:auto!important}
+html.hg-static .hgallery__sticky{position:static;height:auto;overflow:visible}
+html.hg-static .hgallery__track{overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-bottom:12px;transform:none!important}
+html.hg-static .hgallery__track>*{scroll-snap-align:start}
+
 /* ---- УТИЛИТЫ ---- */
 [data-stagger]>*{will-change:transform,opacity}
 
@@ -68,5 +74,11 @@ html.has-cursor,html.has-cursor *{cursor:none!important}
   .js-motion [data-clip] img{transform:none!important}
   .cursor{display:none!important}
   html.has-cursor,html.has-cursor *{cursor:auto!important}
-  .marquee__inner{animation:none!important}
+  /* marquee ЖК не глушим: медленная декоративная строка, статичной выглядит сломанной */
 }
+
+/* ---- СТРЕЛКИ КАРУСЕЛИ ИСТОРИИ ---- */
+.hg-nav{display:flex;gap:10px;align-self:flex-end;margin-left:clamp(16px,2vw,32px)}
+.hg-nav__btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:transparent;color:var(--ink);font-size:17px;line-height:1;cursor:pointer;transition:border-color .5s var(--ease)}
+.hg-nav__btn:hover{border-color:var(--ink)}
+@media (max-width:900px){.hg-nav{display:none}}

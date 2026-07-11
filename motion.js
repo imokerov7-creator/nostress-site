@@ -6,6 +6,14 @@
    Engine: Motion (motion.dev) + Lenis. Пиннинг — CSS position:sticky.
    Всё гаснет при prefers-reduced-motion. Нет Motion → контент виден.
    ============================================================ */
+
+/* Фолбэк: без Motion или при reduced-motion горизонтальные галереи
+   должны листаться нативно (overflow-x), иначе контент недостижим */
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!window.Motion || reduce) document.documentElement.classList.add("hg-static");
+})();
+
 (function () {
   var M = window.Motion;
   if (!M || !M.animate || !M.scroll) {        // CDN не загрузился — оставляем статику видимой
@@ -352,4 +360,131 @@
     }
   }
   update();
+})();
+
+/* ==== СТРЕЛКИ КАРУСЕЛИ «НАША ИСТОРИЯ» (десктоп) ====
+   Работают в обоих режимах: scroll-driven (двигаем страницу — трек
+   едет сам) и статичный фолбэк (скроллим трек). */
+(function () {
+  document.querySelectorAll('.hgallery--story').forEach(function (sec) {
+    var track = sec.querySelector('.hgallery__track');
+    var head = sec.querySelector('.hgallery__head');
+    if (!track || !head) return;
+    var nav = document.createElement('div');
+    nav.className = 'hg-nav';
+    [['prev', '←', -1], ['next', '→', 1]].forEach(function (cfg) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'hg-nav__btn hg-nav__btn--' + cfg[0];
+      b.setAttribute('aria-label', cfg[0] === 'prev' ? 'Предыдущие главы' : 'Следующие главы');
+      b.textContent = cfg[1];
+      b.addEventListener('click', function () {
+        var card = track.querySelector('.hcard');
+        if (!card) return;
+        var st = getComputedStyle(track);
+        var gap = parseFloat(st.columnGap || st.gap) || 24;
+        var dx = (card.getBoundingClientRect().width + gap) * cfg[2];
+        if (st.overflowX === 'auto' || st.overflowX === 'scroll') {
+          track.scrollBy({ left: dx, behavior: 'smooth' });
+        } else {
+          window.scrollBy({ top: dx, behavior: 'smooth' });
+        }
+      });
+      nav.appendChild(b);
+    });
+    head.appendChild(nav);
+  });
+})();
+
+/* ==== ПОПАП ЗАЯВКИ: все CTA открывают форму на месте, без прыжка вниз ====
+   (кроме навигации «Контакты» и финального блока с Алёной — фидбэк 11.07.26) */
+(function () {
+  var TG_CONTACT = "https://t.me/NoStress_Design";
+  var modal = document.createElement('div');
+  modal.className = 'lead-modal';
+  modal.innerHTML =
+    '<div class="lead-modal__veil"></div>' +
+    '<div class="lead-modal__panel" role="dialog" aria-modal="true" aria-label="Заявка на консультацию">' +
+      '<button type="button" class="lead-modal__close" aria-label="Закрыть">✕</button>' +
+      '<div class="eyebrow lead-modal__eyebrow">Консультация</div>' +
+      '<h3 class="lead-modal__h">Поговорим о вашей квартире</h3>' +
+      '<p class="lead-modal__p lead-modal__lead">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать.</p>' +
+      '<form class="lead-modal__form" novalidate>' +
+        '<input class="field" name="name" placeholder="Как к вам обращаться" autocomplete="name">' +
+        '<input class="field" name="phone" type="tel" placeholder="+7 ___ ___-__-__" autocomplete="tel">' +
+        '<button class="btn" type="submit">Отправить</button>' +
+      '</form>' +
+      '<div class="lead-modal__thanks" hidden>' +
+        '<h3 class="lead-modal__h">Спасибо за заявку!</h3>' +
+        '<p class="lead-modal__p">Наш менеджер свяжется с вами в рабочее время.</p>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(modal);
+
+  function openModal() {
+    document.documentElement.classList.remove('menu-open'); // если открыт бургер
+    var b = document.querySelector('.burger'); if (b) b.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.add('lead-open');
+  }
+  function closeModal() { document.documentElement.classList.remove('lead-open'); }
+  modal.querySelector('.lead-modal__veil').addEventListener('click', closeModal);
+  modal.querySelector('.lead-modal__close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  modal.querySelector('.lead-modal__form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    modal.querySelector('.lead-modal__panel').classList.add('is-done');
+    modal.querySelector('.lead-modal__thanks').hidden = false;
+  });
+
+  // Кнопки-CTA, ведущие на #contact → попап (простые ссылки навигации не трогаем)
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.btn[href$="#contact"], a.cta[href$="#contact"], a.rv__cta[href$="#contact"], a.mnav__cta[href$="#contact"]');
+    if (!a) return;
+    e.preventDefault();
+    openModal();
+  });
+
+  // Финальная форма с Алёной остаётся на странице: после отправки — «Спасибо»
+  Array.prototype.forEach.call(document.querySelectorAll('form.cap-form'), function (f) {
+    f.removeAttribute('onsubmit');
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      f.innerHTML = '<p class="cap-thanks"><b>Спасибо за заявку!</b><br>Наш менеджер свяжется с вами в рабочее время.</p>';
+    });
+  });
+
+  // Живые ссылки в строке мессенджеров (замена заглушек href="#")
+  var MAX_CONTACT = "https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4";
+  Array.prototype.forEach.call(document.querySelectorAll('.messengers a'), function (a) {
+    if (a.getAttribute('href') !== '#') return;
+    var t = a.textContent.trim();
+    if (t === 'Telegram') a.href = TG_CONTACT;
+    if (t === 'MAX') a.href = MAX_CONTACT;
+  });
+})();
+
+/* ==== МОБИЛКА: иконка Telegram в шапке + контакты в бургер-меню ==== */
+(function () {
+  var TG_CHANNEL = "https://t.me/design_bez_stressa";
+  var bar = document.querySelector('header .bar');
+  if (bar && !bar.querySelector('.bar-tg')) {
+    var tg = document.createElement('a');
+    tg.className = 'bar-tg';
+    tg.href = TG_CHANNEL;
+    tg.target = '_blank'; tg.rel = 'noopener';
+    tg.setAttribute('aria-label', 'Наш Telegram-канал');
+    tg.innerHTML = '<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>';
+    bar.insertBefore(tg, bar.firstChild);
+  }
+  var links = document.querySelector('.mnav__links');
+  if (links && !links.querySelector('.mnav__contacts')) {
+    var box = document.createElement('div');
+    box.className = 'mnav__contacts';
+    box.innerHTML =
+      '<a class="mnav-tel" href="tel:+79856741267">+7 985 67-412-67</a>' +
+      '<a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a>' +
+      '<a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a>';
+    links.appendChild(box);
+  }
 })();

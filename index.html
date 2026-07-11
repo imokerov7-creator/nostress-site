@@ -85,8 +85,8 @@ section.section--warm{background:var(--surface-warm)}
 .hgallery__track{display:flex;gap:var(--grid-gap);padding-inline:var(--pad);will-change:transform}
 .hcard{flex:0 0 auto;width:clamp(280px,34vw,500px)}
 .hshot{position:relative;overflow:hidden;aspect-ratio:10/11;background:var(--surface-warm)}
-.hshot img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);will-change:transform}
-.hcard:hover .hshot img{transform:scale(1.05)}
+.hshot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);will-change:transform}
+.hcard:hover .hshot img{transform:scale(1.03)}
 .hcard--all{align-self:flex-start}
 .hshot--all{position:relative;overflow:hidden;width:100%;aspect-ratio:10/11;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(26px,2vw,38px)}
 /* фон карточки — затемнённый коллаж из 6 проектов */
@@ -126,8 +126,12 @@ section.section--warm{background:var(--surface-warm)}
 .story-cap{display:flex;flex-direction:column;gap:6px;padding-top:22px}
 .story-ch{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
 .story-tt{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(21px,1.9vw,29px);letter-spacing:-.015em;line-height:1.12}
-.story-read{margin-top:5px;font-size:14px;color:var(--text-2);opacity:0;transform:translateY(4px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
-.hcard--story:hover .story-read{opacity:1;transform:none}
+.story-read{display:none}
+/* ховер главы: фото затемняется, «Читать статью» по центру (фидбэк Кирилла 11.07.26) */
+.hcard--story .hshot::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(17,15,13,0);transition:background-color .55s var(--ease)}
+.hcard--story:hover .hshot::after{background:rgba(17,15,13,.52)}
+.hcard--story .hshot::before{content:"Читать статью ↗";position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:clamp(14px,1.05vw,16px);letter-spacing:.02em;opacity:0;transform:translateY(6px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.hcard--story:hover .hshot::before{opacity:1;transform:none}
 @media (max-width:900px){
   .hgallery--story .hgallery__head{flex-direction:column;align-items:flex-start;gap:16px}
   .hg-head-l,.hg-head-r{max-width:none}
@@ -192,10 +196,10 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ 6 · ТАРИФЫ ============ */
 .tariffs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gap)}
-.tcard{border:var(--bw) solid var(--border);padding:34px 30px;display:flex;flex-direction:column;min-height:380px;transition:border-color .4s var(--ease),transform .4s var(--ease)}
+.tcard{border:var(--bw) solid var(--border);padding:34px 30px;display:flex;flex-direction:column;min-height:380px;transition:border-color .8s var(--ease),transform .8s var(--ease)}
 .tcard{position:relative}
-.tcard:hover{border-color:var(--ink);transform:translateY(-8px)}
-.tcard::after{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--ink);transition:width .45s var(--ease)}
+.tcard:hover{border-color:var(--ink);transform:translateY(-4px)}
+.tcard::after{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--ink);transition:width .7s var(--ease)}
 .tcard.mid::after{background:var(--paper)}
 .tcard:hover::after{width:100%}
 .tcard.hi{border-color:var(--ink)}
@@ -220,27 +224,6 @@ section.section--warm{background:var(--surface-warm)}
 .tcard li::before{content:"—";position:absolute;left:0;color:var(--border)}
 .tcard .spacer{flex:1}
 .tcard .btn{width:100%;justify-content:center;margin-top:26px}
-
-/* ============ 6.5 · КАЛЬКУЛЯТОР (квиз-лидген) ============ */
-.calc{margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:1.5fr .9fr;gap:clamp(32px,5vw,72px);align-items:start}
-.calc-grid{display:flex;flex-direction:column}
-.calc-row{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center;padding:clamp(18px,2.2vw,28px) 0;border-top:var(--bw) solid var(--border)}
-.calc-row:last-child{border-bottom:var(--bw) solid var(--border)}
-.calc-q{font-size:14px;letter-spacing:.04em;color:var(--text-2)}
-.calc-slider{display:flex;align-items:center;gap:20px}
-.calc-slider input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:2px;background:var(--border);outline:none;cursor:pointer}
-.calc-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ink);cursor:pointer}
-.calc-slider input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--ink);cursor:pointer}
-.calc-val{font-size:clamp(18px,1.6vw,22px);font-weight:var(--w-semibold);white-space:nowrap;min-width:84px;text-align:right}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{border:var(--bw) solid var(--border);padding:10px 18px;font-size:14px;color:var(--text-2);background:transparent;transition:.25s var(--ease);cursor:pointer}
-.chip:hover{border-color:var(--ink);color:var(--ink)}
-.chip.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.calc-form{display:flex;flex-direction:column;gap:14px;border:var(--bw) solid var(--border);padding:clamp(26px,3vw,38px);background:var(--surface-warm)}
-.calc-form .ttl{font-size:clamp(1.1rem,1.6vw,1.4rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin-bottom:4px}
-.calc-form .sub{font-size:14px;color:var(--text-2);line-height:1.45;margin-bottom:8px}
-.calc-form .field{margin:0;background:transparent}
-.calc-form .btn{justify-content:center;margin-top:8px}
 
 /* ============ 7 · КОНТАКТ (арт-директор) ============ */
 .contact{display:grid;grid-template-columns:clamp(190px,20vw,280px) 1fr;gap:clamp(36px,5vw,72px);align-items:center}
@@ -360,7 +343,6 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .ready{grid-template-columns:1fr 1fr}
   .studio,.contact{grid-template-columns:1fr;gap:40px}
   .calc{grid-template-columns:1fr;gap:32px}
-  .calc-row{grid-template-columns:1fr;gap:12px;align-items:start}
   .tariffs{grid-template-columns:1fr}
   .diptych,.diptych.offset,.diptych.offset.rev{grid-template-columns:1fr}
   .studio-photos .figure:nth-child(n){margin-top:0}
@@ -428,7 +410,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <div class="bar">
     <a href="#top" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
     <nav class="nav">
-      <a href="projects.html">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="about.html">О студии</a><a href="#contact">Контакты</a>
+      <a href="projects.html">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="about.html">О студии</a><a href="contacts.html">Контакты</a>
     </nav>
     <a href="#contact" class="cta">Обсудить идею</a>
   </div>
@@ -527,7 +509,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tmeta">Срок от&nbsp;15 раб. дней&nbsp;· разрабатывает дизайнер</div>
       <ul><li>Замеры и 1 планировочное решение</li><li>Пакет чертежей для старта стройки</li><li>AI-визуализации интерьера</li><li>Предварительная финкарта</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn btn--ghost">Узнать подробнее</a>
+      <a href="design-project.html" class="btn btn--ghost">Узнать подробнее</a>
     </div>
     <div class="tcard hi">
       <div class="tname">Бизнес</div>
@@ -537,7 +519,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tmeta">Срок от&nbsp;25 раб. дней&nbsp;· разрабатывает ведущий дизайнер</div>
       <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Полный пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn">Узнать подробнее</a>
+      <a href="design-project.html" class="btn">Узнать подробнее</a>
     </div>
     <div class="tcard mid">
       <div class="tname">Ультра</div>
@@ -547,7 +529,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tmeta">Срок от&nbsp;33 раб. дней&nbsp;· разрабатывает арт-директор</div>
       <ul><li>BIM-обмер 2.0 и расширенные чертежи</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="spacer"></div>
-      <a href="#contact" class="btn btn--ghost">Узнать подробнее</a>
+      <a href="design-project.html" class="btn btn--ghost">Узнать подробнее</a>
     </div>
   </div>
 </div></section>
@@ -634,18 +616,18 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
-      <div class="eyebrow" data-reveal="fade">Консультация с арт-директором</div>
+      <div class="eyebrow" data-reveal="fade">Консультация</div>
       <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
       <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
       <form class="cap-form" data-reveal onsubmit="return false">
         <input class="field" placeholder="Как к вам обращаться">
         <input class="field" placeholder="+7 ___ ___-__-__">
-        <button class="btn">Обсудить идею с арт-директором</button>
+        <button class="btn">Отправить</button>
       </form>
       <div class="cap-quick" data-reveal="fade">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
-          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 674-12-67</a>
+          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
         </div>
       </div>
     </div>
@@ -676,29 +658,15 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     <div class="col"><h4>Навигация</h4>
       <div><a href="projects.html">Проекты</a></div><div><a href="#tariffs">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
   </div>
-  <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
+  <div class="foot-btm"><span>© 2022–2026 NoStress Design</span><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
 
-<script>
-/* калькулятор-квиз: ползунок площади + выбор чипов (одиночный в группе) */
-(function(){
-  var a=document.getElementById('cArea'), av=document.getElementById('cAreaVal');
-  if(a&&av) a.addEventListener('input',function(){ av.textContent=a.value; });
-  document.querySelectorAll('.chips').forEach(function(g){
-    g.addEventListener('click',function(e){
-      var c=e.target.closest('.chip'); if(!c) return;
-      g.querySelectorAll('.chip').forEach(function(x){ x.classList.remove('is-on'); });
-      c.classList.add('is-on');
-    });
-  });
-})();
-</script>
 <!-- Motion как UMD-глобал (классический скрипт — грузится и с file://) -->
-<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<script src="assets/motion-lib.js"></script>
 <script src="motion.js"></script>
 
 </body>

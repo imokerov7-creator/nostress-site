@@ -16,7 +16,7 @@
   <div class="bar">
     <a href="../../index.html" class="logo" aria-label="NoStress Design"><img src="../../assets/logo-white.png" alt="NoStress Design"></a>
     <nav class="nav">
-      <a href="../../projects.html">Проекты</a><span class="has-sub"><a href="../../services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="../../design-project.html">Дизайн-проект</a><a href="../../remont.html">Ремонт под ключ</a><a href="../../nadzor.html">Авторский надзор</a><a href="../../komplektaciya.html">Комплектация</a></div></div></span><a href="../../about.html">О студии</a><a href="#contact">Контакты</a>
+      <a href="../../projects.html">Проекты</a><span class="has-sub"><a href="../../services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="../../design-project.html">Дизайн-проект</a><a href="../../remont.html">Ремонт под ключ</a><a href="../../nadzor.html">Авторский надзор</a><a href="../../komplektaciya.html">Комплектация</a></div></div></span><a href="../../about.html">О студии</a><a href="../../contacts.html">Контакты</a>
     </nav>
     <a href="#contact" class="cta">Обсудить идею</a>
   </div>
@@ -202,7 +202,7 @@
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
-      <div class="eyebrow">Консультация с арт-директором</div>
+      <div class="eyebrow">Консультация</div>
       <h2 class="h2" style="margin-top:14px">Поговорим о вашем доме</h2>
       <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
       <form class="cap-form" onsubmit="return false">
@@ -215,7 +215,7 @@
         <div class="messengers">
           <a class="msg" href="https://t.me/NoStress_Design">Telegram</a>
           <a class="msg" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a>
-          <a class="msg" href="tel:+79856741267">+7 985 674-12-67</a>
+          <a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
         </div>
       </div>
     </div>
@@ -270,14 +270,14 @@
     <div class="col"><h4>Навигация</h4>
       <div><a href="../../projects.html">Проекты</a></div><div><a href="../../index.html#tariffs">Услуги</a></div><div><a href="../../about.html">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 674-12-67</a></div><div><a href="https://t.me/NoStress_Design">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4">MAX</a></div><div>nostress.design</div></div>
   </div>
-  <div class="foot-btm"><span>© 2026 NoStress Design</span><span>Москва</span></div>
+  <div class="foot-btm"><span>© 2022–2026 NoStress Design</span><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
 
-<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<script src="../../assets/motion-lib.js"></script>
 <script src="../../motion.js"></script>
 <script>
 (function(){
@@ -293,5 +293,39 @@
 })();
 </script>
 
+<!-- ограничение высоты ряда галереи одним экраном (~92vh, только десктоп >900px) -->
+<script>
+(function(){
+  var rows=[].slice.call(document.querySelectorAll('.gal .galrow'));
+  if(!rows.length)return;
+  function fit(){
+    var desktop=window.innerWidth>900;
+    rows.forEach(function(row){
+      row.style.maxWidth='';
+      row.style.marginInline='';
+      if(!desktop)return;
+      var frames=[].slice.call(row.children).filter(function(c){return c.classList.contains('greveal');});
+      if(!frames.length)return;
+      var sum=0;
+      frames.forEach(function(f){
+        var ar=parseFloat(getComputedStyle(f).getPropertyValue('--ar'));
+        sum+=(ar>0?ar:1.5);
+      });
+      var gap=parseFloat(getComputedStyle(row).columnGap)||0;
+      var gaps=gap*(frames.length-1);
+      // при сумме flex-grow < 1 ряд заполняется лишь на sum от свободного места,
+      // и высота кадров = ширине ряда − гэпы; поэтому знаменатель max(sum,1)
+      var cap=0.92*window.innerHeight*Math.max(sum,1)+gaps; // ширина ряда, при которой высота = 92vh
+      if(row.clientWidth>cap+1){
+        row.style.maxWidth=cap+'px';
+        row.style.marginInline='auto';
+      }
+    });
+  }
+  var t;
+  window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fit,150);});
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fit);}else{fit();}
+})();
+</script>
 </body>
 </html>
