@@ -122,7 +122,15 @@ section.section--warm{background:var(--surface-warm)}
 .hg-more:hover span{transform:translate(3px,-3px)}
 .hcard--story{text-decoration:none;color:inherit}
 .hgallery--story .hgallery__track{gap:clamp(30px,3.6vw,68px)}
-.hgallery--story .hcard{width:clamp(220px,min(25vw,(100svh - 330px)*.75),360px)}
+.hgallery--story .hcard{width:clamp(200px,min(25vw,(100svh - 460px)*.75),360px)}
+/* короткое окно: история не закрепляется, листается нативно (стрелки работают через scrollBy) */
+@media (max-height:700px) and (min-width:901px){
+  .hgallery--story{height:auto!important}
+  .hgallery--story .hgallery__sticky{position:static;height:auto;padding-top:120px;padding-bottom:48px}
+  .hgallery--story .hgallery__track{overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-bottom:14px;transform:none!important}
+  .hgallery--story .hcard{width:clamp(220px,24vw,320px)!important;scroll-snap-align:start}
+}
+
 .story-cap{display:flex;flex-direction:column;gap:6px;padding-top:22px}
 .story-ch{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
 .story-tt{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(21px,1.9vw,29px);letter-spacing:-.015em;line-height:1.12}
@@ -667,7 +675,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <section class="section" id="contact"><div class="container">
   <div class="contact">
     <figure class="cap-photo" data-reveal="scale">
-      <img src="assets/img/alena.jpg?v=3" alt="Алёна, арт-директор студии NoStress Design">
+      <img src="assets/img/alena.webp" alt="Алёна, арт-директор студии NoStress Design">
       <figcaption><span class="pn">Алёна</span><span class="pr">арт-директор студии</span></figcaption>
     </figure>
     <div class="cap-body">
