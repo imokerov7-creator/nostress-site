@@ -540,6 +540,13 @@
   }
 })();
 
+/* ==== ЛОГОТИП: после клика мышью снимаем фокус, чтобы браузер не рисовал рамку ==== */
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('a.logo'), function (a) {
+    a.addEventListener('click', function () { a.blur(); });
+  });
+})();
+
 /* ==== БЕГУЩАЯ СТРОКА: rAF-фолбэк, если браузер заглушил CSS-анимацию
    (энергосбережение и т.п.). Работает и без Motion — чистый rAF. ==== */
 (function () {

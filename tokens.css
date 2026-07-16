@@ -160,6 +160,10 @@ hr,.rule{border:none;border-top:var(--bw) solid var(--border);margin-block:var(-
 :where(a,button,.field,[tabindex]):focus-visible{
   outline:2px solid var(--ink);outline-offset:3px;border-radius:1px;
 }
+/* логотип в тёмном хедере: после клика мышью — без рамки (фокус снимает JS),
+   с клавиатуры — белое кольцо вместо чёрного */
+a.logo:focus{outline:none}
+a.logo:focus-visible{outline:2px solid rgba(255,255,255,.65);outline-offset:6px}
 
 /* ---- REDUCED MOTION (страховка на уровне токенов) ---- */
 @media (prefers-reduced-motion:reduce){
