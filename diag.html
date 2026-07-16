@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Диагностика анимаций — NoStress</title>
+<style>
+  body{margin:0;background:#151310;color:#F0ECE4;font:16px/1.5 -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;padding:32px 20px}
+  .wrap{max-width:640px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 6px}
+  .sub{color:#9A938A;margin:0 0 28px;font-size:14px}
+  .row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #3A372F;font-size:15px}
+  .row b{font-weight:600}
+  .val{text-align:right;white-space:nowrap}
+  .ok{color:#84A074}.bad{color:#D77254}.warn{color:#D2A04E}
+  .ua{margin-top:22px;color:#9A938A;font-size:12px;word-break:break-all}
+  #spin{position:fixed;right:18px;bottom:18px;width:14px;height:14px;border-radius:50%;background:#F0ECE4;animation:mv 1.2s linear infinite}
+  @keyframes mv{50%{transform:translateY(-22px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Диагностика анимаций</h1>
+  <p class="sub">Подождите 3 секунды и пришлите скриншот этой страницы целиком.</p>
+  <div id="out">Измеряю…</div>
+  <p class="ua" id="ua"></p>
+</div>
+<div id="spin"></div>
+<video id="v" muted autoplay loop playsinline width="1" height="1" style="position:fixed;left:-9px;top:-9px"
+  src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAPtbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAAlgAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAxh0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAAlgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAEAAAABAAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAJYAAAEAAABAAAAAAKQbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAAAyAAAAHgBVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAACO21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAftzdGJsAAAAv3N0c2QAAAAAAAAAAQAAAK9hdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAQABIAAAASAAAAAAAAAABFExhdmM2MS4zLjEwMCBsaWJ4MjY0AAAAAAAAAAAAAAAAGP//AAAANWF2Y0MBZAAK/+EAGGdkAAqs2UQmwEQAAAMABAAAAwDIPEiWWAEABmjr48siwP34+AAAAAAQcGFzcAAAAAEAAAABAAAAFGJ0cnQAAAAAAAAwLQAAMC0AAAAYc3R0cwAAAAAAAAABAAAADwAAAgAAAAAUc3RzcwAAAAAAAAABAAAAAQAAAIhjdHRzAAAAAAAAAA8AAAABAAAEAAAAAAEAAAoAAAAAAQAABAAAAAABAAAAAAAAAAEAAAIAAAAAAQAACgAAAAABAAAEAAAAAAEAAAAAAAAAAQAAAgAAAAABAAAKAAAAAAEAAAQAAAAAAQAAAAAAAAABAAACAAAAAAEAAAYAAAAAAQAAAgAAAAAcc3RzYwAAAAAAAAABAAAAAQAAAA8AAAABAAAAUHN0c3oAAAAAAAAAAAAAAA8AAALWAAAADgAAAAwAAAAMAAAADAAAABQAAAAOAAAADAAAAAwAAAAUAAAADgAAAAwAAAAMAAAAFQAAAAwAAAAUc3RjbwAAAAAAAAABAAAEHQAAAGF1ZHRhAAAAWW1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAG1kaXJhcHBsAAAAAAAAAAAAAAAALGlsc3QAAAAkqXRvbwAAABxkYXRhAAAAAQAAAABMYXZmNjEuMS4xMDAAAAAIZnJlZQAAA6VtZGF0AAACrgYF//+q3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzE5MCA3ZWQ3NTNiIC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyNCAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTIgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PTI1MCBrZXlpbnRfbWluPTI1IHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMACAAAAAIGWIhAA7//73Tr8Cm1TCKgOSVwrqg7oK2KdPKm0Gjfu5AAAACkGaJGxDf/6nj4gAAAAIQZ5CeIX/CbkAAAAIAZ5hdEK/DDgAAAAIAZ5jakK/DDkAAAAQQZpoSahBaJlMCG///qePiQAAAApBnoZFESwv/wm5AAAACAGepXRCvww5AAAACAGep2pCvww4AAAAEEGarEmoQWyZTAhn//6eLfAAAAAKQZ7KRRUsL/8JuQAAAAgBnul0Qr8MOAAAAAgBnutqQr8MOAAAABFBmu5JqEFsmUwUTCv//jiNwQAAAAgBnw1qQr8MOQ=="></video>
+<script>
+(function(){
+  var out=document.getElementById('out');
+  document.getElementById('ua').textContent=navigator.userAgent;
+  var frames=0, t0=performance.now();
+  function cnt(){ frames++; if(performance.now()-t0<2000) requestAnimationFrame(cnt); }
+  requestAnimationFrame(cnt);
+  var spin=document.getElementById('spin'), s1=getComputedStyle(spin).transform;
+  var v0=document.getElementById('v');
+  var p0=v0.play(); if(p0&&p0.catch)p0.catch(function(){});
+  var battery='API нет';
+  if(navigator.getBattery) navigator.getBattery().then(function(b){
+    battery=(b.charging?'заряжается':'на батарее')+', '+Math.round(b.level*100)+'%';
+  }).catch(function(){});
+  setTimeout(function(){
+    var fps=Math.round(frames/((performance.now()-t0)/1000));
+    var s2=getComputedStyle(spin).transform;
+    var cssAnim=s1!==s2;
+    var v=document.getElementById('v');
+    var video=!v.paused&&!v.ended&&v.readyState>=2;
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function row(name,ok,text,warn){return '<div class="row"><span>'+name+'</span><b class="val '+(ok?'ok':(warn?'warn':'bad'))+'">'+text+'</b></div>';}
+    out.innerHTML=
+      row('Настройка «Уменьшение движения» (ОС/браузер)', !reduce, reduce?'ВКЛЮЧЕНА — это причина':'выключена')+
+      row('CSS-анимации', cssAnim, cssAnim?'работают':'ЗАГЛУШЕНЫ браузером')+
+      row('Автозапуск видео', video, video?'работает':'ЗАБЛОКИРОВАН')+
+      row('Плавность (FPS)', fps>=45, fps+' кадр/с'+(fps<45?' — слабое железо/перегрузка':''), fps>=25&&fps<45)+
+      row('Размер окна', true, innerWidth+'×'+innerHeight+' @'+(devicePixelRatio||1)+'x')+
+      row('Питание', true, battery);
+  }, 2600);
+})();
+</script>
+</body>
+</html>
