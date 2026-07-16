@@ -196,6 +196,13 @@ section.section--warm{background:var(--surface-warm)}
 
 /* ============ 6 · ТАРИФЫ (светлая глава — гибрид вариантов 2+3) ============ */
 .tf-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+/* Custom-плашка под тарифами (как на странице «Дизайн-проект») */
+.tcustom{margin-top:var(--grid-gap);border:var(--bw) solid var(--border);padding:clamp(28px,3vw,44px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap}
+.tcustom__h{font-size:clamp(1.3rem,2.2vw,1.9rem);font-weight:var(--w-semibold);letter-spacing:-.02em;margin:10px 0 0}
+.tcustom__t{color:var(--text-2);margin-top:8px;max-width:52ch}
+.tcustom .btn{white-space:nowrap}
+@media(max-width:900px){.tcustom{flex-direction:column;align-items:flex-start}}
 .tf-col{position:relative;overflow:hidden;display:flex;flex-direction:column;
   padding:clamp(28px,3vw,44px) clamp(24px,2.6vw,40px) clamp(30px,3.2vw,48px);
   border-top:var(--bw) solid var(--ink)}
@@ -571,6 +578,14 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-spacer"></div>
       <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
     </article>
+  </div>
+  <div class="tcustom" data-reveal>
+    <div class="tcustom__l">
+      <div class="tname">Custom</div>
+      <p class="tcustom__h">Ни один тариф не&nbsp;подошёл?</p>
+      <p class="tcustom__t">Соберём тариф под&nbsp;вас&nbsp;— из&nbsp;нужных блоков и&nbsp;под&nbsp;ваш объект.</p>
+    </div>
+    <a href="#contact" class="btn btn--ghost">Собрать свой тариф</a>
   </div>
 </div></section>
 

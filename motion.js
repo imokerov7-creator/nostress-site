@@ -475,10 +475,13 @@
   // Живые ссылки в строке мессенджеров (замена заглушек href="#")
   var MAX_CONTACT = "https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4";
   Array.prototype.forEach.call(document.querySelectorAll('.messengers a'), function (a) {
-    if (a.getAttribute('href') !== '#') return;
-    var t = a.textContent.trim();
-    if (t === 'Telegram') a.href = TG_CONTACT;
-    if (t === 'MAX') a.href = MAX_CONTACT;
+    if (a.getAttribute('href') === '#') {
+      var t = a.textContent.trim();
+      if (t === 'Telegram') a.href = TG_CONTACT;
+      if (t === 'MAX') a.href = MAX_CONTACT;
+    }
+    // мессенджеры — в новой вкладке, чтобы не уводить пользователя с сайта
+    if (/^https?:/.test(a.href)) { a.target = '_blank'; a.rel = 'noopener'; }
   });
 })();
 
