@@ -53,24 +53,28 @@ header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-
   border-bottom:1px solid var(--ink);padding-bottom:3px;transition:opacity .3s var(--ease)}
 .intro .back:hover{opacity:.6}
 
-/* ---- «ПОКА ЖДЁТЕ»: строки-ссылки (как хаб на «Контактах») ---- */
-.hub{padding-block:clamp(56px,8vw,104px)}
-.hub__grid{display:grid;grid-template-columns:minmax(260px,1fr) 1.7fr;gap:clamp(32px,5vw,96px);align-items:start}
-.hub__head .h3{margin-top:14px;max-width:14ch}
-.hub__head .lead{margin-top:16px;max-width:38ch}
-.hrows{display:flex;flex-direction:column;border-top:var(--bw) solid var(--border)}
-.hrow{display:grid;grid-template-columns:1fr auto auto;align-items:baseline;gap:clamp(16px,2vw,32px);
-  padding:clamp(20px,2.6vw,34px) 0;border-bottom:var(--bw) solid var(--border);color:inherit}
-.hrow__t{font-size:clamp(1.35rem,2.6vw,2.35rem);font-weight:var(--w-semibold);letter-spacing:-.025em;
-  line-height:1.08;transition:transform .55s var(--ease)}
-.hrow__m{font-size:clamp(13px,1vw,15px);color:var(--text-2);letter-spacing:.01em;white-space:nowrap;
-  transition:color .55s var(--ease)}
-.hrow__a{font-size:clamp(1rem,1.4vw,1.3rem);font-weight:var(--w-medium);color:var(--text-2);
-  opacity:.35;transform:translate(-8px,6px);
-  transition:opacity .55s var(--ease),transform .55s var(--ease),color .55s var(--ease)}
-.hrow:hover .hrow__t{transform:translateX(14px)}
-.hrow:hover .hrow__m{color:var(--ink)}
-.hrow:hover .hrow__a{opacity:1;transform:none;color:var(--ink)}
+/* ---- «ПОКА ЖДЁТЕ»: горизонтальная галерея проектов (как на главной) ---- */
+.hgallery{position:relative;z-index:2;background:var(--paper)}
+.hgallery__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(112px,15vh,168px);padding-bottom:clamp(24px,4vh,48px)}
+.hgallery__head{max-width:var(--maxw);width:100%;margin:0 auto clamp(24px,3vh,40px);padding:0 var(--pad);display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hgallery__track{display:flex;gap:var(--grid-gap);padding-inline:var(--pad);will-change:transform}
+.hcard{flex:0 0 auto;width:clamp(280px,34vw,500px)}
+.hshot{position:relative;overflow:hidden;aspect-ratio:10/11;background:var(--surface-warm)}
+.hshot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);will-change:transform}
+.hcard:hover .hshot img{transform:scale(1.03)}
+.hcard--all{align-self:flex-start}
+.hshot--all{position:relative;overflow:hidden;width:100%;aspect-ratio:10/11;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(26px,2vw,38px)}
+.all-collage{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:0}
+.all-collage img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.46);transition:filter .55s var(--ease)}
+.hshot--all::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(17,15,13,.46);transition:background-color .4s var(--ease)}
+.hcard--all:hover .all-collage img{filter:brightness(.62)}
+.hcard--all:hover .hshot--all::after{background:rgba(17,15,13,.32)}
+.all-label,.all-arrow{position:relative;z-index:2}
+.all-label{font-size:clamp(26px,2.4vw,42px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.02;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.all-arrow{align-self:flex-end;font-size:clamp(28px,2.4vw,40px);line-height:1;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.proj-cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:22px;font-size:clamp(14px,1.1vw,16px);color:var(--text-2);letter-spacing:.01em}
+.proj-cap .nm{color:var(--ink);font-weight:var(--w-semibold);font-size:clamp(21px,1.9vw,29px);letter-spacing:-.015em;line-height:1.1}
+.hgallery__head .lead{max-width:34ch;text-align:right}
 
 /* ---- ФУТЕР ---- */
 footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
@@ -89,12 +93,12 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 /* ---- АДАПТИВ ---- */
 @media (max-width:900px){
   .nav{display:none}
-  .hub__grid{grid-template-columns:1fr;gap:clamp(24px,6vw,36px)}
-  .hub__head .h3,.hub__head .lead{max-width:none}
-  .hrow{grid-template-columns:1fr auto;row-gap:4px}
-  .hrow__m{grid-column:1;grid-row:2;white-space:normal}
-  .hrow__a{grid-column:2;grid-row:1}
-  .hrow:hover .hrow__t{transform:none}
+  .hgallery{height:auto!important}
+  .hgallery__sticky{position:static;height:auto;display:block;padding:60px 0 20px}
+  .hgallery__head{margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:12px}
+  .hgallery__head .lead{text-align:left;max-width:none}
+  .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch;scroll-padding-inline:var(--pad)}
+  .hcard{width:78vw;scroll-snap-align:start}
   .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);
     border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
   .sticky-cta .btn{flex:1;justify-content:center}
@@ -123,33 +127,40 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <a class="back" href="index.html" data-reveal="fade">← Вернуться на главную</a>
 </div></section>
 
-<!-- 2 · ПОКА ЖДЁТЕ -->
-<section class="hub"><div class="container">
-  <div class="hub__grid">
-    <div class="hub__head">
-      <div class="eyebrow" data-reveal="fade">Пока ждёте</div>
-      <h2 class="h3" data-split>Посмотрите, что мы делаем</h2>
-      <p class="lead" data-reveal>Реализованные интерьеры, состав услуг и&nbsp;будни студии.</p>
+<!-- 2 · НАШИ ПРОЕКТЫ (горизонтальная закреплённая галерея, как на главной) -->
+<section class="hgallery" id="projects">
+  <div class="hgallery__sticky">
+    <div class="hgallery__head">
+      <h2 class="h2" data-split>Наши проекты</h2>
+      <p class="lead" data-reveal>Пока ждёте звонка&nbsp;— познакомьтесь с&nbsp;нашими проектами подробнее.</p>
     </div>
-    <div class="hrows" data-stagger>
-      <a class="hrow" href="projects.html">
-        <span class="hrow__t">Наши проекты</span>
-        <span class="hrow__m">квартиры и дома</span>
-        <span class="hrow__a">↗</span>
-      </a>
-      <a class="hrow" href="services.html">
-        <span class="hrow__t">Услуги</span>
-        <span class="hrow__m">дизайн · ремонт · комплектация</span>
-        <span class="hrow__a">↗</span>
-      </a>
-      <a class="hrow" href="https://t.me/design_bez_stressa" target="_blank" rel="noopener">
-        <span class="hrow__t">Telegram-канал</span>
-        <span class="hrow__m">будни студии</span>
-        <span class="hrow__a">↗</span>
+    <div class="hgallery__track">
+      <a class="hcard" href="projects/stupino-219/index.html"><div class="hshot"><img src="assets/img/proj-01.jpg" alt="Дом в Ступино, 219 м²"></div>
+        <div class="proj-cap"><span class="nm">Дом в Ступино</span><span>219&nbsp;м²</span></div></a>
+      <a class="hcard" href="projects/kvartira-moskva-72/index.html"><div class="hshot"><img src="assets/img/proj-02.jpg" alt="Квартира в Москве, 72 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Москве</span><span>72&nbsp;м²</span></div></a>
+      <a class="hcard" href="projects/dom-pushkino-230/index.html"><div class="hshot"><img src="assets/img/proj-03.jpg" alt="Дом в Пушкино, 230 м²"></div>
+        <div class="proj-cap"><span class="nm">Дом в Пушкино</span><span>230&nbsp;м²</span></div></a>
+      <a class="hcard" href="projects/kvartira-moskva-101/index.html"><div class="hshot"><img src="assets/img/proj-04.jpg" alt="Квартира в Москве, 101 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Москве</span><span>101&nbsp;м²</span></div></a>
+      <a class="hcard" href="projects/kvartira-spb-38/index.html"><div class="hshot"><img src="assets/img/proj-05.jpg" alt="Квартира в Санкт-Петербурге, 38 м²"></div>
+        <div class="proj-cap"><span class="nm">Квартира в Санкт-Петербурге</span><span>38&nbsp;м²</span></div></a>
+      <a class="hcard" href="projects/sportzal-spb-500/index.html"><div class="hshot"><img src="assets/img/proj-06.jpg" alt="Спортзал в Санкт-Петербурге, 500 м²"></div>
+        <div class="proj-cap"><span class="nm">Спортзал в Санкт-Петербурге</span><span>500&nbsp;м²</span></div></a>
+      <a class="hcard hcard--all" href="projects.html">
+        <div class="hshot--all">
+          <div class="all-collage" aria-hidden="true">
+            <img src="assets/img/top-01.jpg" alt=""><img src="assets/img/top-02.jpg" alt="">
+            <img src="assets/img/top-03.jpg" alt=""><img src="assets/img/top-04.jpg" alt="">
+            <img src="assets/img/top-05.jpg" alt=""><img src="assets/img/top-06.jpg" alt="">
+          </div>
+          <span class="all-label">Все<br>проекты</span>
+          <span class="all-arrow">↗</span>
+        </div>
       </a>
     </div>
   </div>
-</div></section>
+</section>
 
 <footer>
   <div class="foot">
