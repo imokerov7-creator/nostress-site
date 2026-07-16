@@ -70,6 +70,15 @@ html.hg-static .hgallery__track>*{scroll-snap-align:start}
 /* ---- УТИЛИТЫ ---- */
 [data-stagger]>*{will-change:transform,opacity}
 
+/* ---- СОГЛАСИЕ НА ОБРАБОТКУ ПД (152-ФЗ, чекбокс под формами) ---- */
+.consent{display:flex;gap:10px;align-items:flex-start;flex:1 1 100%;margin-top:4px;
+  font-size:13px;line-height:1.45;color:#6E6862;cursor:pointer;text-align:left}
+.consent input{margin:2px 0 0;width:15px;height:15px;flex:none;accent-color:#111;cursor:pointer}
+.consent a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.consent a:hover{color:#111}
+.consent--err{color:#9E3B33}
+.consent--err a{color:inherit}
+
 /* ---- REDUCED MOTION: убрать движение, оставить мягкие фейды (opacity ведёт motion.js) ---- */
 @media (prefers-reduced-motion:reduce){
   .js-motion [data-reveal],

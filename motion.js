@@ -449,16 +449,36 @@
   modal.querySelector('.lead-modal__close').addEventListener('click', closeModal);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
 
-  // после отправки любой формы — страница «Спасибо» (путь от расположения motion.js:
-  // страницы проектов подключают его как ../../motion.js)
-  function gotoThanks() {
+  // путь до корня сайта от расположения motion.js (страницы проектов подключают его как ../../motion.js)
+  function basePath() {
     var s = document.querySelector('script[src*="motion.js"]');
-    var base = s ? s.getAttribute('src').replace(/motion\.js.*$/, '') : '';
-    location.href = base + 'thanks.html';
+    return s ? s.getAttribute('src').replace(/motion\.js.*$/, '') : '';
+  }
+  // после отправки любой формы — страница «Спасибо»
+  function gotoThanks() { location.href = basePath() + 'thanks.html'; }
+
+  // 152-ФЗ: не предотмеченный чекбокс согласия под каждой формой; без него отправка невозможна
+  function consentRow() {
+    var label = document.createElement('label');
+    label.className = 'consent';
+    label.innerHTML = '<input type="checkbox" class="consent__box">' +
+      '<span>Соглашаюсь на обработку персональных данных в соответствии с ' +
+      '<a href="' + basePath() + 'privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a></span>';
+    return label;
+  }
+  function consentOk(f) {
+    var box = f.querySelector('.consent__box');
+    if (!box) return true;
+    if (box.checked) { f.querySelector('.consent').classList.remove('consent--err'); return true; }
+    f.querySelector('.consent').classList.add('consent--err');
+    return false;
   }
 
-  modal.querySelector('.lead-modal__form').addEventListener('submit', function (e) {
+  var mForm = modal.querySelector('.lead-modal__form');
+  mForm.insertBefore(consentRow(), mForm.querySelector('button[type="submit"]'));
+  mForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (!consentOk(mForm)) return;
     gotoThanks();
   });
 
@@ -470,11 +490,14 @@
     openModal();
   });
 
-  // Финальная форма с Алёной: после отправки — страница «Спасибо»
+  // Финальная форма с Алёной: чекбокс согласия + после отправки — страница «Спасибо»
   Array.prototype.forEach.call(document.querySelectorAll('form.cap-form'), function (f) {
     f.removeAttribute('onsubmit');
+    var btn = f.querySelector('button[type="submit"], .btn');
+    if (btn && !f.querySelector('.consent')) f.insertBefore(consentRow(), btn);
     f.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (!consentOk(f)) return;
       gotoThanks();
     });
   });
