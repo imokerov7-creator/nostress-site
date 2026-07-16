@@ -56,6 +56,11 @@ html.has-cursor,html.has-cursor *{cursor:none!important}
 .marquee__inner{display:inline-flex;gap:1.2em;animation:marquee 28s linear infinite;will-change:transform}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+/* ---- ФОЛБЭК «РЕНДЕР → ФОТО» без JS: обычный блок со швом 50/50 вместо мёртвого пиннинга ---- */
+html:not(.js-motion) .reveal-sec{height:auto!important}
+html:not(.js-motion) .rv__render{clip-path:inset(0 50% 0 0)}
+html:not(.js-motion) .rv__divider{left:50%}
+
 /* ---- ФОЛБЭК ГАЛЕРЕЙ: нативный горизонтальный скролл (нет Motion / reduced-motion) ---- */
 html.hg-static .hgallery{height:auto!important}
 html.hg-static .hgallery__sticky{position:static;height:auto;overflow:visible}
