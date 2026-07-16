@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Спасибо за заявку — NoStress Design</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<style>
+/* ============ ПОВЕРХ ТОКЕНОВ: страница «Спасибо» ============ */
+:root{--accent:#6E2A35;--accent-press:#581F28;--on-accent:#FFFFFF;--r-btn:100px;--r-input:12px}
+
+/* ---- ШАПКА (единая для сайта) ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:60}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(17,15,13,.68) 0%,rgba(17,15,13,.34) 56%,rgba(17,15,13,0) 100%)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:clamp(34px,3.4vw,46px);width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(26px,2.4vw,40px);font-size:clamp(15px,1.15vw,17px);letter-spacing:.005em}
+.nav a{color:#fff;font-weight:450;text-shadow:0 1px 14px rgba(0,0,0,.45);position:relative;padding:2px 0;transition:opacity .3s var(--ease)}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:currentColor;transition:right .3s var(--ease)}
+.nav a:hover::after{right:0}
+.cta{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);padding:12px 26px;border-radius:var(--r-btn);font-size:clamp(14px,1.05vw,16px);font-weight:500;letter-spacing:.005em;transition:background-color .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease)}
+.cta:hover{background:var(--accent-press);border-color:var(--accent-press);color:var(--on-accent)}
+.btn{border-radius:var(--r-btn)}
+.field{padding:.85em 1em;border:var(--bw) solid var(--border);border-radius:var(--r-input);background:var(--paper)}
+.field:focus{border-color:var(--ink);border-bottom-color:var(--ink)}
+
+/* ---- ВЫПАДАЮЩЕЕ МЕНЮ «УСЛУГИ» ---- */
+.nav .has-sub{position:relative;display:inline-flex;align-items:center}
+.nav .has-sub>a{display:inline-flex;align-items:center;gap:7px}
+.nav .caret{width:10px;height:6px;flex:none;display:block;transition:transform .25s var(--ease)}
+.nav .has-sub:hover .caret,.nav .has-sub:focus-within .caret{transform:rotate(180deg)}
+.nav .sub{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);padding-top:16px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility 0s linear .22s}
+.nav .has-sub:hover .sub,.nav .has-sub:focus-within .sub{opacity:1;visibility:visible;pointer-events:auto;
+  transform:translate(-50%,0);transition-delay:0s}
+.nav .sub__panel{min-width:238px;background:#161311;border:1px solid rgba(252,252,252,.14);padding:10px 0;display:flex;flex-direction:column}
+.nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+.nav .sub__panel a::after{content:none}
+.nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+
+/* ---- ИНТРО ---- */
+.intro{padding-top:clamp(120px,15vh,184px);padding-bottom:clamp(40px,5vw,72px)}
+.intro .eyebrow{margin-bottom:clamp(16px,2vw,22px)}
+.intro h1{font-size:clamp(3rem,8.5vw,7.2rem);font-weight:var(--w-semibold);line-height:.95;letter-spacing:-.045em}
+.intro .lead{max-width:52ch;margin-top:clamp(18px,2.2vw,28px)}
+.intro .back{display:inline-flex;align-items:center;gap:10px;margin-top:clamp(26px,3vw,40px);
+  font-size:clamp(15px,1.15vw,17px);font-weight:var(--w-medium);color:var(--ink);
+  border-bottom:1px solid var(--ink);padding-bottom:3px;transition:opacity .3s var(--ease)}
+.intro .back:hover{opacity:.6}
+
+/* ---- «ПОКА ЖДЁТЕ»: строки-ссылки (как хаб на «Контактах») ---- */
+.hub{padding-block:clamp(56px,8vw,104px)}
+.hub__grid{display:grid;grid-template-columns:minmax(260px,1fr) 1.7fr;gap:clamp(32px,5vw,96px);align-items:start}
+.hub__head .h3{margin-top:14px;max-width:14ch}
+.hub__head .lead{margin-top:16px;max-width:38ch}
+.hrows{display:flex;flex-direction:column;border-top:var(--bw) solid var(--border)}
+.hrow{display:grid;grid-template-columns:1fr auto auto;align-items:baseline;gap:clamp(16px,2vw,32px);
+  padding:clamp(20px,2.6vw,34px) 0;border-bottom:var(--bw) solid var(--border);color:inherit}
+.hrow__t{font-size:clamp(1.35rem,2.6vw,2.35rem);font-weight:var(--w-semibold);letter-spacing:-.025em;
+  line-height:1.08;transition:transform .55s var(--ease)}
+.hrow__m{font-size:clamp(13px,1vw,15px);color:var(--text-2);letter-spacing:.01em;white-space:nowrap;
+  transition:color .55s var(--ease)}
+.hrow__a{font-size:clamp(1rem,1.4vw,1.3rem);font-weight:var(--w-medium);color:var(--text-2);
+  opacity:.35;transform:translate(-8px,6px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease),color .55s var(--ease)}
+.hrow:hover .hrow__t{transform:translateX(14px)}
+.hrow:hover .hrow__m{color:var(--ink)}
+.hrow:hover .hrow__a{opacity:1;transform:none;color:var(--ink)}
+
+/* ---- ФУТЕР ---- */
+footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:clamp(56px,8vw,88px) var(--pad) 40px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
+.foot a{color:#b9b9b8}.foot a:hover{color:#fff}
+.foot .col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a7975;margin-bottom:16px;font-weight:var(--w-semibold)}
+.foot .col div{font-size:14.5px;margin-bottom:9px}
+.foot-logo img{height:40px}
+.foot-tag{margin-top:16px;max-width:260px;color:#7a7975;font-size:14px}
+.foot-btm{max-width:var(--maxw);margin:48px auto 0;padding-top:22px;border-top:var(--bw) solid rgba(252,252,252,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7a7975}
+
+/* ---- ПРОГРЕСС-БАР / STICKY CTA ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:70;transform:scaleX(0);transform-origin:left}
+.sticky-cta{display:none}
+
+/* ---- АДАПТИВ ---- */
+@media (max-width:900px){
+  .nav{display:none}
+  .hub__grid{grid-template-columns:1fr;gap:clamp(24px,6vw,36px)}
+  .hub__head .h3,.hub__head .lead{max-width:none}
+  .hrow{grid-template-columns:1fr auto;row-gap:4px}
+  .hrow__m{grid-column:1;grid-row:2;white-space:normal}
+  .hrow__a{grid-column:2;grid-row:1}
+  .hrow:hover .hrow__t{transform:none}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--paper);
+    border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
+  .sticky-cta .btn{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="progress"></div>
+
+<header id="top">
+  <div class="bar">
+    <a href="index.html" class="logo" aria-label="NoStress Design"><img src="assets/logo-white.png" alt="NoStress Design"></a>
+    <nav class="nav">
+      <a href="projects.html">Проекты</a><span class="has-sub"><a href="services.html">Услуги<svg class="caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="sub"><div class="sub__panel"><a href="design-project.html">Дизайн-проект</a><a href="remont.html">Ремонт под ключ</a><a href="nadzor.html">Авторский надзор</a><a href="komplektaciya.html">Комплектация</a></div></div></span><a href="about.html">О студии</a><a href="contacts.html">Контакты</a>
+    </nav>
+    <a href="tel:+79856741267" class="cta">+7 985 67-412-67</a>
+  </div>
+</header>
+
+<!-- 1 · СПАСИБО -->
+<section class="intro"><div class="container">
+  <div class="eyebrow" data-reveal="fade">Заявка отправлена</div>
+  <h1 data-split>Спасибо за&nbsp;заявку</h1>
+  <p class="lead" data-reveal>Мы получили ваши контакты. Менеджер свяжется с&nbsp;вами в&nbsp;рабочее время&nbsp;— обычно в&nbsp;течение получаса.</p>
+  <a class="back" href="index.html" data-reveal="fade">← Вернуться на главную</a>
+</div></section>
+
+<!-- 2 · ПОКА ЖДЁТЕ -->
+<section class="hub"><div class="container">
+  <div class="hub__grid">
+    <div class="hub__head">
+      <div class="eyebrow" data-reveal="fade">Пока ждёте</div>
+      <h2 class="h3" data-split>Посмотрите, что мы делаем</h2>
+      <p class="lead" data-reveal>Реализованные интерьеры, состав услуг и&nbsp;будни студии.</p>
+    </div>
+    <div class="hrows" data-stagger>
+      <a class="hrow" href="projects.html">
+        <span class="hrow__t">Наши проекты</span>
+        <span class="hrow__m">квартиры и дома</span>
+        <span class="hrow__a">↗</span>
+      </a>
+      <a class="hrow" href="services.html">
+        <span class="hrow__t">Услуги</span>
+        <span class="hrow__m">дизайн · ремонт · комплектация</span>
+        <span class="hrow__a">↗</span>
+      </a>
+      <a class="hrow" href="https://t.me/design_bez_stressa" target="_blank" rel="noopener">
+        <span class="hrow__t">Telegram-канал</span>
+        <span class="hrow__m">будни студии</span>
+        <span class="hrow__a">↗</span>
+      </a>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="foot-logo"><img src="assets/logo-white.png" alt="NoStress Design"></div>
+      <div class="foot-tag">Эстетика, подчинённая логике.</div>
+    </div>
+    <div class="col"><h4>Навигация</h4>
+      <div><a href="projects.html">Проекты</a></div><div><a href="services.html">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="contacts.html">Контакты</a></div></div>
+    <div class="col"><h4>Контакты</h4>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+  </div>
+  <div class="foot-btm"><span>© 2022–2026 NoStress Design</span><span>Москва</span></div>
+</footer>
+
+<div class="sticky-cta"><a href="tel:+79856741267" class="btn">Позвонить нам</a></div>
+
+<!-- Motion UMD-глобал (как на главной) -->
+<script src="assets/motion-lib.js"></script>
+<script src="motion.js"></script>
+
+</body>
+</html>

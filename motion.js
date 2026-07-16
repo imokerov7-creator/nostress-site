@@ -449,10 +449,17 @@
   modal.querySelector('.lead-modal__close').addEventListener('click', closeModal);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
 
+  // после отправки любой формы — страница «Спасибо» (путь от расположения motion.js:
+  // страницы проектов подключают его как ../../motion.js)
+  function gotoThanks() {
+    var s = document.querySelector('script[src*="motion.js"]');
+    var base = s ? s.getAttribute('src').replace(/motion\.js.*$/, '') : '';
+    location.href = base + 'thanks.html';
+  }
+
   modal.querySelector('.lead-modal__form').addEventListener('submit', function (e) {
     e.preventDefault();
-    modal.querySelector('.lead-modal__panel').classList.add('is-done');
-    modal.querySelector('.lead-modal__thanks').hidden = false;
+    gotoThanks();
   });
 
   // Кнопки-CTA, ведущие на #contact → попап (простые ссылки навигации не трогаем)
@@ -463,12 +470,12 @@
     openModal();
   });
 
-  // Финальная форма с Алёной остаётся на странице: после отправки — «Спасибо»
+  // Финальная форма с Алёной: после отправки — страница «Спасибо»
   Array.prototype.forEach.call(document.querySelectorAll('form.cap-form'), function (f) {
     f.removeAttribute('onsubmit');
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      f.innerHTML = '<p class="cap-thanks"><b>Спасибо за заявку!</b><br>Наш менеджер свяжется с вами в рабочее время.</p>';
+      gotoThanks();
     });
   });
 
