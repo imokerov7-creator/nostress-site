@@ -65,10 +65,10 @@ html.hg-static .hgallery__track>*{scroll-snap-align:start}
 /* ---- УТИЛИТЫ ---- */
 [data-stagger]>*{will-change:transform,opacity}
 
-/* ---- REDUCED MOTION: показать всё, отключить движение ---- */
+/* ---- REDUCED MOTION: убрать движение, оставить мягкие фейды (opacity ведёт motion.js) ---- */
 @media (prefers-reduced-motion:reduce){
   .js-motion [data-reveal],
-  .js-motion [data-reveal="scale"]{opacity:1!important;transform:none!important}
+  .js-motion [data-reveal="scale"]{transform:none!important}
   .js-motion [data-split] .line__inner{transform:none!important}
   .js-motion [data-clip]{clip-path:none!important;transform:none!important}
   .js-motion [data-clip] img{transform:none!important}

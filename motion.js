@@ -12,6 +12,7 @@
 (function () {
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!window.Motion || reduce) document.documentElement.classList.add("hg-static");
+  else document.documentElement.classList.remove("hg-static");   // ретрай: Motion догрузился
 })();
 
 (function () {
@@ -20,6 +21,8 @@
     console.warn("[motion] Motion не загружен — анимации выключены, контент виден.");
     return;
   }
+  if (window.__motionInited) return;          // защита от повторного прогона (ретрай загрузки)
+  window.__motionInited = true;
   var animate = M.animate, scroll = M.scroll, stagger = M.stagger, inView = M.inView;
   var EXPO = [0.22, 1, 0.36, 1];
 
@@ -126,7 +129,13 @@
         return '<span class="line"><span class="line__inner">' + w + '&nbsp;</span></span>';
       }).join("");
       el.style.display = "inline-block";
-      if (REDUCE) return;
+      if (REDUCE) {            // reduce-motion: спокойный фейд заголовка без движения слов
+        el.style.opacity = 0;
+        inView(el, function () {
+          animate(el, { opacity: [0, 1] }, { duration: 0.6, ease: "easeOut" });
+        }, { margin: "0px 0px 8% 0px" });
+        return;
+      }
       var inners = $$(".line__inner", el);
       inView(el, function () {
         animate(inners, { y: ["115%", "0%"] }, { duration: 0.8, delay: stagger(0.06), ease: EXPO });
@@ -136,10 +145,10 @@
 
   /* ---- 7. REVEAL (разовый по входу в кадр) ---- */
   function initReveal() {
-    if (REDUCE) return;
     $$("[data-reveal]").forEach(function (el) {
       var kind = el.getAttribute("data-reveal");
-      var to = kind === "fade"  ? { opacity: [0, 1] }
+      var to = REDUCE           ? { opacity: [0, 1] }   /* reduce-motion: фейд без сдвига/зума */
+            : kind === "fade"  ? { opacity: [0, 1] }
             : kind === "scale" ? { opacity: [0, 1], scale: [0.92, 1] }
             :                    { opacity: [0, 1], y: [60, 0] };
       inView(el, function () { animate(el, to, { duration: 0.8, ease: EXPO }); },
@@ -149,19 +158,25 @@
 
   /* ---- 8. STAGGER (разовый, каскад) ---- */
   function initStagger() {
-    if (REDUCE) return;
     $$("[data-stagger]").forEach(function (box) {
       var kids = Array.prototype.slice.call(box.children);
+      var to = REDUCE ? { opacity: [0, 1] } : { opacity: [0, 1], y: [60, 0] };
       inView(box, function () {
-        animate(kids, { opacity: [0, 1], y: [60, 0] }, { duration: 0.7, delay: stagger(0.08), ease: EXPO });
+        animate(kids, to, { duration: 0.7, delay: stagger(0.08), ease: EXPO });
       }, { margin: "0px 0px 8% 0px" });
     });
   }
 
   /* ---- 8b. CLIP-REVEAL рамок (разовый) ---- */
   function initClip() {
-    if (REDUCE) return;
     $$("[data-clip]").forEach(function (wrap) {
+      if (REDUCE) {            // reduce-motion: фейд рамки вместо шторы с зумом
+        wrap.style.opacity = 0;
+        inView(wrap, function () {
+          animate(wrap, { opacity: [0, 1] }, { duration: 0.7, ease: "easeOut" });
+        }, { margin: "0px 0px 8% 0px" });
+        return;
+      }
       inView(wrap, function () {
         animate(wrap, { clipPath: ["inset(0 0 100% 0)", "inset(0 0 0% 0)"], scale: [1.04, 1] },
           { duration: 1.0, ease: EXPO });
@@ -487,4 +502,35 @@
       '<a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a>';
     links.appendChild(box);
   }
+})();
+
+/* ==== БЕГУЩАЯ СТРОКА: rAF-фолбэк, если браузер заглушил CSS-анимацию
+   (энергосбережение и т.п.). Работает и без Motion — чистый rAF. ==== */
+(function () {
+  if (window.__mqWatch) return; window.__mqWatch = 1;   // не дублировать при ретрае скрипта
+  function watch() {
+    Array.prototype.forEach.call(document.querySelectorAll('.marquee__inner'), function (el) {
+      var m1 = getComputedStyle(el).transform;
+      setTimeout(function () {
+        if (document.hidden) return;                 // вкладка в фоне — не судим
+        var m2 = getComputedStyle(el).transform;
+        if (m1 !== m2) return;                       // CSS-анимация едет — всё ок
+        el.style.animation = 'none';                 // заглушенную CSS-анимацию выключаем
+        var half = el.scrollWidth / 2 || 1;
+        var speed = half / 28000;                    // тот же темп: половина ленты за 28 с
+        var prev = null, x = 0;
+        function step(t) {
+          if (prev != null) {
+            x = (x + (t - prev) * speed) % half;
+            el.style.transform = 'translateX(' + (-x) + 'px)';
+          }
+          prev = t;
+          requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }, 1500);
+    });
+  }
+  if (document.readyState === 'complete') setTimeout(watch, 800);
+  else window.addEventListener('load', function () { setTimeout(watch, 800); });
 })();
