@@ -9,3 +9,4 @@ node_modules/
 *.orderbak
 *.predeic2bak
 assets/team_bw 2.mp4
+projects/*/src/
