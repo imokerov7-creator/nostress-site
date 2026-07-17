@@ -482,11 +482,57 @@
     gotoThanks();
   });
 
+  // Персонализация модалки под обещание нажатой кнопки:
+  // заголовок и подводка говорят о том, что человек хотел получить
+  function leadVariant(label) {
+    var t = label.replace(/\u00a0/g, ' ').toLowerCase();
+    var path = location.pathname;
+    if (t.indexOf('пример альбома') > -1) {
+      var m = label.match(/«([^»]+)»/);
+      var tariff = m ? m[1] : '';
+      return { e: 'Пример альбома', h: 'Пришлём пример альбома' + (tariff ? ' «' + tariff + '»' : ''),
+               p: 'Оставьте контакты — отправим пример альбома тарифа' + (tariff ? ' «' + tariff + '»' : '') + ' в мессенджер.' };
+    }
+    if (t.indexOf('собрать свой тариф') > -1)
+      return { e: 'Custom', h: 'Соберём тариф под вас',
+               p: 'Оставьте контакты — обсудим ваш объект и соберём тариф из нужных блоков.' };
+    if (t.indexOf('презентац') > -1)
+      return { e: 'Презентация', h: 'Пришлём презентацию проектов',
+               p: 'Оставьте контакты — отправим презентацию с реализованными проектами в мессенджер.' };
+    if (t.indexOf('подборк') > -1)
+      return { e: 'Подборка проектов', h: 'Соберём проекты в вашем духе',
+               p: 'Оставьте контакты и пару слов об объекте — соберём наши проекты в похожем характере.' };
+    if (t.indexOf('экскурси') > -1)
+      return { e: 'Экскурсия', h: 'Покажем объекты в работе',
+               p: 'Оставьте контакты — согласуем день и покажем, как устроен наш ремонт изнутри.' };
+    if (t.indexOf('ремонт') > -1)
+      return { e: 'Ремонт', h: 'Посчитаем ваш ремонт',
+               p: 'Оставьте контакты — уточним параметры объекта и пришлём расчёт.' };
+    if (t.indexOf('объект') > -1 && path.indexOf('nadzor') > -1)
+      return { e: 'Авторский надзор', h: 'Обсудим ваш объект',
+               p: 'Оставьте контакты — расскажем, как выстроим авторский надзор на вашем объекте.' };
+    if (t.indexOf('объект') > -1 && path.indexOf('komplektaciya') > -1)
+      return { e: 'Комплектация', h: 'Обсудим ваш объект',
+               p: 'Оставьте контакты — расскажем, как соберём и доставим всё для вашего объекта.' };
+    return null; // дефолт — консультация (как свёрстано)
+  }
+  var modalDefaults = null;
+  function setModal(v) {
+    var e = modal.querySelector('.lead-modal__eyebrow'),
+        h = modal.querySelector('.lead-modal__h'),
+        p = modal.querySelector('.lead-modal__lead'),
+        panel = modal.querySelector('.lead-modal__panel');
+    if (!modalDefaults) modalDefaults = { e: e.textContent, h: h.textContent, p: p.innerHTML };
+    if (v) { e.textContent = v.e; h.textContent = v.h; p.textContent = v.p; panel.setAttribute('aria-label', v.h); }
+    else { e.textContent = modalDefaults.e; h.textContent = modalDefaults.h; p.innerHTML = modalDefaults.p; panel.setAttribute('aria-label', 'Заявка на консультацию'); }
+  }
+
   // Кнопки-CTA, ведущие на #contact → попап (простые ссылки навигации не трогаем)
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a.btn[href$="#contact"], a.cta[href$="#contact"], a.rv__cta[href$="#contact"], a.mnav__cta[href$="#contact"], a.tf-cta[href$="#contact"]');
     if (!a) return;
     e.preventDefault();
+    setModal(leadVariant(a.textContent || ''));
     openModal();
   });
 
