@@ -163,10 +163,10 @@ html{overflow-x:clip}
 :where(a,button,.field,[tabindex]):focus-visible{
   outline:2px solid var(--ink);outline-offset:3px;border-radius:1px;
 }
-/* логотип: никакой рамки фокуса ни при клике, ни с клавиатуры;
-   клавиатурная индикация — мягкое затемнение вместо кольца */
+/* логотип: без какой-либо фокус-индикации (браузер Кирилла вешает
+   focus-visible даже на клик мышью) — лого всегда белое, без рамки */
 a.logo:focus,a.logo:focus-visible{outline:none!important}
-a.logo:focus-visible img{opacity:.6}
+a.logo:focus img,a.logo:focus-visible img{opacity:1}
 
 /* ---- REDUCED MOTION (страховка на уровне токенов) ---- */
 @media (prefers-reduced-motion:reduce){
