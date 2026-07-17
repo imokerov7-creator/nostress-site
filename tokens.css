@@ -287,3 +287,6 @@ html.lead-open,html.lead-open body{overflow:hidden}
 .mnav__contacts{margin-top:34px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .mnav__contacts .mnav-tel{color:#fff;font-size:24px;font-weight:var(--w-semibold);letter-spacing:-.01em}
 .mnav__contacts a{color:rgba(255,255,255,.82);font-size:17px}
+
+/* мобильный футер: слева ©, справа политика; «Москва» скрыта */
+@media (max-width:900px){footer .foot-btm span:last-child{display:none}footer .foot-btm .rights{display:none}footer .foot-btm{font-size:12px;flex-wrap:nowrap;gap:8px}}

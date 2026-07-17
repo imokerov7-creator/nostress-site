@@ -563,7 +563,7 @@
 
 /* ==== МОБИЛКА: иконка Telegram в шапке + контакты в бургер-меню ==== */
 (function () {
-  var TG_CHANNEL = "https://t.me/design_bez_stressa";
+  var TG_CHANNEL = "https://t.me/NoStress_Design";   // рабочий мессенджер студии (не личный канал)
   var bar = document.querySelector('header .bar');
   if (bar && !bar.querySelector('.bar-tg')) {
     var tg = document.createElement('a');

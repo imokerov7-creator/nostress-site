@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NoStress Design — дизайн интерьера полного цикла</title>
-<link rel="stylesheet" href="tokens.css?v=20260717">
-<link rel="stylesheet" href="motion.css?v=20260717">
+<link rel="stylesheet" href="tokens.css?v=20260718">
+<link rel="stylesheet" href="motion.css?v=20260718">
 <style>
 /* ============ ПОВЕРХ ТОКЕНОВ: страница ============ */
 
@@ -122,9 +122,10 @@ section.section--warm{background:var(--surface-warm)}
 .hg-more:hover span{transform:translate(3px,-3px)}
 .hcard--story{text-decoration:none;color:inherit}
 .hgallery--story .hgallery__track{gap:clamp(30px,3.6vw,68px)}
-.hgallery--story .hcard{width:clamp(200px,min(25vw,(100svh - 460px)*.75),360px)}
+.hgallery--story .hcard{width:clamp(200px,min(25vw,(100svh - 545px)*.75),360px)}
+.hgallery--story .hshot{aspect-ratio:3/4}
 /* короткое окно: история не закрепляется, листается нативно (стрелки работают через scrollBy) */
-@media (max-height:700px) and (min-width:901px){
+@media (max-height:860px) and (min-width:901px){
   .hgallery--story{height:auto!important}
   .hgallery--story .hgallery__sticky{position:static;height:auto;padding-top:120px;padding-bottom:48px}
   .hgallery--story .hgallery__track{overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-bottom:14px;transform:none!important}
@@ -625,8 +626,8 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   <div class="hgallery__sticky">
     <div class="hgallery__head">
       <div class="hg-head-l">
-        <div class="eyebrow" data-reveal="fade">О студии</div>
-        <h2 class="h2" data-split>Наша история</h2>
+        <div class="eyebrow" data-reveal="fade">История</div>
+        <h2 class="h2" data-split>Как одна студия рынок дизайна меняла</h2>
       </div>
       <div class="hg-head-r" data-reveal>
         <p class="hg-lead">Рассказываем без прикрас, как студия росла&nbsp;— от первых заказов до 600+&nbsp;реализованных проектов. Одиннадцать глав, написанных по&nbsp;ходу пути.</p>
@@ -720,17 +721,18 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     </div>
     <div class="col"><h4>Навигация</h4>
       <div><a href="projects.html">Проекты</a></div><div><a href="#tariffs">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
+    <div class="col"><h4>Услуги</h4><div><a href="design-project.html">Дизайн-проект</a></div><div><a href="remont.html">Ремонт под ключ</a></div><div><a href="nadzor.html">Авторский надзор</a></div><div><a href="komplektaciya.html">Комплектация</a></div></div>
     <div class="col"><h4>Контакты</h4>
       <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
   </div>
-  <div class="foot-btm"><span>© 2022–2026 NoStress Design. Все права защищены.</span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
+  <div class="foot-btm"><span>© 2022–2026 NoStress Design.<span class="rights"> Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
 
 <!-- Motion как UMD-глобал (классический скрипт — грузится и с file://) -->
-<script src="assets/motion-lib.js?v=20260717" onerror="window.__mlFail=1"></script>
-<script src="motion.js?v=20260717b" onerror="window.__mjFail=1"></script>
+<script src="assets/motion-lib.js?v=20260718" onerror="window.__mlFail=1"></script>
+<script src="motion.js?v=20260718" onerror="window.__mjFail=1"></script>
 <script>
 /* Сбой сети при загрузке анимаций — одна повторная попытка с cache-bust */
 (function(){
