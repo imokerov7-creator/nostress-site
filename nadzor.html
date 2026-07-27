@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Авторский надзор — NoStress Design</title>
-<link rel="stylesheet" href="tokens.css?v=20260718">
-<link rel="stylesheet" href="motion.css?v=20260718">
+<link rel="stylesheet" href="tokens.css?v=20260727">
+<link rel="stylesheet" href="motion.css?v=20260727">
 <style>
 /* ============ ПОВЕРХ ТОКЕНОВ: страница «Авторский надзор» ============ */
 .btn,.msg{border-radius:var(--r-btn)}
@@ -226,6 +226,27 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
 .nav .sub__panel a::after{content:none}
 .nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+
+/* ============ ФОРМА-ПОЛОСА «ДЕЛЕГИРОВАТЬ» (в середине страницы) ============ */
+.deleg{background:var(--ink);color:var(--paper);padding-block:clamp(56px,7vw,96px)}
+.deleg__lead{color:#b9b9b8}
+.deleg .field{color:var(--paper);border-bottom-color:rgba(252,252,252,.32)}
+.deleg .field:focus{border-bottom-color:var(--paper)}
+.deleg .field::placeholder{color:rgba(252,252,252,.48)}
+.deleg .btn{border-color:var(--paper);background:var(--paper);color:var(--ink)}
+.deleg .btn:hover{background:transparent;color:var(--paper)}
+.deleg .consent{color:#b9b9b8}
+.deleg__grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(32px,5vw,88px);align-items:center}
+.deleg__h{font-size:clamp(1.7rem,3.4vw,2.8rem);font-weight:var(--w-semibold);line-height:1.08;letter-spacing:-.03em;max-width:20ch}
+.deleg__lead{margin-top:14px;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.5;max-width:44ch}
+.deleg .cap-form{margin-top:0;display:flex;flex-wrap:wrap;gap:16px}
+.deleg .cap-form .field{flex:1 1 100%;margin:0}
+.deleg .cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+@media (max-width:900px){.deleg__grid{grid-template-columns:1fr;gap:32px}}
+/* финальная форма в блоке с Алёной */
+.cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
+.cap-form .field{flex:1 1 200px;margin:0}
+.cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 </head>
@@ -309,6 +330,22 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
         <p class="inc__d">Что проверено, о&nbsp;чём договорились со&nbsp;строителями, что исправлено. Вы&nbsp;в&nbsp;курсе всего, не&nbsp;приезжая на&nbsp;объект.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- 3.5 · ФОРМА: ДЕЛЕГИРОВАТЬ -->
+<section class="deleg">
+  <div class="container deleg__grid">
+    <div>
+      <h2 class="deleg__h">Снимем всю головную боль с&nbsp;вас&nbsp;— и&nbsp;сделаем всё за&nbsp;вас</h2>
+      <p class="deleg__lead">Оставьте контакты&nbsp;— расскажем, как выстроим авторский надзор на&nbsp;вашем объекте.</p>
+    </div>
+    <form class="cap-form">
+      <input type="hidden" name="source" value="nadzor-mid">
+      <input class="field" placeholder="Как к вам обращаться" autocomplete="name">
+      <input class="field" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
+      <button class="btn" type="submit">Делегировать работу</button>
+    </form>
   </div>
 </section>
 
@@ -397,10 +434,13 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     <div class="cap-body">
       <div class="eyebrow">Консультация</div>
       <h2 class="h2" style="margin-top:14px">Поговорим о вашей квартире</h2>
-      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
-      <div class="cap-actions">
-        <a class="btn" href="https://t.me/NoStress_Design">Обсудить ваш объект</a>
-      </div>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать.<br>Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <form class="cap-form">
+        <input type="hidden" name="source" value="nadzor-final">
+        <input class="field" placeholder="Как к вам обращаться" autocomplete="name">
+        <input class="field" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
+        <button class="btn" type="submit">Обсудить ваш объект</button>
+      </form>
       <div class="cap-quick">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
@@ -424,15 +464,15 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div><a href="projects.html">Проекты</a></div><div><a href="services.html">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="index.html#contact">Контакты</a></div></div>
     <div class="col"><h4>Услуги</h4><div><a href="design-project.html">Дизайн-проект</a></div><div><a href="remont.html">Ремонт под ключ</a></div><div><a href="nadzor.html">Авторский надзор</a></div><div><a href="komplektaciya.html">Комплектация</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a></div><div>nostress.design</div></div>
   </div>
   <div class="foot-btm"><span>© 2022–2026 NoStress Design.<span class="rights"> Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить ваш объект</a></div>
 
-<script src="assets/motion-lib.js?v=20260718"></script>
-<script src="motion.js?v=20260718"></script>
+<script src="assets/motion-lib.js?v=20260727"></script>
+<script src="motion.js?v=20260727"></script>
 
 <!-- надёжный scroll-reveal: свой IntersectionObserver + failsafe (как в remont.html/index.html) -->
 <script>

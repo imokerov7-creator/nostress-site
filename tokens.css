@@ -273,8 +273,17 @@ html.lead-open,html.lead-open body{overflow:hidden}
   #contact .cap-photo img{object-position:50% 8%}
 }
 
-/* ---- Иконка Telegram в мобильной шапке (лого по центру) ---- */
+/* ---- Ошибка поля телефона: без полного номера РФ форма не уходит ---- */
+.field--err,input.field--err{border-bottom-color:#9E3B33!important}
+.field-hint{display:block;flex:1 1 100%;margin-top:-8px;font-size:13px;line-height:1.35;color:#9E3B33}
+
+/* ---- Иконка Telegram в шапке (на десктопе — рядом с CTA, на мобилке лого по центру) ---- */
 .bar-tg{display:none}
+@media (min-width:901px){
+  .bar-tg{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;order:2;color:#fff;transition:opacity .3s var(--ease)}
+  .bar-tg:hover{opacity:.75}
+  .bar>.cta{order:3}
+}
 @media (max-width:900px){
   header .bar{position:relative}
   .bar .logo{position:absolute;left:50%;transform:translateX(-50%)}

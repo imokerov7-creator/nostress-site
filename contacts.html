@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Контакты — NoStress Design</title>
 <meta name="description" content="Как связаться со студией NoStress Design: телефон, Telegram, MAX, почта. Отзывы на открытых площадках, вакансии и соцсети студии.">
-<link rel="stylesheet" href="tokens.css?v=20260718">
-<link rel="stylesheet" href="motion.css?v=20260718">
+<link rel="stylesheet" href="tokens.css?v=20260727">
+<link rel="stylesheet" href="motion.css?v=20260727">
 <style>
 /* ============ ПОВЕРХ ТОКЕНОВ: страница «Контакты» ============ */
 /* акцент-цвет (как на главной) — только для CTA в шапке */
@@ -133,6 +133,26 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     border-top:var(--bw) solid var(--border);padding:12px var(--pad)}
   .sticky-cta .btn{flex:1;justify-content:center}
 }
+
+/* ---- Поп-ап «Работа в NoStress» ---- */
+.hr-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden;pointer-events:none}
+.hr-modal.open{visibility:visible;pointer-events:auto}
+.hr-modal__veil{position:absolute;inset:0;background:rgba(17,15,13,.56);opacity:0;transition:opacity .4s var(--ease)}
+.hr-modal__panel{position:relative;z-index:1;width:min(640px,100%);max-height:min(84vh,760px);overflow:auto;
+  background:var(--paper);padding:clamp(30px,4vw,48px);opacity:0;transform:translateY(18px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.hr-modal.open .hr-modal__veil{opacity:1}
+.hr-modal.open .hr-modal__panel{opacity:1;transform:none}
+html.hr-open,html.hr-open body{overflow:hidden}
+.hr-modal__close{position:absolute;top:12px;right:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--text-2);transition:color .3s var(--ease)}
+.hr-modal__close:hover{color:var(--ink)}
+.hr-modal__h{margin-top:12px;font-size:clamp(22px,2.2vw,30px);font-weight:var(--w-semibold);letter-spacing:-.02em;line-height:1.12;color:var(--ink)}
+.hr-modal__body{margin-top:16px;font-size:15.5px;line-height:1.55;color:var(--text-2)}
+.hr-modal__body p{margin-bottom:14px}
+.hr-modal__sub{font-weight:var(--w-semibold);color:var(--ink)}
+.hr-modal__body ul{margin:0 0 14px;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+.hr-modal__body b{font-weight:var(--w-semibold);color:var(--ink)}
+.hr-modal__body a{color:var(--ink);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -168,7 +188,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <a class="hrow" href="tel:+79856741267">
         <span class="hrow__t">+7 985 67-412-67</span><span class="hrow__m">телефон</span><span class="hrow__a">↗</span></a>
       <a class="hrow" href="https://t.me/NoStress_Design" target="_blank" rel="noopener">
-        <span class="hrow__t">Telegram</span><span class="hrow__m">@NoStress_Design</span><span class="hrow__a">↗</span></a>
+        <span class="hrow__t">Telegram</span><span class="hrow__m">мессенджер</span><span class="hrow__a">↗</span></a>
       <a class="hrow" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">
         <span class="hrow__t">MAX</span><span class="hrow__m">мессенджер</span><span class="hrow__a">↗</span></a>
       <a class="hrow" href="mailto:info@nostress-design.ru">
@@ -198,25 +218,11 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   </div>
 </div></section>
 
-<!-- 4 · РАБОТА В NOSTRESS -->
-<section class="hire" id="hire"><div class="container">
-  <div class="hire__grid">
-    <div>
-      <div class="eyebrow" data-reveal="fade">03 — Работа в NoStress</div>
-      <h2 class="hire__h" data-split>Ищем сильных в команду</h2>
-      <p class="hire__lead" data-reveal>Дизайнеры, проектировщики, комплектаторы и&nbsp;менеджеры&nbsp;— команда растёт вместе с&nbsp;проектами. Открытые вакансии и&nbsp;условия&nbsp;— на&nbsp;отдельной странице.</p>
-    </div>
-    <div class="hire__side" data-reveal>
-      <a class="btn" href="https://nostress-design.ru/hr" target="_blank" rel="noopener">Смотреть вакансии ↗</a>
-    </div>
-  </div>
-</div></section>
-
-<!-- 5 · МЫ В СОЦСЕТЯХ -->
+<!-- 4 · МЫ В СОЦСЕТЯХ -->
 <section class="hub" id="social"><div class="container">
   <div class="hub__grid">
     <div class="hub__head">
-      <div class="eyebrow" data-reveal="fade">04 — Мы в соцсетях</div>
+      <div class="eyebrow" data-reveal="fade">03 — Мы в соцсетях</div>
       <h2 class="h3" data-split>Проекты и процесс</h2>
       <p class="lead" data-reveal>Показываем готовые интерьеры, стройку и&nbsp;жизнь студии&nbsp;— в&nbsp;наших каналах.</p>
     </div>
@@ -225,12 +231,26 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
         <span class="hrow__t">Telegram-канал</span><span class="hrow__m">«Дизайн без стресса»</span><span class="hrow__a">↗</span></a>
       <a class="hrow" href="https://www.pinterest.com/nostress_design" target="_blank" rel="noopener">
         <span class="hrow__t">Pinterest</span><span class="hrow__m">@nostress_design</span><span class="hrow__a">↗</span></a>
-      <a class="hrow" href="#">
+      <a class="hrow" href="https://dzen.ru/nostress-design.ru" target="_blank" rel="noopener">
         <span class="hrow__t">Дзен</span><span class="hrow__m">статьи студии</span><span class="hrow__a">↗</span></a>
-      <a class="hrow" href="#">
+      <a class="hrow" href="https://www.youtube.com/channel/UChBN2uRlylRHwifLQpuogVg" target="_blank" rel="noopener">
         <span class="hrow__t">YouTube</span><span class="hrow__m">видео о проектах</span><span class="hrow__a">↗</span></a>
-      <a class="hrow" href="#">
+      <a class="hrow" href="https://www.instagram.com/nostress.design" target="_blank" rel="noopener">
         <span class="hrow__t">Instagram</span><span class="hrow__m">портфолио и процесс</span><span class="hrow__a">↗</span></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- 5 · РАБОТА В NOSTRESS -->
+<section class="hire" id="hire"><div class="container">
+  <div class="hire__grid">
+    <div>
+      <div class="eyebrow" data-reveal="fade">04 — Работа в NoStress</div>
+      <h2 class="hire__h" data-split>Ищем сильных в команду</h2>
+      <p class="hire__lead" data-reveal>Дизайнеры, проектировщики, комплектаторы и&nbsp;менеджеры&nbsp;— команда растёт вместе с&nbsp;проектами. Об&nbsp;условиях и&nbsp;формате работы&nbsp;— по&nbsp;кнопке.</p>
+    </div>
+    <div class="hire__side" data-reveal>
+      <a class="btn" href="#" id="hr-open">Подробнее о работе</a>
     </div>
   </div>
 </div></section>
@@ -245,7 +265,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     <div class="cap-body">
       <div class="eyebrow" data-reveal="fade">Консультация</div>
       <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
-      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
+      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать.<br>Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
       <form class="cap-form" data-reveal onsubmit="return false">
         <input class="field" placeholder="Как к вам обращаться">
         <input class="field" placeholder="+7 ___ ___-__-__">
@@ -254,7 +274,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="cap-quick" data-reveal="fade">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
-          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
+          <a class="msg" href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a><a class="msg" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
         </div>
       </div>
     </div>
@@ -272,16 +292,51 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div><a href="projects.html">Проекты</a></div><div><a href="services.html">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="contacts.html">Контакты</a></div></div>
     <div class="col"><h4>Услуги</h4><div><a href="design-project.html">Дизайн-проект</a></div><div><a href="remont.html">Ремонт под ключ</a></div><div><a href="nadzor.html">Авторский надзор</a></div><div><a href="komplektaciya.html">Комплектация</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a></div><div>nostress.design</div></div>
   </div>
   <div class="foot-btm"><span>© 2022–2026 NoStress Design.<span class="rights"> Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
 
+
+<!-- ПОП-АП «Работа в NoStress» -->
+<div class="hr-modal" id="hr-modal">
+  <div class="hr-modal__veil"></div>
+  <div class="hr-modal__panel" role="dialog" aria-modal="true" aria-label="Работа в NoStress Design">
+    <button type="button" class="hr-modal__close" aria-label="Закрыть">✕</button>
+    <div class="eyebrow">Работа в NoStress</div>
+    <h3 class="hr-modal__h">Стань частью команды NoStress Design</h3>
+    <div class="hr-modal__body">
+      <p>Мы создаём стильные и&nbsp;функциональные интерьеры для жилой и&nbsp;коммерческой недвижимости, объединяя качество, доступность и&nbsp;комфорт. Наши проекты вдохновляют на&nbsp;решения, которые дарят спокойствие и&nbsp;уверенность в&nbsp;результате.</p>
+      <p class="hr-modal__sub">Почему работать с нами — это здорово</p>
+      <ul>
+        <li><b>Полностью онлайн.</b> Все процессы выстроены удалённо&nbsp;— работайте из&nbsp;любой точки мира, где вам удобно.</li>
+        <li><b>Понятные условия.</b> Чёткие задачи, прозрачные процессы и&nbsp;фиксированные ставки.</li>
+        <li><b>Команда единомышленников.</b> Люди, которые любят своё дело, всегда поддержат и&nbsp;помогут.</li>
+        <li><b>Человеческое отношение.</b> Доверие, открытость, прозрачные задачи и&nbsp;адекватные сроки&nbsp;— наш стиль управления.</li>
+        <li><b>Развитие и&nbsp;рост.</b> Проекты, которые радуют клиентов; пространство совершенствовать навыки и&nbsp;воплощать свои идеи.</li>
+      </ul>
+      <p>Разделяете наше видение современного и&nbsp;функционального дизайна&nbsp;— напишите нам: <a href="mailto:hr@nostress-design.ru">hr@nostress-design.ru</a></p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var m=document.getElementById('hr-modal'),o=document.getElementById('hr-open');
+  if(!m||!o)return;
+  function open(){m.classList.add('open');document.documentElement.classList.add('hr-open')}
+  function close(){m.classList.remove('open');document.documentElement.classList.remove('hr-open')}
+  o.addEventListener('click',function(e){e.preventDefault();open()});
+  m.querySelector('.hr-modal__veil').addEventListener('click',close);
+  m.querySelector('.hr-modal__close').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+})();
+</script>
+
 <!-- Motion UMD-глобал (как на главной) -->
-<script src="assets/motion-lib.js?v=20260718"></script>
-<script src="motion.js?v=20260718"></script>
+<script src="assets/motion-lib.js?v=20260727"></script>
+<script src="motion.js?v=20260727"></script>
 
 </body>
 </html>

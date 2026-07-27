@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Услуги — NoStress Design</title>
-<link rel="stylesheet" href="tokens.css?v=20260718">
-<link rel="stylesheet" href="motion.css?v=20260718">
+<link rel="stylesheet" href="tokens.css?v=20260727">
+<link rel="stylesheet" href="motion.css?v=20260727">
 <style>
 /* ============ ПОВЕРХ ТОКЕНОВ: страница «Услуги» ============ */
 /* акцент-цвет (как на главной/проектах) — только для CTA в шапке */
@@ -612,7 +612,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
     <p class="dp-lead" data-reveal>Три блока остаются всегда&nbsp;— тарифы отличаются глубиной каждого. Цена&nbsp;— за&nbsp;дизайн-проект; ремонт и&nbsp;комплектацию считаем под&nbsp;объект.</p>
   </div>
   <div class="tf-grid" data-stagger>
-    <article class="tf-col">
+    <article class="tf-col" id="smart" style="scroll-margin-top:96px">
       <div class="tf-idx">01</div>
       <h3 class="tf-name">Смарт</h3>
       <div class="tf-tag">Рациональный быстрый старт</div>
@@ -621,9 +621,9 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;100 000&nbsp;₽&nbsp;· срок от&nbsp;15 раб. дней&nbsp;· дизайнер</div>
       <ul><li>Замеры и 1 планировочное решение</li><li>Базовый пакет чертежей</li><li>AI-визуализации интерьера</li><li>Предварительная финансовая карта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta" data-lead="tariff-smart">Оставить заявку</a>
     </article>
-    <article class="tf-col">
+    <article class="tf-col" id="business" style="scroll-margin-top:96px">
       <div class="tf-idx">02</div>
       <h3 class="tf-name">Бизнес</h3>
       <div class="tf-tag">Эстетика и точный расчёт</div>
@@ -632,9 +632,9 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;200 000&nbsp;₽&nbsp;· срок от&nbsp;25 раб. дней&nbsp;· ведущий дизайнер</div>
       <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Основной пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta" data-lead="tariff-business">Оставить заявку</a>
     </article>
-    <article class="tf-col">
+    <article class="tf-col" id="ultra" style="scroll-margin-top:96px">
       <div class="tf-idx">03</div>
       <h3 class="tf-name">Ультра</h3>
       <div class="tf-tag">Максимальный результат и сервис</div>
@@ -643,7 +643,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div class="tf-meta">от&nbsp;500 000&nbsp;₽&nbsp;· срок от&nbsp;33 раб. дней&nbsp;· арт-директор</div>
       <ul><li>BIM-обмер 2.0 и расширенный пакет чертежей</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="tf-spacer"></div>
-      <a href="#contact" class="tf-btn tf-cta">Оставить заявку</a>
+      <a href="#contact" class="tf-btn tf-cta" data-lead="tariff-ultra">Оставить заявку</a>
     </article>
   </div>
   <div class="tcustom">
@@ -896,7 +896,7 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
     <div class="cap-body">
       <div class="eyebrow">Консультация</div>
       <h2 class="h2" style="margin-top:14px">Поговорим о вашей квартире</h2>
-      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+      <p class="lead" style="margin-top:16px">Оставьте контакты&nbsp;— арт-директор студии изучит вашу планировку и&nbsp;покажет, что с&nbsp;ней можно сделать.<br>Встреча бесплатная и&nbsp;ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
       <form class="cap-form" onsubmit="return false">
         <input class="ifield" placeholder="Как к вам обращаться" autocomplete="name">
         <input class="ifield" placeholder="+7 ___ ___-__-__" autocomplete="tel" inputmode="tel">
@@ -925,15 +925,15 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
       <div><a href="projects.html">Проекты</a></div><div><a href="services.html">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="index.html#contact">Контакты</a></div></div>
     <div class="col"><h4>Услуги</h4><div><a href="design-project.html">Дизайн-проект</a></div><div><a href="remont.html">Ремонт под ключ</a></div><div><a href="nadzor.html">Авторский надзор</a></div><div><a href="komplektaciya.html">Комплектация</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a></div><div>nostress.design</div></div>
   </div>
   <div class="foot-btm"><span>© 2022–2026 NoStress Design.<span class="rights"> Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
 </footer>
 
 <div class="sticky-cta"><a href="#contact" class="btn" style="border-radius:var(--r-btn)">Обсудить идею</a></div>
 
-<script src="assets/motion-lib.js?v=20260718"></script>
-<script src="motion.js?v=20260718"></script>
+<script src="assets/motion-lib.js?v=20260727"></script>
+<script src="motion.js?v=20260727"></script>
 
 <!-- надёжный scroll-reveal: свой IntersectionObserver + failsafe (как в projects.html/index.html) -->
 <script>

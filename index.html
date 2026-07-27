@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NoStress Design — дизайн интерьера полного цикла</title>
-<link rel="stylesheet" href="tokens.css?v=20260718">
-<link rel="stylesheet" href="motion.css?v=20260718">
+<link rel="stylesheet" href="tokens.css?v=20260727">
+<link rel="stylesheet" href="motion.css?v=20260727">
 <style>
 /* ============ ПОВЕРХ ТОКЕНОВ: страница ============ */
 
@@ -351,6 +351,10 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .hero{padding-bottom:96px}   /* сабтекст hero не прячется под sticky-баром */
   .hgallery{height:auto!important}
   .hgallery__sticky{position:static;height:auto;display:block;padding:90px 0 20px}
+  /* карточка «Все проекты»: та же высота и пропорции коллажа, что у соседних карточек */
+  .hgallery__track{align-items:stretch}
+  .hcard--all{align-self:stretch;display:flex}
+  .hshot--all{aspect-ratio:auto;height:auto;flex:1}
   .hgallery__head{margin-bottom:24px}
   .hgallery__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px;-webkit-overflow-scrolling:touch;scroll-padding-inline:var(--pad)}
   .hcard{width:78vw;scroll-snap-align:start}
@@ -563,7 +567,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;15 раб. дней&nbsp;· разрабатывает дизайнер</div>
       <ul><li>Замеры и 1 планировочное решение</li><li>Пакет чертежей для старта стройки</li><li>AI-визуализации интерьера</li><li>Предварительная финкарта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
+      <a href="design-project.html#smart" class="tf-btn">Узнать подробнее</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">02</div>
@@ -574,7 +578,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;25 раб. дней&nbsp;· разрабатывает ведущий дизайнер</div>
       <ul><li>BIM-обмер, 3 планировки и концепт</li><li>Полный пакет рабочих чертежей</li><li>Фотореалистичные 3D и&nbsp;3D-тур, 2&nbsp;круга правок</li><li>Ведомость материалов и бюджет проекта</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
+      <a href="design-project.html#business" class="tf-btn">Узнать подробнее</a>
     </article>
     <article class="tf-col">
       <div class="tf-idx">03</div>
@@ -585,7 +589,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="tf-meta">Срок от&nbsp;33 раб. дней&nbsp;· разрабатывает арт-директор</div>
       <ul><li>BIM-обмер 2.0 и расширенные чертежи</li><li>VR-презентация и 3D-тур, 3&nbsp;круга правок</li><li>Подробный бюджет и тендер строителей</li><li>Комплектация и контроль реализации</li></ul>
       <div class="tf-spacer"></div>
-      <a href="design-project.html" class="tf-btn">Узнать подробнее</a>
+      <a href="design-project.html#ultra" class="tf-btn">Узнать подробнее</a>
     </article>
   </div>
   <div class="tcustom" data-reveal>
@@ -682,7 +686,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
     <div class="cap-body">
       <div class="eyebrow" data-reveal="fade">Консультация</div>
       <h2 class="h2" data-split style="margin-top:14px">Поговорим о вашей квартире</h2>
-      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать. Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
+      <p class="lead" data-reveal style="margin-top:16px">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать.<br>Встреча бесплатная и ни к&nbsp;чему не обязывает.</p>
       <form class="cap-form" data-reveal onsubmit="return false">
         <input class="field" placeholder="Как к вам обращаться">
         <input class="field" placeholder="+7 ___ ___-__-__">
@@ -691,7 +695,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div class="cap-quick" data-reveal="fade">
         <span class="qlabel">или напишите сразу</span>
         <div class="messengers">
-          <a class="msg" href="#">Telegram</a><a class="msg" href="#">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
+          <a class="msg" href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a><a class="msg" href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a><a class="msg" href="tel:+79856741267">+7 985 67-412-67</a>
         </div>
       </div>
     </div>
@@ -723,7 +727,7 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
       <div><a href="projects.html">Проекты</a></div><div><a href="#tariffs">Услуги</a></div><div><a href="about.html">О студии</a></div><div><a href="#contact">Контакты</a></div></div>
     <div class="col"><h4>Услуги</h4><div><a href="design-project.html">Дизайн-проект</a></div><div><a href="remont.html">Ремонт под ключ</a></div><div><a href="nadzor.html">Авторский надзор</a></div><div><a href="komplektaciya.html">Комплектация</a></div></div>
     <div class="col"><h4>Контакты</h4>
-      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="#">Telegram</a></div><div><a href="#">MAX</a></div><div>nostress.design</div></div>
+      <div><a href="tel:+79856741267">+7 985 67-412-67</a></div><div><a href="https://t.me/NoStress_Design" target="_blank" rel="noopener">Telegram</a></div><div><a href="https://max.ru/u/f9LHodD0cOJiFGlH1WY4KBPUxMxyyLweOX0eTCgGrosyt5wMZ8gfYy5IEQ4" target="_blank" rel="noopener">MAX</a></div><div>nostress.design</div></div>
   </div>
   <div class="foot-btm"><span>© 2022–2026 NoStress Design.<span class="rights"> Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a><span>Москва</span></div>
 </footer>
@@ -731,8 +735,8 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <div class="sticky-cta"><a href="#contact" class="btn">Обсудить идею</a></div>
 
 <!-- Motion как UMD-глобал (классический скрипт — грузится и с file://) -->
-<script src="assets/motion-lib.js?v=20260718" onerror="window.__mlFail=1"></script>
-<script src="motion.js?v=20260718" onerror="window.__mjFail=1"></script>
+<script src="assets/motion-lib.js?v=20260727" onerror="window.__mlFail=1"></script>
+<script src="motion.js?v=20260727" onerror="window.__mjFail=1"></script>
 <script>
 /* Сбой сети при загрузке анимаций — одна повторная попытка с cache-bust */
 (function(){

@@ -426,7 +426,7 @@
       '<button type="button" class="lead-modal__close" aria-label="Закрыть">✕</button>' +
       '<div class="eyebrow lead-modal__eyebrow">Консультация</div>' +
       '<h3 class="lead-modal__h">Поговорим о вашей квартире</h3>' +
-      '<p class="lead-modal__p lead-modal__lead">Оставьте контакты — арт-директор изучит вашу планировку и покажет, что с&nbsp;ней можно сделать.</p>' +
+      '<p class="lead-modal__p lead-modal__lead">Оставьте контакты — мы свяжемся и обсудим, чем можем вам помочь.</p>' +
       '<form class="lead-modal__form" novalidate>' +
         '<input class="field" name="name" placeholder="Как к вам обращаться" autocomplete="name">' +
         '<input class="field" name="phone" type="tel" placeholder="+7 ___ ___-__-__" autocomplete="tel">' +
@@ -454,8 +454,68 @@
     var s = document.querySelector('script[src*="motion.js"]');
     return s ? s.getAttribute('src').replace(/motion\.js.*$/, '') : '';
   }
-  // после отправки любой формы — страница «Спасибо»
-  function gotoThanks() { location.href = basePath() + 'thanks.html'; }
+  // после отправки любой формы — страница «Спасибо»; источник заявки уходит в URL
+  // (?from=…), чтобы при подключении отправки лидов было видно, откуда заявка
+  function pageSlug() {
+    var m = location.pathname.match(/projects\/([^/]+)\//);
+    if (m) return 'project-' + m[1];
+    var f = (location.pathname.split('/').pop() || 'index').replace('.html', '');
+    return f || 'index';
+  }
+  function formSource(f) {
+    var inp = f && f.querySelector('input[name="source"]');
+    return (inp && inp.value) || pageSlug();
+  }
+  function gotoThanks(src) {
+    location.href = basePath() + 'thanks.html' + (src ? '?from=' + encodeURIComponent(src) : '');
+  }
+
+  // Телефон: автомаска «+7 XXX XXX-XX-XX»; без 10 цифр после +7 форма не уходит
+  function phoneInput(f) {
+    return f.querySelector('input[name="phone"], input[type="tel"], input[inputmode="tel"], input[placeholder^="+7"]');
+  }
+  function phoneDigits(v) {
+    var d = v.replace(/\D/g, '');
+    if (d.charAt(0) === '7' || d.charAt(0) === '8') d = d.slice(1);
+    return d.slice(0, 10);
+  }
+  function fmtPhone(d) {
+    var p = '+7';
+    if (d.length) p += ' ' + d.slice(0, 3);
+    if (d.length > 3) p += ' ' + d.slice(3, 6);
+    if (d.length > 6) p += '-' + d.slice(6, 8);
+    if (d.length > 8) p += '-' + d.slice(8, 10);
+    return p;
+  }
+  function clearPhoneErr(inp) {
+    inp.classList.remove('field--err');
+    var hint = inp.parentNode.querySelector('.field-hint');
+    if (hint) hint.parentNode.removeChild(hint);
+  }
+  function maskPhone(inp) {
+    if (!inp || inp.__masked) return; inp.__masked = 1;
+    inp.setAttribute('inputmode', 'tel');
+    if (!inp.getAttribute('autocomplete')) inp.setAttribute('autocomplete', 'tel');
+    inp.addEventListener('input', function () {
+      var d = phoneDigits(inp.value);
+      inp.value = d.length ? fmtPhone(d) : '';
+      clearPhoneErr(inp);
+    });
+  }
+  function phoneOk(f) {
+    var inp = phoneInput(f);
+    if (!inp) return true;
+    if (phoneDigits(inp.value).length === 10) { clearPhoneErr(inp); return true; }
+    inp.classList.add('field--err');
+    if (!inp.parentNode.querySelector('.field-hint')) {
+      var hint = document.createElement('span');
+      hint.className = 'field-hint';
+      hint.textContent = 'Введите номер полностью: +7 и ещё 10 цифр';
+      inp.parentNode.insertBefore(hint, inp.nextSibling);
+    }
+    inp.focus();
+    return false;
+  }
 
   // 152-ФЗ: не предотмеченный чекбокс согласия под каждой формой; без него отправка невозможна
   function consentRow() {
@@ -475,11 +535,14 @@
   }
 
   var mForm = modal.querySelector('.lead-modal__form');
+  var modalKey = 'consult';   // источник заявки из модалки: страница + нажатая кнопка
   mForm.insertBefore(consentRow(), mForm.querySelector('button[type="submit"]'));
+  maskPhone(phoneInput(mForm));
   mForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (!phoneOk(mForm)) return;
     if (!consentOk(mForm)) return;
-    gotoThanks();
+    gotoThanks(pageSlug() + '-' + modalKey);
   });
 
   // Персонализация модалки под обещание нажатой кнопки:
@@ -490,29 +553,29 @@
     if (t.indexOf('пример альбома') > -1) {
       var m = label.match(/«([^»]+)»/);
       var tariff = m ? m[1] : '';
-      return { e: 'Пример альбома', h: 'Пришлём пример альбома' + (tariff ? ' «' + tariff + '»' : ''),
+      return { k: 'album-' + ({'Смарт':'smart','Бизнес':'business','Ультра':'ultra'}[tariff] || 'tariff'), e: 'Пример альбома', h: 'Пришлём пример альбома' + (tariff ? ' «' + tariff + '»' : ''),
                p: 'Оставьте контакты — отправим пример альбома тарифа' + (tariff ? ' «' + tariff + '»' : '') + ' в мессенджер.' };
     }
     if (t.indexOf('собрать свой тариф') > -1)
-      return { e: 'Custom', h: 'Соберём тариф под вас',
+      return { k: 'custom', e: 'Custom', h: 'Соберём тариф под вас',
                p: 'Оставьте контакты — обсудим ваш объект и соберём тариф из нужных блоков.' };
     if (t.indexOf('презентац') > -1)
-      return { e: 'Презентация', h: 'Пришлём презентацию проектов',
+      return { k: 'presentation', e: 'Презентация', h: 'Пришлём презентацию проектов',
                p: 'Оставьте контакты — отправим презентацию с реализованными проектами в мессенджер.' };
     if (t.indexOf('подборк') > -1)
-      return { e: 'Подборка проектов', h: 'Соберём проекты в вашем духе',
+      return { k: 'podborka', e: 'Подборка проектов', h: 'Соберём проекты в вашем духе',
                p: 'Оставьте контакты и пару слов об объекте — соберём наши проекты в похожем характере.' };
     if (t.indexOf('экскурси') > -1)
-      return { e: 'Экскурсия', h: 'Покажем объекты в работе',
+      return { k: 'excursion', e: 'Экскурсия', h: 'Покажем объекты в работе',
                p: 'Оставьте контакты — согласуем день и покажем, как устроен наш ремонт изнутри.' };
     if (t.indexOf('ремонт') > -1)
-      return { e: 'Ремонт', h: 'Посчитаем ваш ремонт',
+      return { k: 'remont-calc', e: 'Ремонт', h: 'Посчитаем ваш ремонт',
                p: 'Оставьте контакты — уточним параметры объекта и пришлём расчёт.' };
     if (t.indexOf('объект') > -1 && path.indexOf('nadzor') > -1)
-      return { e: 'Авторский надзор', h: 'Обсудим ваш объект',
+      return { k: 'nadzor', e: 'Авторский надзор', h: 'Обсудим ваш объект',
                p: 'Оставьте контакты — расскажем, как выстроим авторский надзор на вашем объекте.' };
     if (t.indexOf('объект') > -1 && path.indexOf('komplektaciya') > -1)
-      return { e: 'Комплектация', h: 'Обсудим ваш объект',
+      return { k: 'komplekt', e: 'Комплектация', h: 'Обсудим ваш объект',
                p: 'Оставьте контакты — расскажем, как соберём и доставим всё для вашего объекта.' };
     return null; // дефолт — консультация (как свёрстано)
   }
@@ -532,19 +595,23 @@
     var a = e.target.closest('a.btn[href$="#contact"], a.cta[href$="#contact"], a.rv__cta[href$="#contact"], a.mnav__cta[href$="#contact"], a.tf-cta[href$="#contact"]');
     if (!a) return;
     e.preventDefault();
-    setModal(leadVariant(a.textContent || ''));
+    var v = leadVariant(a.textContent || '');
+    modalKey = (a.getAttribute('data-lead')) || (v && v.k) || 'consult';
+    setModal(v);
     openModal();
   });
 
   // Финальная форма с Алёной: чекбокс согласия + после отправки — страница «Спасибо»
   Array.prototype.forEach.call(document.querySelectorAll('form.cap-form'), function (f) {
     f.removeAttribute('onsubmit');
+    maskPhone(phoneInput(f));
     var btn = f.querySelector('button[type="submit"], .btn');
     if (btn && !f.querySelector('.consent')) f.insertBefore(consentRow(), btn);
     f.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (!phoneOk(f)) return;
       if (!consentOk(f)) return;
-      gotoThanks();
+      gotoThanks(formSource(f));
     });
   });
 
@@ -561,17 +628,17 @@
   });
 })();
 
-/* ==== МОБИЛКА: иконка Telegram в шапке + контакты в бургер-меню ==== */
+/* ==== ШАПКА: иконка Telegram (фирменный кружок) + контакты в бургер-меню ==== */
 (function () {
-  var TG_CHANNEL = "https://t.me/NoStress_Design";   // рабочий мессенджер студии (не личный канал)
+  var TG_WORK = "https://t.me/NoStress_Design";   // рабочий мессенджер студии (канал — отдельно, в соцсетях)
   var bar = document.querySelector('header .bar');
   if (bar && !bar.querySelector('.bar-tg')) {
     var tg = document.createElement('a');
     tg.className = 'bar-tg';
-    tg.href = TG_CHANNEL;
+    tg.href = TG_WORK;
     tg.target = '_blank'; tg.rel = 'noopener';
-    tg.setAttribute('aria-label', 'Наш Telegram-канал');
-    tg.innerHTML = '<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>';
+    tg.setAttribute('aria-label', 'Написать нам в Telegram');
+    tg.innerHTML = '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.128.832.942Z"/></svg>';
     bar.insertBefore(tg, bar.firstChild);
   }
   var links = document.querySelector('.mnav__links');
