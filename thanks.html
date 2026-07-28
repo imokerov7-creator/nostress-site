@@ -109,6 +109,15 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
   .sticky-cta .btn{flex:1;justify-content:center}
 }
 </style>
+<!-- Яндекс.Метрика (счётчик 88922393, перенесён с Тильды 28.07.2026) -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+ym(88922393,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88922393" style="position:absolute;left:-9999px" alt=""></div></noscript>
 </head>
 <body>
 
@@ -188,5 +197,12 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 <script src="assets/motion-lib.js?v=20260728"></script>
 <script src="motion.js?v=20260728"></script>
 
+<script>
+/* Цель Метрики: страница «Спасибо» = заявка; источник формы — в параметрах цели */
+(function(){
+  var src = new URLSearchParams(location.search).get('from') || 'unknown';
+  if (typeof ym === 'function') ym(88922393, 'reachGoal', 'lead', {source: src});
+})();
+</script>
 </body>
 </html>
