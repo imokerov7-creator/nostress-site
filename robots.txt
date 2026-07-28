@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+Disallow: /diag.html
+Disallow: /hero.html
+
+Sitemap: https://nostress-design.ru/sitemap.xml
