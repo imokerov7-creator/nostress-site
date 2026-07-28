@@ -469,6 +469,23 @@
   function gotoThanks(src) {
     location.href = basePath() + 'thanks.html' + (src ? '?from=' + encodeURIComponent(src) : '');
   }
+  // отправка заявки на сервер (/api/lead → Telegram-группа); sendBeacon переживает
+  // уход со страницы, а на статических зеркалах без бэкенда молча уходит в 404
+  function sendLead(f, src) {
+    try {
+      var name = '', phone = '';
+      var ni = f.querySelector('input[name="name"], input[autocomplete="name"], input[placeholder^="Как"]');
+      if (ni) name = ni.value;
+      var pi = phoneInput(f);
+      if (pi) phone = pi.value;
+      var data = new URLSearchParams();
+      data.append('name', name); data.append('phone', phone);
+      data.append('source', src || ''); data.append('page', location.href);
+      var url = basePath() + 'api/lead';
+      if (navigator.sendBeacon) navigator.sendBeacon(url, data);
+      else fetch(url, { method: 'POST', body: data, keepalive: true }).catch(function () {});
+    } catch (e) {}
+  }
 
   // Телефон: автомаска «+7 XXX XXX-XX-XX»; без 10 цифр после +7 форма не уходит
   function phoneInput(f) {
@@ -542,7 +559,9 @@
     e.preventDefault();
     if (!phoneOk(mForm)) return;
     if (!consentOk(mForm)) return;
-    gotoThanks(pageSlug() + '-' + modalKey);
+    var mSrc = pageSlug() + '-' + modalKey;
+    sendLead(mForm, mSrc);
+    gotoThanks(mSrc);
   });
 
   // Персонализация модалки под обещание нажатой кнопки:
@@ -611,6 +630,7 @@
       e.preventDefault();
       if (!phoneOk(f)) return;
       if (!consentOk(f)) return;
+      sendLead(f, formSource(f));
       gotoThanks(formSource(f));
     });
   });
