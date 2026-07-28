@@ -515,6 +515,19 @@ html.rv .pkg-rail.is-js .pkg.is-open .pkg__list li:nth-child(n+8){transition-del
 /* ЕДИНЫЙ СТИЛЬ КНОПОК: пилюли 100px, поля 12px (канон сайта) */
 .btn,.msg{border-radius:100px}
 .ifield{border-radius:12px}
+
+/* ============ FAQ (вопросы и ответы) ============ */
+.faq{background:var(--paper);padding-block:clamp(64px,8vw,110px)}
+.faq__wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.faq__h{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:1.05;letter-spacing:-.04em;margin-bottom:clamp(28px,4vw,48px);max-width:20ch}
+.faq__list{border-top:var(--bw) solid var(--border)}
+.faq details{border-bottom:var(--bw) solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:clamp(18px,2.2vw,26px) 0;font-size:clamp(1.05rem,1.5vw,1.3rem);font-weight:var(--w-semibold);letter-spacing:-.015em;transition:color .3s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:1.3em;font-weight:400;line-height:1;color:var(--text-2);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--text-2)}
+.faq__a{padding:0 0 clamp(18px,2.2vw,26px);color:var(--text-2);font-size:clamp(.98rem,1.2vw,1.1rem);line-height:1.55}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 <!-- Яндекс.Метрика (счётчик 88922393, перенесён с Тильды 28.07.2026) -->
@@ -912,6 +925,22 @@ ym(88922393,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
 </section>
 
 <!-- 4 · КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной) -->
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq__wrap">
+    <h2 class="faq__h">Вопросы о дизайн-проекте</h2>
+    <div class="faq__list">
+    <details><summary>Сколько стоит дизайн-проект?</summary><div class="faq__a">Три тарифа: Смарт — 2 900 ₽/м² (от 100 000 ₽), Бизнес — 4 900 ₽/м² (от 200 000 ₽), Ультра — 8 900 ₽/м² (от 500 000 ₽). Если ни один не подходит — соберём кастомный из нужных блоков.</div></details>
+    <details><summary>Какие сроки?</summary><div class="faq__a">Смарт — от 15 рабочих дней, Бизнес — от 25, Ультра — от 33. Срок зависит от площади и скорости согласований с вашей стороны.</div></details>
+    <details><summary>Что входит в проект?</summary><div class="faq__a">Замеры, планировочные решения, рабочие чертежи для строителей, визуализации интерьера и расчёт бюджета. Глубина пакета зависит от тарифа — полный состав альбома смотрите выше на странице.</div></details>
+    <details><summary>Чем отличаются тарифы?</summary><div class="faq__a">Глубиной проработки: числом планировок и кругов правок, форматом визуализаций — от AI-визуализаций до фотореалистичных 3D с 3D-туром и VR-презентации — и уровнем специалиста: от дизайнера до арт-директора.</div></details>
+    <details><summary>Работаете ли вы удалённо?</summary><div class="faq__a">Да. Основные города — Москва и Санкт-Петербург, дистанционно ведём проекты по всему миру: обмеры заказываем на месте, согласования — онлайн.</div></details>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит дизайн-проект?", "acceptedAnswer": {"@type": "Answer", "text": "Три тарифа: Смарт — 2 900 ₽/м² (от 100 000 ₽), Бизнес — 4 900 ₽/м² (от 200 000 ₽), Ультра — 8 900 ₽/м² (от 500 000 ₽). Если ни один не подходит — соберём кастомный из нужных блоков."}}, {"@type": "Question", "name": "Какие сроки?", "acceptedAnswer": {"@type": "Answer", "text": "Смарт — от 15 рабочих дней, Бизнес — от 25, Ультра — от 33. Срок зависит от площади и скорости согласований с вашей стороны."}}, {"@type": "Question", "name": "Что входит в проект?", "acceptedAnswer": {"@type": "Answer", "text": "Замеры, планировочные решения, рабочие чертежи для строителей, визуализации интерьера и расчёт бюджета. Глубина пакета зависит от тарифа — полный состав альбома смотрите выше на странице."}}, {"@type": "Question", "name": "Чем отличаются тарифы?", "acceptedAnswer": {"@type": "Answer", "text": "Глубиной проработки: числом планировок и кругов правок, форматом визуализаций — от AI-визуализаций до фотореалистичных 3D с 3D-туром и VR-презентации — и уровнем специалиста: от дизайнера до арт-директора."}}, {"@type": "Question", "name": "Работаете ли вы удалённо?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Основные города — Москва и Санкт-Петербург, дистанционно ведём проекты по всему миру: обмеры заказываем на месте, согласования — онлайн."}}]}</script>
+
 <section class="consult-sec" id="contact"><div class="container">
   <div class="contact">
     <figure class="cap-photo">

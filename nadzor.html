@@ -263,6 +263,19 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
 .cap-form .field{flex:1 1 200px;margin:0}
 .cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+
+/* ============ FAQ (вопросы и ответы) ============ */
+.faq{background:var(--paper);padding-block:clamp(64px,8vw,110px)}
+.faq__wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.faq__h{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:1.05;letter-spacing:-.04em;margin-bottom:clamp(28px,4vw,48px);max-width:20ch}
+.faq__list{border-top:var(--bw) solid var(--border)}
+.faq details{border-bottom:var(--bw) solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:clamp(18px,2.2vw,26px) 0;font-size:clamp(1.05rem,1.5vw,1.3rem);font-weight:var(--w-semibold);letter-spacing:-.015em;transition:color .3s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:1.3em;font-weight:400;line-height:1;color:var(--text-2);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--text-2)}
+.faq__a{padding:0 0 clamp(18px,2.2vw,26px);color:var(--text-2);font-size:clamp(.98rem,1.2vw,1.1rem);line-height:1.55}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 <!-- Яндекс.Метрика (счётчик 88922393, перенесён с Тильды 28.07.2026) -->
@@ -448,6 +461,21 @@ ym(88922393,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
     <p class="price__t">Надзор длится столько, сколько строится интерьер: обычно от&nbsp;четырёх месяцев до&nbsp;года.</p>
   </div>
 </section>
+
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq__wrap">
+    <h2 class="faq__h">Вопросы об авторском надзоре</h2>
+    <div class="faq__list">
+    <details><summary>Сколько стоит авторский надзор?</summary><div class="faq__a">Объекты до 100 м² — 50 000 ₽ в месяц. Больше ста метров — 500 ₽ за квадратный метр в месяц.</div></details>
+    <details><summary>Что делает дизайнер на надзоре?</summary><div class="faq__a">Выезжает на объект, сверяет работы с проектом, ведёт прямую связь со строителями, вносит изменения в чертежи по ходу стройки и присылает отчёт в конце каждого месяца.</div></details>
+    <details><summary>У меня есть прораб. Зачем ещё надзор?</summary><div class="faq__a">Прораб отвечает за процесс стройки, дизайнер на надзоре — за то, чтобы результат совпал с проектом: от разводки света до оттенка затирки. Это разные зоны ответственности.</div></details>
+    <details><summary>Могу ли я не участвовать в стройке лично?</summary><div class="faq__a">Да, это основной сценарий: вы получаете ежемесячный отчёт, а закрытие замечаний мы проверяем повторным выездом или по фотоотчёту бригады.</div></details>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит авторский надзор?", "acceptedAnswer": {"@type": "Answer", "text": "Объекты до 100 м² — 50 000 ₽ в месяц. Больше ста метров — 500 ₽ за квадратный метр в месяц."}}, {"@type": "Question", "name": "Что делает дизайнер на надзоре?", "acceptedAnswer": {"@type": "Answer", "text": "Выезжает на объект, сверяет работы с проектом, ведёт прямую связь со строителями, вносит изменения в чертежи по ходу стройки и присылает отчёт в конце каждого месяца."}}, {"@type": "Question", "name": "У меня есть прораб. Зачем ещё надзор?", "acceptedAnswer": {"@type": "Answer", "text": "Прораб отвечает за процесс стройки, дизайнер на надзоре — за то, чтобы результат совпал с проектом: от разводки света до оттенка затирки. Это разные зоны ответственности."}}, {"@type": "Question", "name": "Могу ли я не участвовать в стройке лично?", "acceptedAnswer": {"@type": "Answer", "text": "Да, это основной сценарий: вы получаете ежемесячный отчёт, а закрытие замечаний мы проверяем повторным выездом или по фотоотчёту бригады."}}]}</script>
 
 <!-- КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной) -->
 <section class="consult-sec" id="contact"><div class="container">

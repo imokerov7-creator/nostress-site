@@ -292,6 +292,19 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .nav .sub__panel a{display:block;padding:11px 22px;color:rgba(255,255,255,.85);font-size:15px;font-weight:450;white-space:nowrap;text-shadow:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
 .nav .sub__panel a::after{content:none}
 .nav .sub__panel a:hover{color:#fff;background:rgba(252,252,252,.07)}
+
+/* ============ FAQ (вопросы и ответы) ============ */
+.faq{background:var(--paper);padding-block:clamp(64px,8vw,110px)}
+.faq__wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.faq__h{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:1.05;letter-spacing:-.04em;margin-bottom:clamp(28px,4vw,48px);max-width:20ch}
+.faq__list{border-top:var(--bw) solid var(--border)}
+.faq details{border-bottom:var(--bw) solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:clamp(18px,2.2vw,26px) 0;font-size:clamp(1.05rem,1.5vw,1.3rem);font-weight:var(--w-semibold);letter-spacing:-.015em;transition:color .3s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:1.3em;font-weight:400;line-height:1;color:var(--text-2);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--text-2)}
+.faq__a{padding:0 0 clamp(18px,2.2vw,26px);color:var(--text-2);font-size:clamp(.98rem,1.2vw,1.1rem);line-height:1.55}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 <!-- Яндекс.Метрика (счётчик 88922393, перенесён с Тильды 28.07.2026) -->
@@ -455,6 +468,21 @@ ym(88922393,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
     </div>
   </div>
 </section>
+
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq__wrap">
+    <h2 class="faq__h">Вопросы о ремонте</h2>
+    <div class="faq__list">
+    <details><summary>Сколько стоит ремонт?</summary><div class="faq__a">Смета считается по вашему дизайн-проекту по реальным ценам рынка — без усреднённых «цен за квадрат». Точную цифру даём после расчёта проекта.</div></details>
+    <details><summary>Кто делает ремонт?</summary><div class="faq__a">Наша строительная команда, которая работает по проектам студии не первый год и читает наши чертежи без переводчика.</div></details>
+    <details><summary>Как я буду контролировать стройку?</summary><div class="faq__a">Каждую неделю присылаем отчёт с фото и статусом работ. Дополнительно можно подключить авторский надзор — тогда дизайнер сверяет каждый этап стройки с проектом.</div></details>
+    <details><summary>Можно ли заказать ремонт без вашего дизайн-проекта?</summary><div class="faq__a">Основной формат — ремонт по нашему проекту: так мы отвечаем за результат целиком. Если проект уже есть — присылайте, посмотрим и скажем честно, возьмёмся ли.</div></details>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит ремонт?", "acceptedAnswer": {"@type": "Answer", "text": "Смета считается по вашему дизайн-проекту по реальным ценам рынка — без усреднённых «цен за квадрат». Точную цифру даём после расчёта проекта."}}, {"@type": "Question", "name": "Кто делает ремонт?", "acceptedAnswer": {"@type": "Answer", "text": "Наша строительная команда, которая работает по проектам студии не первый год и читает наши чертежи без переводчика."}}, {"@type": "Question", "name": "Как я буду контролировать стройку?", "acceptedAnswer": {"@type": "Answer", "text": "Каждую неделю присылаем отчёт с фото и статусом работ. Дополнительно можно подключить авторский надзор — тогда дизайнер сверяет каждый этап стройки с проектом."}}, {"@type": "Question", "name": "Можно ли заказать ремонт без вашего дизайн-проекта?", "acceptedAnswer": {"@type": "Answer", "text": "Основной формат — ремонт по нашему проекту: так мы отвечаем за результат целиком. Если проект уже есть — присылайте, посмотрим и скажем честно, возьмёмся ли."}}]}</script>
 
 <!-- КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной) -->
 <section class="consult-sec" id="contact"><div class="container">

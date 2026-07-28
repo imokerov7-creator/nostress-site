@@ -257,6 +257,19 @@ footer{position:relative;z-index:2;background:var(--ink);color:#b9b9b8;padding:c
 .cap-form{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px}
 .cap-form .field{flex:1 1 200px;margin:0}
 .cap-form .btn{flex:1 1 100%;justify-content:center;margin-top:8px}
+
+/* ============ FAQ (вопросы и ответы) ============ */
+.faq{background:var(--paper);padding-block:clamp(64px,8vw,110px)}
+.faq__wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.faq__h{font-size:clamp(2rem,5vw,4rem);font-weight:var(--w-semibold);line-height:1.05;letter-spacing:-.04em;margin-bottom:clamp(28px,4vw,48px);max-width:20ch}
+.faq__list{border-top:var(--bw) solid var(--border)}
+.faq details{border-bottom:var(--bw) solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:clamp(18px,2.2vw,26px) 0;font-size:clamp(1.05rem,1.5vw,1.3rem);font-weight:var(--w-semibold);letter-spacing:-.015em;transition:color .3s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:1.3em;font-weight:400;line-height:1;color:var(--text-2);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--text-2)}
+.faq__a{padding:0 0 clamp(18px,2.2vw,26px);color:var(--text-2);font-size:clamp(.98rem,1.2vw,1.1rem);line-height:1.55}
 </style>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('rv');}catch(e){}})();</script>
 <!-- Яндекс.Метрика (счётчик 88922393, перенесён с Тильды 28.07.2026) -->
@@ -419,6 +432,21 @@ ym(88922393,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
     <p class="price__t">Без абонентской платы&nbsp;— комиссия появляется только вместе с&nbsp;заказом.</p>
   </div>
 </section>
+
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq__wrap">
+    <h2 class="faq__h">Вопросы о комплектации</h2>
+    <div class="faq__list">
+    <details><summary>Сколько стоит комплектация?</summary><div class="faq__a">Ведение закупки — 10% от суммы заказа. Бюджет считается по реальным ценам рынка, студийные скидки салонов добавляются, когда закупку ведём мы.</div></details>
+    <details><summary>Выгодно ли это? Я ведь могу купить сам.</summary><div class="faq__a">Покупая самостоятельно, вы платите розничную цену. Нам салоны дают студийные условия — и эта скидка становится вашей. Плюс вы не тратите недели на салоны, доставки и споры по браку.</div></details>
+    <details><summary>Что входит в услугу?</summary><div class="faq__a">Персональный комплектатор, выезды в салоны, заказ и контроль доставки, приёмка, замены и рекламации — до полной расстановки по проекту.</div></details>
+    <details><summary>Что будет, если товар придёт с браком?</summary><div class="faq__a">Рекламации — наша работа: фиксируем, возвращаем, заказываем замену. Вы не общаетесь с магазинами и транспортными компаниями.</div></details>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит комплектация?", "acceptedAnswer": {"@type": "Answer", "text": "Ведение закупки — 10% от суммы заказа. Бюджет считается по реальным ценам рынка, студийные скидки салонов добавляются, когда закупку ведём мы."}}, {"@type": "Question", "name": "Выгодно ли это? Я ведь могу купить сам.", "acceptedAnswer": {"@type": "Answer", "text": "Покупая самостоятельно, вы платите розничную цену. Нам салоны дают студийные условия — и эта скидка становится вашей. Плюс вы не тратите недели на салоны, доставки и споры по браку."}}, {"@type": "Question", "name": "Что входит в услугу?", "acceptedAnswer": {"@type": "Answer", "text": "Персональный комплектатор, выезды в салоны, заказ и контроль доставки, приёмка, замены и рекламации — до полной расстановки по проекту."}}, {"@type": "Question", "name": "Что будет, если товар придёт с браком?", "acceptedAnswer": {"@type": "Answer", "text": "Рекламации — наша работа: фиксируем, возвращаем, заказываем замену. Вы не общаетесь с магазинами и транспортными компаниями."}}]}</script>
 
 <!-- КОНСУЛЬТАЦИЯ С АРТ-ДИРЕКТОРОМ (блок с Алёной) -->
 <section class="consult-sec" id="contact"><div class="container">
