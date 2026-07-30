@@ -469,6 +469,29 @@
   function gotoThanks(src) {
     location.href = basePath() + 'thanks.html' + (src ? '?from=' + encodeURIComponent(src) : '');
   }
+  // UTM-метки: при заходе с рекламы/партнёрской ссылки сохраняем на 7 дней
+  // в localStorage — иначе метки теряются при первом же переходе внутри сайта
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'yclid', 'gclid'];
+  function captureUtm() {
+    try {
+      var q = new URLSearchParams(location.search), utm = {}, found = false;
+      for (var i = 0; i < UTM_KEYS.length; i++) {
+        var v = q.get(UTM_KEYS[i]);
+        if (v) { utm[UTM_KEYS[i]] = v; found = true; }
+      }
+      if (found) { utm.ts = Date.now(); localStorage.setItem('nsd_utm', JSON.stringify(utm)); }
+    } catch (e) {}
+  }
+  function storedUtm() {
+    try {
+      var utm = JSON.parse(localStorage.getItem('nsd_utm') || 'null');
+      if (!utm) return null;
+      if (Date.now() - (utm.ts || 0) > 7 * 24 * 3600 * 1000) { localStorage.removeItem('nsd_utm'); return null; }
+      return utm;
+    } catch (e) { return null; }
+  }
+  captureUtm();
+
   // отправка заявки на сервер (/api/lead → Telegram-группа); sendBeacon переживает
   // уход со страницы, а на статических зеркалах без бэкенда молча уходит в 404
   function sendLead(f, src) {
@@ -481,6 +504,10 @@
       var data = new URLSearchParams();
       data.append('name', name); data.append('phone', phone);
       data.append('source', src || ''); data.append('page', location.href);
+      var utm = storedUtm();
+      if (utm) for (var i = 0; i < UTM_KEYS.length; i++) {
+        if (utm[UTM_KEYS[i]]) data.append(UTM_KEYS[i], utm[UTM_KEYS[i]]);
+      }
       var url = basePath() + 'api/lead';
       if (navigator.sendBeacon) navigator.sendBeacon(url, data);
       else fetch(url, { method: 'POST', body: data, keepalive: true }).catch(function () {});
