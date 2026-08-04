@@ -504,6 +504,8 @@
       var data = new URLSearchParams();
       data.append('name', name); data.append('phone', phone);
       data.append('source', src || ''); data.append('page', location.href);
+      var promoEl = f.querySelector('input[name="promo"]');
+      if (promoEl && promoEl.value.trim()) data.append('promo', promoEl.value.trim().toUpperCase().slice(0, 60));
       var utm = storedUtm();
       if (utm) for (var i = 0; i < UTM_KEYS.length; i++) {
         if (utm[UTM_KEYS[i]]) data.append(UTM_KEYS[i], utm[UTM_KEYS[i]]);
@@ -578,8 +580,43 @@
     return false;
   }
 
+  // Промокод: скрытое поле, раскрывается по «Есть промокод?». Значение уходит в заявку (TG+CRM).
+  // Если пришли по ссылке с ?promo=CODE — сразу раскрываем и подставляем (deep-link из карточки партнёра).
+  var PROMO_PREFILL = '';
+  try {
+    var pq = new URLSearchParams(location.search).get('promo');
+    if (pq) PROMO_PREFILL = pq.trim().toUpperCase().slice(0, 60);
+  } catch (e) {}
+  function promoStyleOnce() {
+    if (document.getElementById('nsd-promo-style')) return;
+    var s = document.createElement('style'); s.id = 'nsd-promo-style';
+    s.textContent =
+      '.promo{flex:1 1 100%;width:100%;margin:-2px 0 0}' +
+      '.promo__toggle{background:none;border:0;padding:0;font:inherit;font-size:13px;' +
+      'color:var(--stone,#6E6862);cursor:pointer;text-decoration:underline;text-underline-offset:3px}' +
+      '.promo__toggle:hover{color:var(--ink,#111)}' +
+      '.promo__field{margin-top:10px;display:none;text-transform:uppercase}' +
+      '.promo.is-open .promo__field{display:block}' +
+      '.promo.is-open .promo__toggle{display:none}';
+    document.head.appendChild(s);
+  }
+  function promoRow() {
+    promoStyleOnce();
+    var wrap = document.createElement('div'); wrap.className = 'promo';
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'promo__toggle'; btn.textContent = 'Есть промокод?';
+    var inp = document.createElement('input');
+    inp.type = 'text'; inp.className = 'field promo__field'; inp.name = 'promo';
+    inp.placeholder = 'Промокод'; inp.autocomplete = 'off'; inp.maxLength = 60;
+    btn.addEventListener('click', function () { wrap.classList.add('is-open'); inp.focus(); });
+    wrap.appendChild(btn); wrap.appendChild(inp);
+    if (PROMO_PREFILL) { inp.value = PROMO_PREFILL; wrap.classList.add('is-open'); }
+    return wrap;
+  }
+
   var mForm = modal.querySelector('.lead-modal__form');
   var modalKey = 'consult';   // источник заявки из модалки: страница + нажатая кнопка
+  mForm.insertBefore(promoRow(), mForm.querySelector('button[type="submit"]'));
   mForm.insertBefore(consentRow(), mForm.querySelector('button[type="submit"]'));
   maskPhone(phoneInput(mForm));
   mForm.addEventListener('submit', function (e) {
@@ -652,6 +689,7 @@
     f.removeAttribute('onsubmit');
     maskPhone(phoneInput(f));
     var btn = f.querySelector('button[type="submit"], .btn');
+    if (btn && !f.querySelector('.promo')) f.insertBefore(promoRow(), btn);
     if (btn && !f.querySelector('.consent')) f.insertBefore(consentRow(), btn);
     f.addEventListener('submit', function (e) {
       e.preventDefault();
